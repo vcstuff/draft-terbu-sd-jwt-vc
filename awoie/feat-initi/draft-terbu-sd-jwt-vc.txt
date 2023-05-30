@@ -1,0 +1,152 @@
+
+
+
+
+Network Working Group                                           O. Terbu
+Internet-Draft                                                  SpruceID
+Intended status: Informational                             27 April 2023
+Expires: 29 October 2023
+
+
+       Verifiable Credentials using Selective Disclosure for JWTs
+                      draft-terbu-sd-jwt-vc-latest
+
+Abstract
+
+   TODO Abstract
+
+About This Document
+
+   This note is to be removed before publishing as an RFC.
+
+   The latest revision of this draft can be found at
+   https://awoie.github.io/draft-terbu-sd-jwt-vc/draft-terbu-sd-jwt-
+   vc.html.  Status information for this document may be found at
+   https://datatracker.ietf.org/doc/draft-terbu-sd-jwt-vc/.
+
+   Source for this draft and an issue tracker can be found at
+   https://github.com/awoie/draft-terbu-sd-jwt-vc.
+
+Status of This Memo
+
+   This Internet-Draft is submitted in full conformance with the
+   provisions of BCP 78 and BCP 79.
+
+   Internet-Drafts are working documents of the Internet Engineering
+   Task Force (IETF).  Note that other groups may also distribute
+   working documents as Internet-Drafts.  The list of current Internet-
+   Drafts is at https://datatracker.ietf.org/drafts/current/.
+
+   Internet-Drafts are draft documents valid for a maximum of six months
+   and may be updated, replaced, or obsoleted by other documents at any
+   time.  It is inappropriate to use Internet-Drafts as reference
+   material or to cite them other than as "work in progress."
+
+   This Internet-Draft will expire on 29 October 2023.
+
+Copyright Notice
+
+   Copyright (c) 2023 IETF Trust and the persons identified as the
+   document authors.  All rights reserved.
+
+   This document is subject to BCP 78 and the IETF Trust's Legal
+   Provisions Relating to IETF Documents (https://trustee.ietf.org/
+   license-info) in effect on the date of publication of this document.
+   Please review these documents carefully, as they describe your rights
+   and restrictions with respect to this document.
+
+Table of Contents
+
+   1.  Introduction
+   2.  Conventions and Definitions
+   3.  Security Considerations
+   4.  IANA Considerations
+     4.1.  Media Types Registry
+   5.  Normative References
+   Acknowledgments
+   Author's Address
+
+1.  Introduction
+
+   TODO Introduction
+
+2.  Conventions and Definitions
+
+   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
+   "OPTIONAL" in this document are to be interpreted as described in
+   BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
+   capitals, as shown here.
+
+3.  Security Considerations
+
+   TODO Security
+
+4.  IANA Considerations
+
+4.1.  Media Types Registry
+
+   The Internet media type for a SD-JWT-VC is "application/vc+sd-jwt".
+
+   Type name: application
+
+   Subtype name: vc+sd-jwt
+
+   Required parameters: n/a
+
+   Optional parameters: n/a
+
+   Encoding considerations: 8-bit code points; SD-JWT-VC values are
+   encoded as a series of base64url-encoded values (some of which may be
+   the empty string) separated by period ('.') and tilde ('~')
+   characters.
+
+   Security considerations:
+
+   See Security Considerations in Section TODO.
+
+   Interoperability considerations: n/a
+
+   Published specification: RFC TODO
+
+   Applications that use this media type: Applications that issue,
+   present, verify verifiable credentials and presentations.
+
+   Additional information:
+
+     Magic number(s): n/a
+
+     File extension(s): n/a
+
+     Macintosh file type code(s): n/a
+
+   Person & email address to contact for further information: TBD
+
+   Intended usage: COMMON
+
+   Restrictions on usage: none
+
+   Author: Oliver Terbu TODO@email.com (mailto:TODO@email.com)
+
+   Change controller: IETF
+
+5.  Normative References
+
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119,
+              DOI 10.17487/RFC2119, March 1997,
+              <https://www.rfc-editor.org/rfc/rfc2119>.
+
+   [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
+              2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
+              May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
+
+Acknowledgments
+
+   TODO acknowledge.
+
+Author's Address
+
+   Oliver Terbu
+   SpruceID
+   Email: oliver.terbu@spruceid.com
