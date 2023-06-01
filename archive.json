@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-05-30T01:41:41.746891+00:00",
+  "timestamp": "2023-06-01T02:11:17.551189+00:00",
   "repo": "vcstuff/draft-terbu-sd-jwt-vc",
   "labels": [
     {
@@ -75,7 +75,7 @@
       "id": "I_kwDOJbVClc5kzo78",
       "title": "Support JSON-LD payload",
       "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/issues/2",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "Sakurann",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
@@ -84,8 +84,8 @@
       ],
       "body": "would be good to normatively define both cases when payload is vanilla JSON and JSON-LD - IETF SD-JWT document only gives non-normative examples in 4a and 4b.",
       "createdAt": "2023-05-01T19:37:22Z",
-      "updatedAt": "2023-05-28T10:14:56Z",
-      "closedAt": null,
+      "updatedAt": "2023-05-31T09:00:38Z",
+      "closedAt": "2023-05-31T09:00:37Z",
       "comments": [
         {
           "author": "awoie",
@@ -121,6 +121,34 @@
           "body": "I agree with Kristina. JWT and SD-JWT is more or less the same, that's the reason why (I think) we have consensus to a have single draft for it. JSON-LD is different (typing, claims names and semantics, processing) and deserves a dedicated spec. ",
           "createdAt": "2023-05-28T10:14:55Z",
           "updatedAt": "2023-05-28T10:14:55Z"
+        },
+        {
+          "author": "mprorock",
+          "authorAssociation": "NONE",
+          "body": "This should definitely focus on normal JSON/JWTs/SD-JWTs etc",
+          "createdAt": "2023-05-30T15:23:42Z",
+          "updatedAt": "2023-05-30T15:23:42Z"
+        },
+        {
+          "author": "awoie",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Okay, then perhaps it make sense to also set the `cty` header accordingly. So that the JSON-LD version can be distinguished from the JSON version.",
+          "createdAt": "2023-05-30T15:29:57Z",
+          "updatedAt": "2023-05-30T15:29:57Z"
+        },
+        {
+          "author": "tlodderstedt",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "The typ should suffice.",
+          "createdAt": "2023-05-31T02:05:39Z",
+          "updatedAt": "2023-05-31T02:05:39Z"
+        },
+        {
+          "author": "awoie",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Ok, I think there is unanimous agreement. Closing this issue.",
+          "createdAt": "2023-05-31T09:00:37Z",
+          "updatedAt": "2023-05-31T09:00:37Z"
         }
       ]
     },
@@ -1939,7 +1967,7 @@
       ],
       "body": "Ideally, we have one spec for SD-JWT VC and JWT VC. This issue is about adding support for vanilla JWTs.",
       "createdAt": "2023-05-26T09:23:57Z",
-      "updatedAt": "2023-05-26T16:00:54Z",
+      "updatedAt": "2023-05-30T16:08:11Z",
       "closedAt": null,
       "comments": [
         {
@@ -1948,6 +1976,20 @@
           "body": "Totally good to merge up [draft-prorock-jose-native-jwt-vcs](https://datatracker.ietf.org/doc/draft-prorock-jose-native-jwt-vcs/) - that may have things covered or at least heading the right direction?\r\n\r\nwant me to put a PR together on that?",
           "createdAt": "2023-05-26T16:00:54Z",
           "updatedAt": "2023-05-26T16:00:54Z"
+        },
+        {
+          "author": "mprorock",
+          "authorAssociation": "NONE",
+          "body": "in progress - stand by...",
+          "createdAt": "2023-05-30T15:22:58Z",
+          "updatedAt": "2023-05-30T15:22:58Z"
+        },
+        {
+          "author": "mprorock",
+          "authorAssociation": "NONE",
+          "body": "please take a look - https://github.com/mesur-io/ietf-misc/blob/main/draft-prorock-oauth-jwt-vcs.md \r\n\r\nthis should merge everything up - there will definitely need to be an editorial pass.\r\nthe md generated `-00` xml/txt versions are good to go from an idnits standpoint\r\n\r\nedit - if things look good i will pr over to this repo with the updated draft to build on and we can submit and mark that it replaces the prior drafts.",
+          "createdAt": "2023-05-30T15:53:31Z",
+          "updatedAt": "2023-05-30T16:08:11Z"
         }
       ]
     },
