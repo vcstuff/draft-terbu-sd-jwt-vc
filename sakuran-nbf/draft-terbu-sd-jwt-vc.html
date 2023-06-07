@@ -4,30 +4,32 @@
 <meta charset="utf-8">
 <meta content="Common,Latin" name="scripts">
 <meta content="initial-scale=1.0" name="viewport">
-<title>SD-JWT-based Verifiable Credentials with JSON payloads</title>
+<title>SD-JWT-based Verifiable Credentials with JSON payloads (SD-JWT VC)</title>
 <meta content="Oliver Terbu" name="author">
 <meta content="Daniel Fett" name="author">
 <meta content="
-       This document specifies Verifiable Credentials based on Selective Disclosure JSON Web Tokens (SD-JWT) with JSON payloads. 
+       This specification describes data formats as well as validation and processing
+rules to express Verifiable Credentials with JSON payload based on the SD-JWT
+format  . 
     " name="description">
-<meta content="xml2rfc 3.17.1" name="generator">
+<meta content="xml2rfc 3.17.3" name="generator">
 <meta content="security" name="keyword">
 <meta content="openid" name="keyword">
 <meta content="sd-jwt" name="keyword">
 <meta content="draft-terbu-sd-jwt-vc-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.17.1
-    Python 3.10.11
+  xml2rfc 3.17.3
+    Python 3.11.3
     appdirs 1.4.4
     ConfigArgParse 1.5.3
-    google-i18n-address 2.5.2
+    google-i18n-address 3.0.0
     intervaltree 3.1.0
     Jinja2 3.1.2
     lxml 4.9.2
     pycountry 22.3.5
     PyYAML 6.0
-    requests 2.28.1
-    setuptools 65.6.0
+    requests 2.31.0
+    setuptools 67.7.2
     six 1.16.0
     wcwidth 0.2.6
 -->
@@ -611,6 +613,7 @@ sub, sup {
   clear: left;
   float: left;
   text-align: right;
+  margin-right: 1ch;
 }
 #identifiers dd {
   margin: 0;
@@ -662,7 +665,8 @@ sub, sup {
 .references dt {
   text-align: right;
   font-weight: bold;
-  min-width: 7em;
+  min-width: 10ch;
+  margin-right: 1.5ch;
 }
 .references dt:target::before {
   content: "⇒";
@@ -670,7 +674,7 @@ sub, sup {
   margin: 0 10px 0 -25px;
 }
 .references dd {
-  margin-left: 8em !important;
+  margin-left: 12ch !important;
   overflow: auto;
 }
 
@@ -1046,13 +1050,13 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <body class="xml2rfc">
 <table class="ears">
 <thead><tr>
-<td class="left"></td>
-<td class="center">sd-jwt-vc</td>
-<td class="right">May 2023</td>
+<td class="left">Internet-Draft</td>
+<td class="center">SD-JWT VC</td>
+<td class="right">June 2023</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Terbu &amp; Fett</td>
-<td class="center">Standards Track</td>
+<td class="center">Expires 9 December 2023</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1060,11 +1064,17 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <div id="internal-metadata" class="document-information">
 <dl id="identifiers">
 <dt class="label-workgroup">Workgroup:</dt>
-<dd class="workgroup">TBD</dd>
+<dd class="workgroup">TODO Working Group</dd>
+<dt class="label-internet-draft">Internet-Draft:</dt>
+<dd class="internet-draft">draft-terbu-sd-jwt-vc-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2023-05-08" class="published">8 May 2023</time>
+<time datetime="2023-06-07" class="published">7 June 2023</time>
     </dd>
+<dt class="label-intended-status">Intended Status:</dt>
+<dd class="intended-status">Standards Track</dd>
+<dt class="label-expires">Expires:</dt>
+<dd class="expires"><time datetime="2023-12-09">9 December 2023</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1078,11 +1088,55 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </dd>
 </dl>
 </div>
-<h1 id="title">SD-JWT-based Verifiable Credentials with JSON payloads</h1>
+<h1 id="title">SD-JWT-based Verifiable Credentials with JSON payloads (SD-JWT VC)</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
-<p id="section-abstract-1">This document specifies Verifiable Credentials based on Selective Disclosure JSON Web Tokens (SD-JWT) with JSON payloads.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+<p id="section-abstract-1">This specification describes data formats as well as validation and processing
+rules to express Verifiable Credentials with JSON payload based on the SD-JWT
+format <span>[<a href="#I-D.ietf-oauth-selective-disclosure-jwt" class="cite xref">I-D.ietf-oauth-selective-disclosure-jwt</a>]</span>.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 </section>
+<div id="status-of-memo">
+<section id="section-boilerplate.1">
+        <h2 id="name-status-of-this-memo">
+<a href="#name-status-of-this-memo" class="section-name selfRef">Status of This Memo</a>
+        </h2>
+<p id="section-boilerplate.1-1">
+        This Internet-Draft is submitted in full conformance with the
+        provisions of BCP 78 and BCP 79.<a href="#section-boilerplate.1-1" class="pilcrow">¶</a></p>
+<p id="section-boilerplate.1-2">
+        Internet-Drafts are working documents of the Internet Engineering Task
+        Force (IETF). Note that other groups may also distribute working
+        documents as Internet-Drafts. The list of current Internet-Drafts is
+        at <span><a href="https://datatracker.ietf.org/drafts/current/">https://datatracker.ietf.org/drafts/current/</a></span>.<a href="#section-boilerplate.1-2" class="pilcrow">¶</a></p>
+<p id="section-boilerplate.1-3">
+        Internet-Drafts are draft documents valid for a maximum of six months
+        and may be updated, replaced, or obsoleted by other documents at any
+        time. It is inappropriate to use Internet-Drafts as reference
+        material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
+<p id="section-boilerplate.1-4">
+        This Internet-Draft will expire on 9 December 2023.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="copyright">
+<section id="section-boilerplate.2">
+        <h2 id="name-copyright-notice">
+<a href="#name-copyright-notice" class="section-name selfRef">Copyright Notice</a>
+        </h2>
+<p id="section-boilerplate.2-1">
+            Copyright (c) 2023 IETF Trust and the persons identified as the
+            document authors. All rights reserved.<a href="#section-boilerplate.2-1" class="pilcrow">¶</a></p>
+<p id="section-boilerplate.2-2">
+            This document is subject to BCP 78 and the IETF Trust's Legal
+            Provisions Relating to IETF Documents
+            (<span><a href="https://trustee.ietf.org/license-info">https://trustee.ietf.org/license-info</a></span>) in effect on the date of
+            publication of this document. Please review these documents
+            carefully, as they describe your rights and restrictions with
+            respect to this document. Code Components extracted from this
+            document must include Revised BSD License text as described in
+            Section 4.e of the Trust Legal Provisions and are provided without
+            warranty as described in the Revised BSD License.<a href="#section-boilerplate.2-2" class="pilcrow">¶</a></p>
+</section>
+</div>
 <div id="toc">
 <section id="section-toc.1">
         <a href="#" onclick="scroll(0,0)" class="toplink">▲</a><h2 id="name-table-of-contents">
@@ -1093,13 +1147,16 @@ svg :is([fill="white"], [fill^="#fff"]) {
             <p id="section-toc.1-1.1.1"><a href="#section-1" class="auto internal xref">1</a>.  <a href="#name-introduction" class="internal xref">Introduction</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1.2.1">
-                <p id="section-toc.1-1.1.2.1.1" class="keepWithNext"><a href="#section-1.1" class="auto internal xref">1.1</a>.  <a href="#name-requirements-notation-and-c" class="internal xref">Requirements Notation and Conventions</a></p>
+                <p id="section-toc.1-1.1.2.1.1" class="keepWithNext"><a href="#section-1.1" class="auto internal xref">1.1</a>.  <a href="#name-three-party-model" class="internal xref">Three-Party-Model</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1.2.2">
-                <p id="section-toc.1-1.1.2.2.1" class="keepWithNext"><a href="#section-1.2" class="auto internal xref">1.2</a>.  <a href="#name-terms-and-definitions" class="internal xref">Terms and Definitions</a></p>
+                <p id="section-toc.1-1.1.2.2.1" class="keepWithNext"><a href="#section-1.2" class="auto internal xref">1.2</a>.  <a href="#name-rationale" class="internal xref">Rationale</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1.2.3">
-                <p id="section-toc.1-1.1.2.3.1" class="keepWithNext"><a href="#section-1.3" class="auto internal xref">1.3</a>.  <a href="#name-abbreviations" class="internal xref">Abbreviations</a></p>
+                <p id="section-toc.1-1.1.2.3.1" class="keepWithNext"><a href="#section-1.3" class="auto internal xref">1.3</a>.  <a href="#name-requirements-notation-and-c" class="internal xref">Requirements Notation and Conventions</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1.2.4">
+                <p id="section-toc.1-1.1.2.4.1"><a href="#section-1.4" class="auto internal xref">1.4</a>.  <a href="#name-terms-and-definitions" class="internal xref">Terms and Definitions</a></p>
 </li>
             </ul>
 </li>
@@ -1110,80 +1167,102 @@ svg :is([fill="white"], [fill^="#fff"]) {
             <p id="section-toc.1-1.3.1"><a href="#section-3" class="auto internal xref">3</a>.  <a href="#name-use-cases" class="internal xref">Use Cases</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4">
-            <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-overview" class="internal xref">Overview</a></p>
-</li>
-          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5">
-            <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-data-format" class="internal xref">Data Format</a></p>
+            <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-verifiable-credentials-base" class="internal xref">Verifiable Credentials based on SD-JWT</a></p>
 <ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.1">
-                <p id="section-toc.1-1.5.2.1.1"><a href="#section-5.1" class="auto internal xref">5.1</a>.  <a href="#name-header-parameters" class="internal xref">Header Parameters</a></p>
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.1">
+                <p id="section-toc.1-1.4.2.1.1"><a href="#section-4.1" class="auto internal xref">4.1</a>.  <a href="#name-media-type" class="internal xref">Media Type</a></p>
 </li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2">
-                <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="auto internal xref">5.2</a>.  <a href="#name-payload" class="internal xref">Payload</a></p>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.2">
+                <p id="section-toc.1-1.4.2.2.1"><a href="#section-4.2" class="auto internal xref">4.2</a>.  <a href="#name-data-format" class="internal xref">Data Format</a></p>
 <ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2.2.1">
-                    <p id="section-toc.1-1.5.2.2.2.1.1"><a href="#section-5.2.1" class="auto internal xref">5.2.1</a>.  <a href="#name-status-claim" class="internal xref"><code>status</code> claim</a></p>
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.2.2.1">
+                    <p id="section-toc.1-1.4.2.2.2.1.1"><a href="#section-4.2.1" class="auto internal xref">4.2.1</a>.  <a href="#name-header-parameters" class="internal xref">Header Parameters</a></p>
 </li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2.2.2">
-                    <p id="section-toc.1-1.5.2.2.2.2.1"><a href="#section-5.2.2" class="auto internal xref">5.2.2</a>.  <a href="#name-type-claim" class="internal xref"><code>type</code> claim</a></p>
-</li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2.2.3">
-                    <p id="section-toc.1-1.5.2.2.2.3.1"><a href="#section-5.2.3" class="auto internal xref">5.2.3</a>.  <a href="#name-usage-of-registered-jwt-cla" class="internal xref">Usage of registered JWT Claims</a></p>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.2.2.2">
+                    <p id="section-toc.1-1.4.2.2.2.2.1"><a href="#section-4.2.2" class="auto internal xref">4.2.2</a>.  <a href="#name-claims" class="internal xref">Claims</a></p>
 </li>
                 </ul>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.3">
+                <p id="section-toc.1-1.4.2.3.1"><a href="#section-4.3" class="auto internal xref">4.3</a>.  <a href="#name-example" class="internal xref">Example</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.4">
+                <p id="section-toc.1-1.4.2.4.1"><a href="#section-4.4" class="auto internal xref">4.4</a>.  <a href="#name-verification-and-processing" class="internal xref">Verification and Processing</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5">
+            <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-jwt-issuer-metadata" class="internal xref">JWT Issuer Metadata</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.1">
+                <p id="section-toc.1-1.5.2.1.1"><a href="#section-5.1" class="auto internal xref">5.1</a>.  <a href="#name-jwt-issuer-metadata-request" class="internal xref">JWT Issuer Metadata Request</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2">
+                <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="auto internal xref">5.2</a>.  <a href="#name-jwt-issuer-metadata-respons" class="internal xref">JWT Issuer Metadata Response</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.3">
+                <p id="section-toc.1-1.5.2.3.1"><a href="#section-5.3" class="auto internal xref">5.3</a>.  <a href="#name-jwt-issuer-metadata-validat" class="internal xref">JWT Issuer Metadata Validation</a></p>
 </li>
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6">
-            <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-validation-rules-and-proces" class="internal xref">Validation Rules and Processing</a></p>
+            <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-presenting-verifiable-crede" class="internal xref">Presenting Verifiable Credentials</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.1">
-                <p id="section-toc.1-1.6.2.1.1"><a href="#section-6.1" class="auto internal xref">6.1</a>.  <a href="#name-issuer-authentication" class="internal xref">Issuer Authentication</a></p>
+                <p id="section-toc.1-1.6.2.1.1"><a href="#section-6.1" class="auto internal xref">6.1</a>.  <a href="#name-data-format-2" class="internal xref">Data Format</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.1.2.1">
+                    <p id="section-toc.1-1.6.2.1.2.1.1"><a href="#section-6.1.1" class="auto internal xref">6.1.1</a>.  <a href="#name-holder-binding-jwt" class="internal xref">Holder Binding JWT</a></p>
+</li>
+                </ul>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.2">
-                <p id="section-toc.1-1.6.2.2.1"><a href="#section-6.2" class="auto internal xref">6.2</a>.  <a href="#name-jwt-issuer-metadata" class="internal xref">JWT Issuer Metadata</a></p>
+                <p id="section-toc.1-1.6.2.2.1"><a href="#section-6.2" class="auto internal xref">6.2</a>.  <a href="#name-examples" class="internal xref">Examples</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.3">
+                <p id="section-toc.1-1.6.2.3.1"><a href="#section-6.3" class="auto internal xref">6.3</a>.  <a href="#name-verification-and-processing-2" class="internal xref">Verification and Processing</a></p>
 </li>
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7">
-            <p id="section-toc.1-1.7.1"><a href="#section-7" class="auto internal xref">7</a>.  <a href="#name-verifiable-presentation-sup" class="internal xref">Verifiable Presentation Support</a></p>
+            <p id="section-toc.1-1.7.1"><a href="#section-7" class="auto internal xref">7</a>.  <a href="#name-security-considerations" class="internal xref">Security Considerations</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8">
-            <p id="section-toc.1-1.8.1"><a href="#section-8" class="auto internal xref">8</a>.  <a href="#name-security-considerations" class="internal xref">Security Considerations</a></p>
+            <p id="section-toc.1-1.8.1"><a href="#section-8" class="auto internal xref">8</a>.  <a href="#name-privacy-considerations" class="internal xref">Privacy Considerations</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9">
-            <p id="section-toc.1-1.9.1"><a href="#section-9" class="auto internal xref">9</a>.  <a href="#name-privacy-considerations" class="internal xref">Privacy Considerations</a></p>
+            <p id="section-toc.1-1.9.1"><a href="#section-9" class="auto internal xref">9</a>.  <a href="#name-relationships-to-other-docu" class="internal xref">Relationships to Other Documents</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10">
-            <p id="section-toc.1-1.10.1"><a href="#section-10" class="auto internal xref">10</a>. <a href="#name-relationships-to-other-docu" class="internal xref">Relationships to Other Documents</a></p>
+            <p id="section-toc.1-1.10.1"><a href="#section-10" class="auto internal xref">10</a>. <a href="#name-normative-references" class="internal xref">Normative References</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11">
+            <p id="section-toc.1-1.11.1"><a href="#section-11" class="auto internal xref">11</a>. <a href="#name-informative-references" class="internal xref">Informative References</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12">
+            <p id="section-toc.1-1.12.1"><a href="#appendix-A" class="auto internal xref">Appendix A</a>.  <a href="#name-iana-considerations" class="internal xref">IANA Considerations</a></p>
 <ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.1">
-                <p id="section-toc.1-1.10.2.1.1"><a href="#section-10.1" class="auto internal xref">10.1</a>.  <a href="#name-w3c-verifiable-credential-d" class="internal xref">W3C Verifiable Credential Data Model 2.0</a></p>
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12.2.1">
+                <p id="section-toc.1-1.12.2.1.1"><a href="#appendix-A.1" class="auto internal xref">A.1</a>.  <a href="#name-json-web-token-claims-regis" class="internal xref">JSON Web Token Claims Registration</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12.2.2">
+                <p id="section-toc.1-1.12.2.2.1"><a href="#appendix-A.2" class="auto internal xref">A.2</a>.  <a href="#name-media-types-registry" class="internal xref">Media Types Registry</a></p>
 <ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.1.2.1">
-                    <p id="section-toc.1-1.10.2.1.2.1.1"><a href="#section-10.1.1" class="auto internal xref">10.1.1</a>.  <a href="#name-mapping-mechanism" class="internal xref">Mapping Mechanism</a></p>
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12.2.2.2.1">
+                    <p id="section-toc.1-1.12.2.2.2.1.1"><a href="#appendix-A.2.1" class="auto internal xref">A.2.1</a>.  <a href="#name-application-vcsd-jwt" class="internal xref">application/vc+sd-jwt</a></p>
 </li>
                 </ul>
 </li>
             </ul>
-</li>
-          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11">
-            <p id="section-toc.1-1.11.1"><a href="#section-11" class="auto internal xref">11</a>. <a href="#name-normative-references" class="internal xref">Normative References</a></p>
-</li>
-          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12">
-            <p id="section-toc.1-1.12.1"><a href="#appendix-A" class="auto internal xref">Appendix A</a>.  <a href="#name-iana-considerations" class="internal xref">IANA Considerations</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.13">
             <p id="section-toc.1-1.13.1"><a href="#appendix-B" class="auto internal xref">Appendix B</a>.  <a href="#name-acknowledgements" class="internal xref">Acknowledgements</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.14">
-            <p id="section-toc.1-1.14.1"><a href="#appendix-C" class="auto internal xref">Appendix C</a>.  <a href="#name-notices" class="internal xref">Notices</a></p>
+            <p id="section-toc.1-1.14.1"><a href="#appendix-C" class="auto internal xref">Appendix C</a>.  <a href="#name-document-history" class="internal xref">Document History</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.15">
-            <p id="section-toc.1-1.15.1"><a href="#appendix-D" class="auto internal xref">Appendix D</a>.  <a href="#name-document-history" class="internal xref">Document History</a></p>
-</li>
-          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.16">
-            <p id="section-toc.1-1.16.1"><a href="#appendix-E" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
+            <p id="section-toc.1-1.15.1"><a href="#appendix-D" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
 </li>
         </ul>
 </nav>
@@ -1194,33 +1273,126 @@ svg :is([fill="white"], [fill^="#fff"]) {
       <h2 id="name-introduction">
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
-<p id="section-1-1">TBD: why?
-- simplicity
-- JWTs are well-known, popular but doesn't work best with three-party-model
-- Also no selective disclosure, which impacts costs and security.<a href="#section-1-1" class="pilcrow">¶</a></p>
-<p id="section-1-2">This specification describes data formats, validation and processing rules for SD-JWT expresing Verifiable Credentials.<a href="#section-1-2" class="pilcrow">¶</a></p>
-<div id="requirements-notation-and-conventions">
+<div id="three-party-model">
 <section id="section-1.1">
-        <h3 id="name-requirements-notation-and-c">
-<a href="#section-1.1" class="section-number selfRef">1.1. </a><a href="#name-requirements-notation-and-c" class="section-name selfRef">Requirements Notation and Conventions</a>
+        <h3 id="name-three-party-model">
+<a href="#section-1.1" class="section-number selfRef">1.1. </a><a href="#name-three-party-model" class="section-name selfRef">Three-Party-Model</a>
         </h3>
-<p id="section-1.1-1">The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 <span>[<a href="#RFC2119" class="cite xref">RFC2119</a>]</span>.<a href="#section-1.1-1" class="pilcrow">¶</a></p>
+<p id="section-1.1-1">In the so-called Three-Party-Model, Issuers issue Verifiable Credentials to a
+Holder, who can then present the Verifiable Credentials to Verifiers. Verifiable
+Credentials are cryptographically signed statements about a Subject, typically the Holder.<a href="#section-1.1-1" class="pilcrow">¶</a></p>
+<span id="name-three-party-model-with-opti"></span><figure id="figure-1">
+          <div class="lang-ascii-art sourcecode" id="section-1.1-2.1">
+<pre>         +------------+
+         |            |
+         |   Issuer   |
+         |            |
+         +------------+
+               |
+    Issues Verifiable Credential
+               |
+               v
+         +------------+
+         |            |
+         |   Holder   |
+         |            |
+         +------------+
+               |
+  Presents Verifiable Credential
+               |
+               v
+         +-------------+
+         |             |+                          +------------+
+         |  Verifiers  ||+                         |   Status   |
+         |             |||----- optionally -------&gt;|  Provider  |
+         +-------------+||   retrieve status of    |            |
+          +-------------+|  Verifiable Credential  +------------+
+           +-------------+
+</pre>
+</div>
+<figcaption><a href="#figure-1" class="selfRef">Figure 1</a>:
+<a href="#name-three-party-model-with-opti" class="selfRef">Three-Party-Model with optional Status Provider</a>
+          </figcaption></figure>
+<p id="section-1.1-3">Verifiers can check the authenticity of the data in the Verifiable Credentials
+and optionally enforce Holder Binding, i.e., ask the Holder to prove that they
+are the intended holder of the Verifiable Credential, for example, by proving possession of a
+cryptographic key referenced in the credential. This process is further
+described in <span>[<a href="#I-D.ietf-oauth-selective-disclosure-jwt" class="cite xref">I-D.ietf-oauth-selective-disclosure-jwt</a>]</span>.<a href="#section-1.1-3" class="pilcrow">¶</a></p>
+<p id="section-1.1-4">To support revocation of Verifiable Credentials, an optional fourth party can be
+involved, a Status Provider, who delivers revocation information to Verifiers.
+(The Verifier can also serve as the Status Provider.)<a href="#section-1.1-4" class="pilcrow">¶</a></p>
+<p id="section-1.1-5">This specification defines Verifiable Credentials based on the SD-JWT
+format with a JWT Claim Set.<a href="#section-1.1-5" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="rationale">
+<section id="section-1.2">
+        <h3 id="name-rationale">
+<a href="#section-1.2" class="section-number selfRef">1.2. </a><a href="#name-rationale" class="section-name selfRef">Rationale</a>
+        </h3>
+<p id="section-1.2-1">JSON Web Tokens (JWTs) <span>[<a href="#RFC7519" class="cite xref">RFC7519</a>]</span> can in principle be used to express
+Verifiable Credentials in a way that is easy to understand and process as it
+builds upon established web primitives. While JWT-based credentials enable selective
+disclosure, i.e., the ability for a Holder to disclose only a subset of the contained
+claims, in an Identity Provider ecosystem by issuing new JWTs to the Verifier for
+every presentation, this approach does not work in the three-party-model.<a href="#section-1.2-1" class="pilcrow">¶</a></p>
+<p id="section-1.2-2">Selective Disclosure JWT (SD-JWT) <span>[<a href="#I-D.ietf-oauth-selective-disclosure-jwt" class="cite xref">I-D.ietf-oauth-selective-disclosure-jwt</a>]</span> is
+a specification that introduces conventions to support selective disclosure for
+JWTs: For an SD-JWT document, a Holder can decide which claims to release (within
+bounds defined by the Issuer). This format is therefore perfectly suited for
+Verifiable Credentials.<a href="#section-1.2-2" class="pilcrow">¶</a></p>
+<p id="section-1.2-3">SD-JWT itself does not define the claims that must be used within the payload or
+their semantics. This specification therefore defines how Verifiable Credentials
+can be expressed using SD-JWT.<a href="#section-1.2-3" class="pilcrow">¶</a></p>
+<p id="section-1.2-4">JWTs (and SD-JWTs) can contain claims that are registered in "JSON Web Token Claims"
+registry as defined in <span>[<a href="#RFC7519" class="cite xref">RFC7519</a>]</span>, as well as public and
+private claims. Private claims are not relevant for this specification due to the
+openness of the three-party-model. Since SD-JWTs are based on JWTs, this specification
+aims to express the basic
+Verifiable Credential data model purely through JWT Claim Sets, using registered
+claims while allowing Issuers to use additional registered claims, as well as
+new or existing public claims, to make statements about the Subject of the
+Verifiable Credential.<a href="#section-1.2-4" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="requirements-notation-and-conventions">
+<section id="section-1.3">
+        <h3 id="name-requirements-notation-and-c">
+<a href="#section-1.3" class="section-number selfRef">1.3. </a><a href="#name-requirements-notation-and-c" class="section-name selfRef">Requirements Notation and Conventions</a>
+        </h3>
+<p id="section-1.3-1">The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
+"SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this
+document are to be interpreted as described in RFC 2119 <span>[<a href="#RFC2119" class="cite xref">RFC2119</a>]</span>.<a href="#section-1.3-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="terms-and-definitions">
-<section id="section-1.2">
+<section id="section-1.4">
         <h3 id="name-terms-and-definitions">
-<a href="#section-1.2" class="section-number selfRef">1.2. </a><a href="#name-terms-and-definitions" class="section-name selfRef">Terms and Definitions</a>
+<a href="#section-1.4" class="section-number selfRef">1.4. </a><a href="#name-terms-and-definitions" class="section-name selfRef">Terms and Definitions</a>
         </h3>
-<p id="section-1.2-1">TBD<a href="#section-1.2-1" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="abbreviations">
-<section id="section-1.3">
-        <h3 id="name-abbreviations">
-<a href="#section-1.3" class="section-number selfRef">1.3. </a><a href="#name-abbreviations" class="section-name selfRef">Abbreviations</a>
-        </h3>
-<p id="section-1.3-1">TBD<a href="#section-1.3-1" class="pilcrow">¶</a></p>
+<p id="section-1.4-1">This specification uses the terms "Holder", "Issuer", "Verifier", defined by
+<span>[<a href="#I-D.ietf-oauth-selective-disclosure-jwt" class="cite xref">I-D.ietf-oauth-selective-disclosure-jwt</a>]</span>.<a href="#section-1.4-1" class="pilcrow">¶</a></p>
+<span class="break"></span><dl class="dlParallel" id="section-1.4-2">
+          <dt id="section-1.4-2.1">Verifiable Credential (VC):</dt>
+          <dd style="margin-left: 1.5em" id="section-1.4-2.2">An Issuer-signed assertion with claims about a Subject.<a href="#section-1.4-2.2" class="pilcrow">¶</a>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-1.4-2.3">SD-JWT-based Verifiable Credential (SD-JWT VC):</dt>
+          <dd style="margin-left: 1.5em" id="section-1.4-2.4">A Verifiable Credential encoded using the Issuance format defined in
+<span>[<a href="#I-D.ietf-oauth-selective-disclosure-jwt" class="cite xref">I-D.ietf-oauth-selective-disclosure-jwt</a>]</span>.<a href="#section-1.4-2.4" class="pilcrow">¶</a>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-1.4-2.5">Unsecured payload of an SD-JWT VC:</dt>
+          <dd style="margin-left: 1.5em" id="section-1.4-2.6">A JSON object containing all selectively disclosable and non-selectively disclosable claims
+of the SD-JWT VC. The unsecured payload acts as the input JSON object to issue
+an SD-JWT VC complying to this specification.<a href="#section-1.4-2.6" class="pilcrow">¶</a>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-1.4-2.7">Status Provider:</dt>
+          <dd style="margin-left: 1.5em" id="section-1.4-2.8">An entity that provides status information (e.g. revocation) about a Verifiable Credential.<a href="#section-1.4-2.8" class="pilcrow">¶</a>
+</dd>
+        <dd class="break"></dd>
+</dl>
 </section>
 </div>
 </section>
@@ -1230,7 +1402,17 @@ svg :is([fill="white"], [fill^="#fff"]) {
       <h2 id="name-scope">
 <a href="#section-2" class="section-number selfRef">2. </a><a href="#name-scope" class="section-name selfRef">Scope</a>
       </h2>
-<p id="section-2-1">TBD<a href="#section-2-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-2-1.1">
+          <p id="section-2-1.1.1">This specification defines<a href="#section-2-1.1.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-2-1.1.2.1">Data model and media types for Verifiable Credentials based on SD-JWTs.<a href="#section-2-1.1.2.1" class="pilcrow">¶</a>
+</li>
+            <li class="normal" id="section-2-1.1.2.2">Validation and processing rules for Verifiers and Holders.<a href="#section-2-1.1.2.2" class="pilcrow">¶</a>
+</li>
+          </ul>
+</li>
+      </ul>
 </section>
 </div>
 <div id="use-cases">
@@ -1238,193 +1420,505 @@ svg :is([fill="white"], [fill^="#fff"]) {
       <h2 id="name-use-cases">
 <a href="#section-3" class="section-number selfRef">3. </a><a href="#name-use-cases" class="section-name selfRef">Use Cases</a>
       </h2>
-<p id="section-3-1">TBD: explain three-party-model and use cases<a href="#section-3-1" class="pilcrow">¶</a></p>
-<p id="section-3-2">TBD: conventional crypt, hardware security, hsm, mobile secure area, compliance with FIPS<a href="#section-3-2" class="pilcrow">¶</a></p>
+<p id="section-3-1">TBD: explain use cases of the three-party-model.<a href="#section-3-1" class="pilcrow">¶</a></p>
+<p id="section-3-2">TBD: conventional crypt, hardware security, hsm, mobile secure area,
+compliance with FIPS<a href="#section-3-2" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="overview">
+<div id="verifiable-credentials-based-on-sd-jwt">
 <section id="section-4">
-      <h2 id="name-overview">
-<a href="#section-4" class="section-number selfRef">4. </a><a href="#name-overview" class="section-name selfRef">Overview</a>
+      <h2 id="name-verifiable-credentials-base">
+<a href="#section-4" class="section-number selfRef">4. </a><a href="#name-verifiable-credentials-base" class="section-name selfRef">Verifiable Credentials based on SD-JWT</a>
       </h2>
-<p id="section-4-1">TBD<a href="#section-4-1" class="pilcrow">¶</a></p>
+<p id="section-4-1">This section defines encoding, validation and processing rules for SD-JWT VCs.<a href="#section-4-1" class="pilcrow">¶</a></p>
+<div id="media-type">
+<section id="section-4.1">
+        <h3 id="name-media-type">
+<a href="#section-4.1" class="section-number selfRef">4.1. </a><a href="#name-media-type" class="section-name selfRef">Media Type</a>
+        </h3>
+<p id="section-4.1-1">SD-JWT VCs compliant with this specification MUST use the media type
+<code>application/vc+sd-jwt</code> as defined in <a href="#application-vc-sd-jwt" class="auto internal xref">Appendix A.2.1</a>.<a href="#section-4.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="data-format">
-<section id="section-5">
-      <h2 id="name-data-format">
-<a href="#section-5" class="section-number selfRef">5. </a><a href="#name-data-format" class="section-name selfRef">Data Format</a>
-      </h2>
-<p id="section-5-1">TBD<a href="#section-5-1" class="pilcrow">¶</a></p>
-<div id="header-parameters">
-<section id="section-5.1">
-        <h3 id="name-header-parameters">
-<a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-header-parameters" class="section-name selfRef">Header Parameters</a>
+<section id="section-4.2">
+        <h3 id="name-data-format">
+<a href="#section-4.2" class="section-number selfRef">4.2. </a><a href="#name-data-format" class="section-name selfRef">Data Format</a>
         </h3>
-<p id="section-5.1-1">The <code>typ</code> header parameter of the SD-JWT-VC MUST be present. The <code>typ</code> value MUST use the media type <code>vc+sd-jwt</code>that is registered by this specification. This indicates that the payload of the SD-JWT-VC contains plain JSON and follows the rules as defined in this specification.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
-<p id="section-5.1-2">The following is a non-normative example of a decoded SD-JWT-VC header:<a href="#section-5.1-2" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.1-3">
+<p id="section-4.2-1">SD-JWT VCs MUST be encoded using the SD-JWT Combined Format for Issuance as
+defined in Section 5.3. of <span>[<a href="#I-D.ietf-oauth-selective-disclosure-jwt" class="cite xref">I-D.ietf-oauth-selective-disclosure-jwt</a>]</span>.<a href="#section-4.2-1" class="pilcrow">¶</a></p>
+<p id="section-4.2-2">SD-JWT VCs MUST contain all Disclosures corresponding to their SD-JWT component
+except for Decoy Digests as per Section 5.1.1.3. of <span>[<a href="#I-D.ietf-oauth-selective-disclosure-jwt" class="cite xref">I-D.ietf-oauth-selective-disclosure-jwt</a>]</span>.<a href="#section-4.2-2" class="pilcrow">¶</a></p>
+<div id="header-parameters">
+<section id="section-4.2.1">
+          <h4 id="name-header-parameters">
+<a href="#section-4.2.1" class="section-number selfRef">4.2.1. </a><a href="#name-header-parameters" class="section-name selfRef">Header Parameters</a>
+          </h4>
+<p id="section-4.2.1-1">This section defines JWT header parameters for the SD-JWT component of the
+SD-JWT VC.<a href="#section-4.2.1-1" class="pilcrow">¶</a></p>
+<p id="section-4.2.1-2">The <code>typ</code> header parameter of the SD-JWT MUST be present. The <code>typ</code> value MUST
+use <code>vc+sd-jwt</code>. This indicates that the payload of the SD-JWT contains plain
+JSON and follows the rules as defined in this specification. It further
+indicates that the SD-JWT is a SD-JWT component of a SD-JWT VC.<a href="#section-4.2.1-2" class="pilcrow">¶</a></p>
+<p id="section-4.2.1-3">The following is a non-normative example of a decoded SD-JWT header:<a href="#section-4.2.1-3" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-4.2.1-4">
 <pre>{
   "alg": "ES256",
   "typ": "vc+sd-jwt"
 }
-</pre><a href="#section-5.1-3" class="pilcrow">¶</a>
+</pre><a href="#section-4.2.1-4" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
-<div id="payload">
-<section id="section-5.2">
-        <h3 id="name-payload">
-<a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-payload" class="section-name selfRef">Payload</a>
-        </h3>
-<p id="section-5.2-1">SD-JWT-VCs as defined in this specification can use any claim registered in the “JSON Web Token Claims” registry as defined in RFC 7519.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
-<p id="section-5.2-2">Some of the claims in a VC MUST NOT be selectively disclosed as they are always required for processing on the verifier side. All other claims can be made selectively disclosable by the issuer when issuing the respective SD-JWT-VC.<a href="#section-5.2-2" class="pilcrow">¶</a></p>
-<p id="section-5.2-3">SD-JWT-VCs MAY contain additional claims depending on the application.<a href="#section-5.2-3" class="pilcrow">¶</a></p>
-<div id="status-claim">
-<section id="section-5.2.1">
-          <h4 id="name-status-claim">
-<a href="#section-5.2.1" class="section-number selfRef">5.2.1. </a><a href="#name-status-claim" class="section-name selfRef"><code>status</code> claim</a>
+<div id="claims">
+<section id="section-4.2.2">
+          <h4 id="name-claims">
+<a href="#section-4.2.2" class="section-number selfRef">4.2.2. </a><a href="#name-claims" class="section-name selfRef">Claims</a>
           </h4>
-<p id="section-5.2.1-1">TBD: might get removed once other draft spec finished<a href="#section-5.2.1-1" class="pilcrow">¶</a></p>
-</section>
-</div>
+<p id="section-4.2.2-1">This section defines the claims that can be included in the payload of
+SD-JWT VCs.<a href="#section-4.2.2-1" class="pilcrow">¶</a></p>
 <div id="type-claim">
-<section id="section-5.2.2">
-          <h4 id="name-type-claim">
-<a href="#section-5.2.2" class="section-number selfRef">5.2.2. </a><a href="#name-type-claim" class="section-name selfRef"><code>type</code> claim</a>
-          </h4>
-<p id="section-5.2.2-1">TBD<a href="#section-5.2.2-1" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="usage-of-registered-jwt-claims">
-<section id="section-5.2.3">
-          <h4 id="name-usage-of-registered-jwt-cla">
-<a href="#section-5.2.3" class="section-number selfRef">5.2.3. </a><a href="#name-usage-of-registered-jwt-cla" class="section-name selfRef">Usage of registered JWT Claims</a>
-          </h4>
-<p id="section-5.2.3-1">The following are non-selectively disclosable registered JWT claims that SD-JWT-VCs contain for specific purposes:<a href="#section-5.2.3-1" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-5.2.3-2.1">
-              <p id="section-5.2.3-2.1.1"><code>iss</code><a href="#section-5.2.3-2.1.1" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-5.2.3-2.1.2.1">REQUIRED. The issuer of the Verifiable Credential. The value of <code>iss</code> MUST be a URI. See [JWT] for more information.<a href="#section-5.2.3-2.1.2.1" class="pilcrow">¶</a>
-</li>
-              </ul>
-</li>
-            <li class="normal" id="section-5.2.3-2.2">
-              <p id="section-5.2.3-2.2.1"><code>iat</code><a href="#section-5.2.3-2.2.1" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-5.2.3-2.2.2.1">REQUIRED. The time of issuance of the Verifiable Credential.<a href="#section-5.2.3-2.2.2.1" class="pilcrow">¶</a>
-</li>
-              </ul>
-</li>
-            <li class="normal" id="section-5.2.3-2.3">
-              <p id="section-5.2.3-2.3.1"><code>exp</code><a href="#section-5.2.3-2.3.1" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-5.2.3-2.3.2.1">REQUIRED. The expiry time of the Verifiable Credential after which the proof of the Verifiable Credential is no longer valid.<a href="#section-5.2.3-2.3.2.1" class="pilcrow">¶</a>
-</li>
-              </ul>
-</li>
-            <li class="normal" id="section-5.2.3-2.4">
-              <p id="section-5.2.3-2.4.1"><code>cnf</code><a href="#section-5.2.3-2.4.1" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-5.2.3-2.4.2.1">OPTIONAL. The confirmation method can be used to verify the Holder Binding JWT of the disclosed SD-JWT.<a href="#section-5.2.3-2.4.2.1" class="pilcrow">¶</a>
-</li>
-              </ul>
-</li>
-            <li class="normal" id="section-5.2.3-2.5">
-              <p id="section-5.2.3-2.5.1"><code>type</code><a href="#section-5.2.3-2.5.1" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-5.2.3-2.5.2.1">REQUIRED. The type or types of the Verifiable Credential. In the general case, the <code>type</code> value is an array of case-sensitive strings, each containing a <code>StringOrURI</code> value. In the special case when the SD-JWT has one credential type, the <code>type</code> value MAY be a single case-sensitive string containing a <code>StringOrURI</code> value.<a href="#section-5.2.3-2.5.2.1" class="pilcrow">¶</a>
-</li>
-              </ul>
-</li>
-            <li class="normal" id="section-5.2.3-2.6">
-              <p id="section-5.2.3-2.6.1"><code>status</code><a href="#section-5.2.3-2.6.1" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-5.2.3-2.6.2.1">OPTIONAL. The information on how to read the status of the Verifiable Credential.<a href="#section-5.2.3-2.6.2.1" class="pilcrow">¶</a>
-</li>
-              </ul>
-</li>
-            <li class="normal" id="section-5.2.3-2.7">
-              <p id="section-5.2.3-2.7.1"><code>nbf</code><a href="#section-5.2.3-2.7.1" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-5.2.3-2.7.2.1">OPTIONAL. The time before which the SD-JWT-VC MUST NOT be accepted before validating.<a href="#section-5.2.3-2.7.2.1" class="pilcrow">¶</a>
-</li>
-              </ul>
-</li>
-          </ul>
-<p id="section-5.2.3-3">The following are selectively disclosable registered JWT claims that SD-JWT-VCs contain for specific purposes:<a href="#section-5.2.3-3" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-5.2.3-4.1">
-              <p id="section-5.2.3-4.1.1"><code>sub</code><a href="#section-5.2.3-4.1.1" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-5.2.3-4.1.2.1">OPTIONAL. The identifier of the subject of the Verifiable Credential. The value of <code>sub</code> MUST be a URI..<a href="#section-5.2.3-4.1.2.1" class="pilcrow">¶</a>
-</li>
-              </ul>
-</li>
-          </ul>
-</section>
+<section id="section-4.2.2.1">
+            <h5 id="name-type-claim">
+<a href="#section-4.2.2.1" class="section-number selfRef">4.2.2.1. </a><a href="#name-type-claim" class="section-name selfRef"><code>type</code> claim</a>
+            </h5>
+<p id="section-4.2.2.1-1">This specification defines the JWT claim <code>type</code>. The <code>type</code> claim is used
+to express the type of the JSON object that is secured by the
+JWT. The <code>type</code> value MUST be a case-sensitive <code>StringOrURI</code> value.<a href="#section-4.2.2.1-1" class="pilcrow">¶</a></p>
+<p id="section-4.2.2.1-2">The following is a non-normative example of how <code>type</code> is used to express
+a type:<a href="#section-4.2.2.1-2" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-4.2.2.1-3">
+<pre>{
+  "type": "SomeType"
+}
+</pre><a href="#section-4.2.2.1-3" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
+<div id="registered-jwt-claims">
+<section id="section-4.2.2.2">
+            <h5 id="name-registered-jwt-claims">
+<a href="#section-4.2.2.2" class="section-number selfRef">4.2.2.2. </a><a href="#name-registered-jwt-claims" class="section-name selfRef">Registered JWT Claims</a>
+            </h5>
+<p id="section-4.2.2.2-1">SD-JWT VCs MAY use any claim registered in the "JSON Web Token Claims"
+registry as defined in <span>[<a href="#RFC7519" class="cite xref">RFC7519</a>]</span>.<a href="#section-4.2.2.2-1" class="pilcrow">¶</a></p>
+<p id="section-4.2.2.2-2">If present, the following registered JWT claims MUST be included in the SD-JWT
+and MUST NOT be included in the Disclosures, i.e. cannot be selectively
+disclosed:<a href="#section-4.2.2.2-2" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-4.2.2.2-3.1">
+                <p id="section-4.2.2.2-3.1.1"><code>iss</code><a href="#section-4.2.2.2-3.1.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-4.2.2.2-3.1.2.1">REQUIRED. The Issuer of the Verifiable Credential. The value of <code>iss</code>
+MUST be a URI. See <span>[<a href="#RFC7519" class="cite xref">RFC7519</a>]</span> for more information.<a href="#section-4.2.2.2-3.1.2.1" class="pilcrow">¶</a>
+</li>
+                </ul>
+</li>
+              <li class="normal" id="section-4.2.2.2-3.2">
+                <p id="section-4.2.2.2-3.2.1"><code>iat</code><a href="#section-4.2.2.2-3.2.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-4.2.2.2-3.2.2.1">REQUIRED. The time of issuance of the Verifiable Credential. See
+<span>[<a href="#RFC7519" class="cite xref">RFC7519</a>]</span> for more information.<a href="#section-4.2.2.2-3.2.2.1" class="pilcrow">¶</a>
+</li>
+                </ul>
+</li>
+              <li class="normal" id="section-4.2.2.2-3.3">
+                <p id="section-4.2.2.2-3.3.1"><code>nbf</code><a href="#section-4.2.2.2-3.3.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-4.2.2.2-3.3.2.1">OPTIONAL. The time before which the Verifiable Credential MUST NOT be
+accepted before validating. See <span>[<a href="#RFC7519" class="cite xref">RFC7519</a>]</span> for more information.<a href="#section-4.2.2.2-3.3.2.1" class="pilcrow">¶</a>
+</li>
+                </ul>
+</li>
+              <li class="normal" id="section-4.2.2.2-3.4">
+                <p id="section-4.2.2.2-3.4.1"><code>exp</code><a href="#section-4.2.2.2-3.4.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-4.2.2.2-3.4.2.1">OPTIONAL. The expiry time of the Verifiable Credential after which the
+Verifiable Credential is no longer valid. See <span>[<a href="#RFC7519" class="cite xref">RFC7519</a>]</span> for more
+information.<a href="#section-4.2.2.2-3.4.2.1" class="pilcrow">¶</a>
+</li>
+                </ul>
+</li>
+              <li class="normal" id="section-4.2.2.2-3.5">
+                <p id="section-4.2.2.2-3.5.1"><code>cnf</code><a href="#section-4.2.2.2-3.5.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-4.2.2.2-3.5.2.1">REQUIRED when Cryptographic Holder Binding is to be supported. Contains the confirmation method as defined in <span>[<a href="#RFC7800" class="cite xref">RFC7800</a>]</span>. It SHOULD contain a JWK as defined in Section 3.2 of <span>[<a href="#RFC7800" class="cite xref">RFC7800</a>]</span> and in this case, the <code>kid</code> (Key ID) member MUST be present in the JWK.  For Cryptographic Holder Binding, the Holder Binding JWT in the Combined Format for Presentation MUST be signed by the key identified in this claim.<a href="#section-4.2.2.2-3.5.2.1" class="pilcrow">¶</a>
+</li>
+                </ul>
+</li>
+              <li class="normal" id="section-4.2.2.2-3.6">
+                <p id="section-4.2.2.2-3.6.1"><code>type</code><a href="#section-4.2.2.2-3.6.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-4.2.2.2-3.6.2.1">REQUIRED. The type of the Verifiable Credential, e.g.,
+<code>IdentityCredential</code>, as defined in <a href="#type-claim" class="auto internal xref">Section 4.2.2.1</a>.<a href="#section-4.2.2.2-3.6.2.1" class="pilcrow">¶</a>
+</li>
+                </ul>
+</li>
+              <li class="normal" id="section-4.2.2.2-3.7">
+                <p id="section-4.2.2.2-3.7.1"><code>status</code><a href="#section-4.2.2.2-3.7.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-4.2.2.2-3.7.2.1">OPTIONAL. The information on how to read the status of the Verifiable
+Credential. See [TBD] for more information.<a href="#section-4.2.2.2-3.7.2.1" class="pilcrow">¶</a>
+</li>
+                </ul>
+</li>
+            </ul>
+<p id="section-4.2.2.2-4">The following registered JWT claims MAY be contained in the SD-JWT or in the
+Disclosures and MAY be selectively disclosed:<a href="#section-4.2.2.2-4" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-4.2.2.2-5.1">
+                <p id="section-4.2.2.2-5.1.1"><code>sub</code><a href="#section-4.2.2.2-5.1.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-4.2.2.2-5.1.2.1">OPTIONAL. The identifier of the Subject of the Verifiable Credential.
+The value of <code>sub</code> MUST be a URI. The Issuer MAY use it to provide the Subject
+identifier known by the Issuer. There is no requirement for a binding to
+exist between <code>sub</code> and <code>cnf</code> claims.<a href="#section-4.2.2.2-5.1.2.1" class="pilcrow">¶</a>
+</li>
+                </ul>
+</li>
+            </ul>
 </section>
 </div>
-<div id="validation-rules-and-processing">
-<section id="section-6">
-      <h2 id="name-validation-rules-and-proces">
-<a href="#section-6" class="section-number selfRef">6. </a><a href="#name-validation-rules-and-proces" class="section-name selfRef">Validation Rules and Processing</a>
-      </h2>
-<p id="section-6-1">A verifier MUST validate an SD-JWT-VC as follows:<a href="#section-6-1" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-6-2.1">REQUIRED. Verify the SD-JWT-VC as per SD-JWT.<a href="#section-6-2.1" class="pilcrow">¶</a>
-</li>
-        <li class="normal" id="section-6-2.2">REQUIRED. Perform Issuer Authentication as described in {#issuer-authentication}.<a href="#section-6-2.2" class="pilcrow">¶</a>
-</li>
-        <li class="normal" id="section-6-2.3">OPTIONAL. If <code>status</code> is present in the SD-JWT-VC, the status of the SD-JWT-VC SHOULD be checked. It depends on the verifier policy to reject or accept an SD-JWT-VC based on the status of the Verifiable Credential.<a href="#section-6-2.3" class="pilcrow">¶</a>
-</li>
-      </ul>
-<p id="section-6-3">Additional validation rules MAY apply but their use is out-of-scope of this specification.<a href="#section-6-3" class="pilcrow">¶</a></p>
-<div id="issuer-authentication">
-<section id="section-6.1">
-        <h3 id="name-issuer-authentication">
-<a href="#section-6.1" class="section-number selfRef">6.1. </a><a href="#name-issuer-authentication" class="section-name selfRef">Issuer Authentication</a>
+<div id="public-jwt-claims">
+<section id="section-4.2.2.3">
+            <h5 id="name-public-jwt-claims">
+<a href="#section-4.2.2.3" class="section-number selfRef">4.2.2.3. </a><a href="#name-public-jwt-claims" class="section-name selfRef">Public JWT claims</a>
+            </h5>
+<p id="section-4.2.2.3-1">Additional public claims MAY be used in SD-JWT VCs depending on the
+application.<a href="#section-4.2.2.3-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+</section>
+</div>
+<div id="example">
+<section id="section-4.3">
+        <h3 id="name-example">
+<a href="#section-4.3" class="section-number selfRef">4.3. </a><a href="#name-example" class="section-name selfRef">Example</a>
         </h3>
-<p id="section-6.1-1">Verifiers processing SD-JWT-VCs MUST verify the signature of the SD-JWT with the public key of the SD-JWT-VC issuer. This makes sure that the SD-JWT-VC was issued by the SD-JWT-VC issuer and that it has not been tampered with since issuance.<a href="#section-6.1-1" class="pilcrow">¶</a></p>
-<p id="section-6.1-2">The <code>iss</code> claim in the SD-JWT-VC MAY be used to retrieve the public key from the JWT Issuer Metadata configuration (as defined in {#jwt-issuer-metadata}) of the SD-JWT-VC issuer. A verifier MAY use alternative methods to obtain the public key to verify the signature of the SD-JWT.<a href="#section-6.1-2" class="pilcrow">¶</a></p>
+<p id="section-4.3-1">The following is a non-normative example of an unsecured payload of an
+SD-JWT VC.<a href="#section-4.3-1" class="pilcrow">¶</a></p>
+<div class="lang-json sourcecode" id="section-4.3-2">
+<pre>{
+  "type": "IdentityCredential",
+  "given_name": "John",
+  "family_name": "Doe",
+  "email": "johndoe@example.com",
+  "phone_number": "+1-202-555-0101",
+  "address": {
+    "street_address": "123 Main St",
+    "locality": "Anytown",
+    "region": "Anystate",
+    "country": "US"
+  },
+  "birthdate": "1940-01-01",
+  "is_over_18": true,
+  "is_over_21": true,
+  "is_over_65": true
+}
+</pre><a href="#section-4.3-2" class="pilcrow">¶</a>
+</div>
+<p id="section-4.3-3">The following is a non-normative example of how the unsecured payload of the
+SD-JWT VC above can be used in a SD-JWT where the resulting SD-JWT VC contains
+only claims about the Subject that are selectively disclosable:<a href="#section-4.3-3" class="pilcrow">¶</a></p>
+<div class="lang-json sourcecode" id="section-4.3-4">
+<pre>{
+  "_sd": [
+    "09vKrJMOlyTWM0sjpu_pdOBVBQ2M1y3KhpH515nXkpY",
+    "2rsjGbaC0ky8mT0pJrPioWTq0_daw1sX76poUlgCwbI",
+    "EkO8dhW0dHEJbvUHlE_VCeuC9uRELOieLZhh7XbUTtA",
+    "IlDzIKeiZdDwpqpK6ZfbyphFvz5FgnWa-sN6wqQXCiw",
+    "JzYjH4svliH0R3PyEMfeZu6Jt69u5qehZo7F7EPYlSE",
+    "PorFbpKuVu6xymJagvkFsFXAbRoc2JGlAUA2BA4o7cI",
+    "TGf4oLbgwd5JQaHyKVQZU9UdGE0w5rtDsrZzfUaomLo",
+    "jdrTE8YcbY4EifugihiAe_BPekxJQZICeiUQwY9QqxI",
+    "jsu9yVulwQQlhFlM_3JlzMaSFzglhQG0DpfayQwLUK4"
+  ],
+  "iss": "https://example.com/issuer",
+  "iat": 1683000000,
+  "exp": 1883000000,
+  "type": "IdentityCredential",
+  "_sd_alg": "sha-256",
+  "cnf": {
+    "jwk": {
+      "kty": "EC",
+      "crv": "P-256",
+      "x": "TCAER19Zvu3OHF4j4W4vfSVoHIP1ILilDls7vCeGemc",
+      "y": "ZxjiWWbZMQGHVWKVQ4hbSIirsVfuecCE6t4jT9F2HZQ"
+    }
+  }
+}
+</pre><a href="#section-4.3-4" class="pilcrow">¶</a>
+</div>
+<p id="section-4.3-5">Note that a <code>cnf</code> claim has been added to the SD-JWT payload to express the
+confirmation method of the holder binding.<a href="#section-4.3-5" class="pilcrow">¶</a></p>
+<p id="section-4.3-6">The following are the Disclosures belonging to the SD-JWT payload above:<a href="#section-4.3-6" class="pilcrow">¶</a></p>
+<p id="section-4.3-7"><strong>Claim <code>given_name</code></strong>:<a href="#section-4.3-7" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-4.3-8.1">SHA-256 Hash: <code>jsu9yVulwQQlhFlM_3JlzMaSFzglhQG0DpfayQwLUK4</code><a href="#section-4.3-8.1" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-4.3-8.2">Disclosure:<br>
+            <code>WyIyR0xDNDJzS1F2ZUNmR2ZyeU5STjl3IiwgImdpdmVuX25hbWUiLCAiSm9o</code><br>
+            <code>biJd</code><a href="#section-4.3-8.2" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-4.3-8.3">Contents:
+<code>["2GLC42sKQveCfGfryNRN9w", "given_name", "John"]</code><a href="#section-4.3-8.3" class="pilcrow">¶</a>
+</li>
+        </ul>
+<p id="section-4.3-9"><strong>Claim <code>family_name</code></strong>:<a href="#section-4.3-9" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-4.3-10.1">SHA-256 Hash: <code>TGf4oLbgwd5JQaHyKVQZU9UdGE0w5rtDsrZzfUaomLo</code><a href="#section-4.3-10.1" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-4.3-10.2">Disclosure:<br>
+            <code>WyJlbHVWNU9nM2dTTklJOEVZbnN4QV9BIiwgImZhbWlseV9uYW1lIiwgIkRv</code><br>
+            <code>ZSJd</code><a href="#section-4.3-10.2" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-4.3-10.3">Contents:
+<code>["eluV5Og3gSNII8EYnsxA_A", "family_name", "Doe"]</code><a href="#section-4.3-10.3" class="pilcrow">¶</a>
+</li>
+        </ul>
+<p id="section-4.3-11"><strong>Claim <code>email</code></strong>:<a href="#section-4.3-11" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-4.3-12.1">SHA-256 Hash: <code>JzYjH4svliH0R3PyEMfeZu6Jt69u5qehZo7F7EPYlSE</code><a href="#section-4.3-12.1" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-4.3-12.2">Disclosure:<br>
+            <code>WyI2SWo3dE0tYTVpVlBHYm9TNXRtdlZBIiwgImVtYWlsIiwgImpvaG5kb2VA</code><br>
+            <code>ZXhhbXBsZS5jb20iXQ</code><a href="#section-4.3-12.2" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-4.3-12.3">Contents:
+<code>["6Ij7tM-a5iVPGboS5tmvVA", "email", "johndoe@example.com"]</code><a href="#section-4.3-12.3" class="pilcrow">¶</a>
+</li>
+        </ul>
+<p id="section-4.3-13"><strong>Claim <code>phone_number</code></strong>:<a href="#section-4.3-13" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-4.3-14.1">SHA-256 Hash: <code>PorFbpKuVu6xymJagvkFsFXAbRoc2JGlAUA2BA4o7cI</code><a href="#section-4.3-14.1" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-4.3-14.2">Disclosure:<br>
+            <code>WyJlSThaV205UW5LUHBOUGVOZW5IZGhRIiwgInBob25lX251bWJlciIsICIr</code><br>
+            <code>MS0yMDItNTU1LTAxMDEiXQ</code><a href="#section-4.3-14.2" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-4.3-14.3">Contents:
+<code>["eI8ZWm9QnKPpNPeNenHdhQ", "phone_number",</code><br>
+            <code>"+1-202-555-0101"]</code><a href="#section-4.3-14.3" class="pilcrow">¶</a>
+</li>
+        </ul>
+<p id="section-4.3-15"><strong>Claim <code>address</code></strong>:<a href="#section-4.3-15" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-4.3-16.1">SHA-256 Hash: <code>IlDzIKeiZdDwpqpK6ZfbyphFvz5FgnWa-sN6wqQXCiw</code><a href="#section-4.3-16.1" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-4.3-16.2">Disclosure:<br>
+            <code>WyJRZ19PNjR6cUF4ZTQxMmExMDhpcm9BIiwgImFkZHJlc3MiLCB7InN0cmVl</code><br>
+            <code>dF9hZGRyZXNzIjogIjEyMyBNYWluIFN0IiwgImxvY2FsaXR5IjogIkFueXRv</code><br>
+            <code>d24iLCAicmVnaW9uIjogIkFueXN0YXRlIiwgImNvdW50cnkiOiAiVVMifV0</code><a href="#section-4.3-16.2" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-4.3-16.3">Contents:
+<code>["Qg_O64zqAxe412a108iroA", "address", {"street_address":</code><br>
+            <code>"123 Main St", "locality": "Anytown", "region": "Anystate",</code><br>
+            <code>"country": "US"}]</code><a href="#section-4.3-16.3" class="pilcrow">¶</a>
+</li>
+        </ul>
+<p id="section-4.3-17"><strong>Claim <code>birthdate</code></strong>:<a href="#section-4.3-17" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-4.3-18.1">SHA-256 Hash: <code>jdrTE8YcbY4EifugihiAe_BPekxJQZICeiUQwY9QqxI</code><a href="#section-4.3-18.1" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-4.3-18.2">Disclosure:<br>
+            <code>WyJBSngtMDk1VlBycFR0TjRRTU9xUk9BIiwgImJpcnRoZGF0ZSIsICIxOTQw</code><br>
+            <code>LTAxLTAxIl0</code><a href="#section-4.3-18.2" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-4.3-18.3">Contents:
+<code>["AJx-095VPrpTtN4QMOqROA", "birthdate", "1940-01-01"]</code><a href="#section-4.3-18.3" class="pilcrow">¶</a>
+</li>
+        </ul>
+<p id="section-4.3-19"><strong>Claim <code>is_over_18</code></strong>:<a href="#section-4.3-19" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-4.3-20.1">SHA-256 Hash: <code>09vKrJMOlyTWM0sjpu_pdOBVBQ2M1y3KhpH515nXkpY</code><a href="#section-4.3-20.1" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-4.3-20.2">Disclosure:<br>
+            <code>WyJQYzMzSk0yTGNoY1VfbEhnZ3ZfdWZRIiwgImlzX292ZXJfMTgiLCB0cnVl</code><br>
+            <code>XQ</code><a href="#section-4.3-20.2" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-4.3-20.3">Contents:
+<code>["Pc33JM2LchcU_lHggv_ufQ", "is_over_18", true]</code><a href="#section-4.3-20.3" class="pilcrow">¶</a>
+</li>
+        </ul>
+<p id="section-4.3-21"><strong>Claim <code>is_over_21</code></strong>:<a href="#section-4.3-21" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-4.3-22.1">SHA-256 Hash: <code>2rsjGbaC0ky8mT0pJrPioWTq0_daw1sX76poUlgCwbI</code><a href="#section-4.3-22.1" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-4.3-22.2">Disclosure:<br>
+            <code>WyJHMDJOU3JRZmpGWFE3SW8wOXN5YWpBIiwgImlzX292ZXJfMjEiLCB0cnVl</code><br>
+            <code>XQ</code><a href="#section-4.3-22.2" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-4.3-22.3">Contents:
+<code>["G02NSrQfjFXQ7Io09syajA", "is_over_21", true]</code><a href="#section-4.3-22.3" class="pilcrow">¶</a>
+</li>
+        </ul>
+<p id="section-4.3-23"><strong>Claim <code>is_over_65</code></strong>:<a href="#section-4.3-23" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-4.3-24.1">SHA-256 Hash: <code>EkO8dhW0dHEJbvUHlE_VCeuC9uRELOieLZhh7XbUTtA</code><a href="#section-4.3-24.1" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-4.3-24.2">Disclosure:<br>
+            <code>WyJsa2x4RjVqTVlsR1RQVW92TU5JdkNBIiwgImlzX292ZXJfNjUiLCB0cnVl</code><br>
+            <code>XQ</code><a href="#section-4.3-24.2" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-4.3-24.3">Contents:
+<code>["lklxF5jMYlGTPUovMNIvCA", "is_over_65", true]</code><a href="#section-4.3-24.3" class="pilcrow">¶</a>
+</li>
+        </ul>
+<p id="section-4.3-25">The SD-JWT and the Disclosures would then be serialized by the Issuer into the following format for issuance to the Holder:<a href="#section-4.3-25" class="pilcrow">¶</a></p>
+<div class="lang-txt sourcecode" id="section-4.3-26">
+<pre>eyJhbGciOiAiRVMyNTYifQ.eyJfc2QiOiBbIjA5dktySk1PbHlUV00wc2pwdV9wZE9CV
+kJRMk0xeTNLaHBINTE1blhrcFkiLCAiMnJzakdiYUMwa3k4bVQwcEpyUGlvV1RxMF9kY
+Xcxc1g3NnBvVWxnQ3diSSIsICJFa084ZGhXMGRIRUpidlVIbEVfVkNldUM5dVJFTE9pZ
+UxaaGg3WGJVVHRBIiwgIklsRHpJS2VpWmREd3BxcEs2WmZieXBoRnZ6NUZnbldhLXNON
+ndxUVhDaXciLCAiSnpZakg0c3ZsaUgwUjNQeUVNZmVadTZKdDY5dTVxZWhabzdGN0VQW
+WxTRSIsICJQb3JGYnBLdVZ1Nnh5bUphZ3ZrRnNGWEFiUm9jMkpHbEFVQTJCQTRvN2NJI
+iwgIlRHZjRvTGJnd2Q1SlFhSHlLVlFaVTlVZEdFMHc1cnREc3JaemZVYW9tTG8iLCAia
+mRyVEU4WWNiWTRFaWZ1Z2loaUFlX0JQZWt4SlFaSUNlaVVRd1k5UXF4SSIsICJqc3U5e
+VZ1bHdRUWxoRmxNXzNKbHpNYVNGemdsaFFHMERwZmF5UXdMVUs0Il0sICJpc3MiOiAia
+HR0cHM6Ly9leGFtcGxlLmNvbS9pc3N1ZXIiLCAiaWF0IjogMTY4MzAwMDAwMCwgImV4c
+CI6IDE4ODMwMDAwMDAsICJ0eXBlIjogIklkZW50aXR5Q3JlZGVudGlhbCIsICJfc2RfY
+WxnIjogInNoYS0yNTYiLCAiY25mIjogeyJqd2siOiB7Imt0eSI6ICJFQyIsICJjcnYiO
+iAiUC0yNTYiLCAieCI6ICJUQ0FFUjE5WnZ1M09IRjRqNFc0dmZTVm9ISVAxSUxpbERsc
+zd2Q2VHZW1jIiwgInkiOiAiWnhqaVdXYlpNUUdIVldLVlE0aGJTSWlyc1ZmdWVjQ0U2d
+DRqVDlGMkhaUSJ9fX0.jU6cPL0S03UngNyg6ngomwfEqURQTt2szTaSLJ4ZeEjMQ2YkQ
+4TmS8qplaTZtGM3jNThiMA_QItoy6a6nQglPQ~WyIyR0xDNDJzS1F2ZUNmR2ZyeU5STj
+l3IiwgImdpdmVuX25hbWUiLCAiSm9obiJd~WyJlbHVWNU9nM2dTTklJOEVZbnN4QV9BI
+iwgImZhbWlseV9uYW1lIiwgIkRvZSJd~WyI2SWo3dE0tYTVpVlBHYm9TNXRtdlZBIiwg
+ImVtYWlsIiwgImpvaG5kb2VAZXhhbXBsZS5jb20iXQ~WyJlSThaV205UW5LUHBOUGVOZ
+W5IZGhRIiwgInBob25lX251bWJlciIsICIrMS0yMDItNTU1LTAxMDEiXQ~WyJRZ19PNj
+R6cUF4ZTQxMmExMDhpcm9BIiwgImFkZHJlc3MiLCB7InN0cmVldF9hZGRyZXNzIjogIj
+EyMyBNYWluIFN0IiwgImxvY2FsaXR5IjogIkFueXRvd24iLCAicmVnaW9uIjogIkFueX
+N0YXRlIiwgImNvdW50cnkiOiAiVVMifV0~WyJBSngtMDk1VlBycFR0TjRRTU9xUk9BIi
+wgImJpcnRoZGF0ZSIsICIxOTQwLTAxLTAxIl0~WyJQYzMzSk0yTGNoY1VfbEhnZ3ZfdW
+ZRIiwgImlzX292ZXJfMTgiLCB0cnVlXQ~WyJHMDJOU3JRZmpGWFE3SW8wOXN5YWpBIiw
+gImlzX292ZXJfMjEiLCB0cnVlXQ~WyJsa2x4RjVqTVlsR1RQVW92TU5JdkNBIiwgImlz
+X292ZXJfNjUiLCB0cnVlXQ
+</pre><a href="#section-4.3-26" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+<div id="vc-sd-jwt-verification-and-processing">
+<section id="section-4.4">
+        <h3 id="name-verification-and-processing">
+<a href="#section-4.4" class="section-number selfRef">4.4. </a><a href="#name-verification-and-processing" class="section-name selfRef">Verification and Processing</a>
+        </h3>
+<p id="section-4.4-1">The recipient of the SD-JWT VC MUST process and verify an SD-JWT VC as
+follows:<a href="#section-4.4-1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-4.4-2">
+<li id="section-4.4-2.1">REQUIRED. Process and verify the SD-JWT as defined in
+Section 6. of <span>[<a href="#I-D.ietf-oauth-selective-disclosure-jwt" class="cite xref">I-D.ietf-oauth-selective-disclosure-jwt</a>]</span>. For the
+verification, the <code>iss</code> claim in the SD-JWT MAY be used to retrieve the public
+key from the JWT Issuer Metadata configuration (as defined in
+<a href="#jwt-issuer-metadata" class="auto internal xref">Section 5</a>) of the SD-JWT VC issuer. A Verifier MAY use alternative
+methods to obtain the public key to verify the signature of the SD-JWT.<a href="#section-4.4-2.1" class="pilcrow">¶</a>
+</li>
+          <li id="section-4.4-2.2">OPTIONAL. If <code>status</code> is present in the verified payload of the SD-JWT,
+the status SHOULD be checked. It depends on the Verifier policy to reject or
+accept a presentation of a SD-JWT VC based on the status of the Verifiable
+Credential.<a href="#section-4.4-2.2" class="pilcrow">¶</a>
+</li>
+        </ol>
+<p id="section-4.4-3">Any claims used that are not understood MUST be ignored.<a href="#section-4.4-3" class="pilcrow">¶</a></p>
+<p id="section-4.4-4">Additional validation rules MAY apply, but their use is out of the scope of
+this specification.<a href="#section-4.4-4" class="pilcrow">¶</a></p>
+</section>
+</div>
 </section>
 </div>
 <div id="jwt-issuer-metadata">
-<section id="section-6.2">
-        <h3 id="name-jwt-issuer-metadata">
-<a href="#section-6.2" class="section-number selfRef">6.2. </a><a href="#name-jwt-issuer-metadata" class="section-name selfRef">JWT Issuer Metadata</a>
+<section id="section-5">
+      <h2 id="name-jwt-issuer-metadata">
+<a href="#section-5" class="section-number selfRef">5. </a><a href="#name-jwt-issuer-metadata" class="section-name selfRef">JWT Issuer Metadata</a>
+      </h2>
+<p id="section-5-1">This specification defines the JWT Issuer Metadata to retrieve the JWT Issuer
+Metadata configuration of the JWT Issuer of the JWT. The JWT Issuer is
+identified by the <code>iss</code> claim in the JWT. Use of the JWT Issuer Metadata
+is OPTIONAL.<a href="#section-5-1" class="pilcrow">¶</a></p>
+<p id="section-5-2">JWT Issuers publishing JWT Issuer Metadata MUST make a JWT Issuer Metadata
+configuration available at the path formed by concatenating the string
+<code>/.well-known/jwt-issuer</code> to the <code>iss</code> claim value in the JWT. The <code>iss</code> MUST
+be a case-sensitive URL using the HTTPS scheme that contains scheme, host and,
+optionally, port number and path components, but no query or fragment
+components.<a href="#section-5-2" class="pilcrow">¶</a></p>
+<div id="jwt-issuer-metadata-request">
+<section id="section-5.1">
+        <h3 id="name-jwt-issuer-metadata-request">
+<a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-jwt-issuer-metadata-request" class="section-name selfRef">JWT Issuer Metadata Request</a>
         </h3>
-<p id="section-6.2-1">This specification defines the JWT Issuer Metadata to retrieve the JWT Issuer Metadata configuration of the JWT Issuer of the JWT. The JWT Issuer is identified by the <code>iss</code> claim in the JWT. Use of the JWT Issuer Metadata is OPTIONAL.<a href="#section-6.2-1" class="pilcrow">¶</a></p>
-<p id="section-6.2-2">JWT Issuers publishing JWT Issuer Metadata MUST make a JWT Issuer Metadata configuration available at the path formed by concatenating the string <code>/.well-known/jwt-issuer</code> to the <code>iss</code> claim value in the JWT. The <code>iss</code> MUST be a case-sensitive URL using the HTTPS scheme that contains scheme, host and, optionally, port number and path components, but no query or fragment components.<a href="#section-6.2-2" class="pilcrow">¶</a></p>
-<p id="section-6.2-3">The JWT Issuer Metadata configuration MUST be a JSON document compliant with this specification and MUST be returned using the application/json content type.<a href="#section-6.2-3" class="pilcrow">¶</a></p>
-<p id="section-6.2-4">This specification defines the following JWT Issuer Metadata parameters:<a href="#section-6.2-4" class="pilcrow">¶</a></p>
+<p id="section-5.1-1">A JWT Issuer Metadata configuration MUST be queried using an HTTP <code>GET</code> request
+at the path defined in <a href="#jwt-issuer-metadata" class="auto internal xref">Section 5</a>.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
+<p id="section-5.1-2">The following is a non-normative example of a HTTP request for the JWT Issuer
+Metadata configuration when <code>iss</code> is set to <code>https://example.com</code>:<a href="#section-5.1-2" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.1-3">
+<pre>GET /.well-known/jwt-issuer HTTP/1.1
+Host: example.com
+</pre><a href="#section-5.1-3" class="pilcrow">¶</a>
+</div>
+<p id="section-5.1-4">If the <code>iss</code> value contains a path component, any terminating <code>/</code> MUST be
+removed before inserting <code>/.well-known/</code> and the well-known URI suffix
+between the host component and the path component.<a href="#section-5.1-4" class="pilcrow">¶</a></p>
+<p id="section-5.1-5">The following is a non-normative example of a HTTP request for the JWT Issuer
+Metadata configuration when <code>iss</code> is set to <code>https://example.com/user/1234</code>:<a href="#section-5.1-5" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.1-6">
+<pre>GET /.well-known/jwt-issuer/user/1234 HTTP/1.1
+Host: example.com
+</pre><a href="#section-5.1-6" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+<div id="jwt-issuer-metadata-response">
+<section id="section-5.2">
+        <h3 id="name-jwt-issuer-metadata-respons">
+<a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-jwt-issuer-metadata-respons" class="section-name selfRef">JWT Issuer Metadata Response</a>
+        </h3>
+<p id="section-5.2-1">A successful response MUST use the <code>200 OK HTTP</code> and return the JWT Issuer
+Metadata configuration using the <code>application/json</code> content type.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
+<p id="section-5.2-2">An error response uses the applicable HTTP status code value.<a href="#section-5.2-2" class="pilcrow">¶</a></p>
+<p id="section-5.2-3">This specification defines the following JWT Issuer Metadata configuration
+parameters:<a href="#section-5.2-3" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-6.2-5.1">
-            <p id="section-6.2-5.1.1"><code>jwks_uri</code><a href="#section-6.2-5.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-5.2-4.1">
+            <code>issuer</code>
+  REQUIRED. The JWT Issuer identifier, which MUST be identical to the <code>iss</code>
+value in the JWT.<a href="#section-5.2-4.1" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-5.2-4.2">
+            <p id="section-5.2-4.2.1"><code>jwks_uri</code><a href="#section-5.2-4.2.1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-6.2-5.1.2.1">OPTIONAL. URL string referencing the JWT Issuer's JSON Web Key (JWK) Set [RFC7517] document, which contains the JWT Issuer's public keys. The value of this field MUST point to a valid JWK Set document. Use of this parameter is preferred over the <code>jwks</code> parameter, as it allows for easier key rotation. JWT Issuer MUST include either <code>jwks_uri</code> or <code>jwks</code> in their JWT Issuer Metadata. <code>jwks_uri</code> and <code>jwks</code> MUST NOT both be present in the same JWT Issuer Metadata.<a href="#section-6.2-5.1.2.1" class="pilcrow">¶</a>
+<li class="normal" id="section-5.2-4.2.2.1">OPTIONAL. URL string referencing the JWT Issuer's JSON Web Key (JWK) Set
+<span>[<a href="#RFC7517" class="cite xref">RFC7517</a>]</span> document which contains the JWT Issuer's public keys. The value of
+this field MUST point to a valid JWK Set document. Use of this parameter is
+RECOMMENDED, as it allows for easy key rotation.<a href="#section-5.2-4.2.2.1" class="pilcrow">¶</a>
 </li>
             </ul>
 </li>
-          <li class="normal" id="section-6.2-5.2">
-            <p id="section-6.2-5.2.1"><code>jwks</code><a href="#section-6.2-5.2.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-5.2-4.3">
+            <p id="section-5.2-4.3.1"><code>jwks</code><a href="#section-5.2-4.3.1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-6.2-5.2.2.1">OPTIONAL. JWT Issuer's JSON Web Key Set [RFC7517] document value, which contains the JWT Issuer's public keys. The value of this field MUST be a JSON object containing a valid JWK Set. This parameter is intended to be used by JWT Issuer that cannot use the <code>jwks_uri</code> parameter. JWT Issuer MUST include either <code>jwks_uri</code> or <code>jwks</code> in their JWT Issuer Metadata. <code>jwks_uri</code> and <code>jwks</code> MUST NOT both be present in the same JWT Issuer Metadata.<a href="#section-6.2-5.2.2.1" class="pilcrow">¶</a>
+<li class="normal" id="section-5.2-4.3.2.1">OPTIONAL. JWT Issuer's JSON Web Key Set <span>[<a href="#RFC7517" class="cite xref">RFC7517</a>]</span> document value, which
+contains the JWT Issuer's public keys. The value of this field MUST be a JSON
+object containing a valid JWK Set. This parameter is intended to be used by JWT
+Issuer that cannot use the <code>jwks_uri</code> parameter.<a href="#section-5.2-4.3.2.1" class="pilcrow">¶</a>
 </li>
             </ul>
 </li>
         </ul>
-<p id="section-6.2-6">It is RECOMMENDED that the JWT contains a <code>kid</code> JWT header parameter that can be used to lookup the public key in the JWK Set included by value or referenced in the JWT Issuer Metadata.<a href="#section-6.2-6" class="pilcrow">¶</a></p>
-<p id="section-6.2-7">The following is a non-normative example of a JWT Issuer Metadata including <code>jwks</code>:<a href="#section-6.2-7" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-6.2-8">
+<p id="section-5.2-5">JWT Issuer Metadata MUST include either <code>jwks_uri</code> or <code>jwks</code> in their JWT
+Issuer Metadata, but not both.<a href="#section-5.2-5" class="pilcrow">¶</a></p>
+<p id="section-5.2-6">It is RECOMMENDED that the JWT contains a <code>kid</code> JWT header parameter that can
+be used to lookup the public key in the JWK Set included by value or referenced
+in the JWT Issuer Metadata.<a href="#section-5.2-6" class="pilcrow">¶</a></p>
+<p id="section-5.2-7">The following is a non-normative example of a JWT Issuer Metadata configuration
+including <code>jwks</code>:<a href="#section-5.2-7" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.2-8">
 <pre>{
+   "issuer":"https://example.com",
    "jwks":{
       "keys":[
          {
+            "kid":"doc-signer-05-25-2022",
             "e":"AQAB",
             "n":"nj3YJwsLUFl9BmpAbkOswCNVx17Eh9wMO-_AReZwBqfaWFcfG
    HrZXsIV2VMCNVNU8Tpb4obUaSXcRcQ-VMsfQPJm9IzgtRdAY8NN8Xb7PEcYyk
@@ -1437,73 +1931,227 @@ svg :is([fill="white"], [fill^="#fff"]) {
       ]
    }
 }
-</pre><a href="#section-6.2-8" class="pilcrow">¶</a>
+</pre><a href="#section-5.2-8" class="pilcrow">¶</a>
 </div>
-<p id="section-6.2-9">The following is a non-normative example of a JWT Issuer Metadata including <code>jwks_uri</code>:<a href="#section-6.2-9" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-6.2-10">
+<p id="section-5.2-9">The following is a non-normative example of a JWT Issuer Metadata
+configuration including <code>jwks_uri</code>:<a href="#section-5.2-9" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.2-10">
 <pre>{
+   "issuer":"https://example.com",
    "jwks_uri":"https://jwt-issuer.example.org/my_public_keys.jwks"
 }
-</pre><a href="#section-6.2-10" class="pilcrow">¶</a>
+</pre><a href="#section-5.2-10" class="pilcrow">¶</a>
 </div>
+<p id="section-5.2-11">Additional JWT Issuer Metadata configuration parameters MAY also be used.<a href="#section-5.2-11" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="jwt-issuer-metadata-validation">
+<section id="section-5.3">
+        <h3 id="name-jwt-issuer-metadata-validat">
+<a href="#section-5.3" class="section-number selfRef">5.3. </a><a href="#name-jwt-issuer-metadata-validat" class="section-name selfRef">JWT Issuer Metadata Validation</a>
+        </h3>
+<p id="section-5.3-1">The <code>issuer</code> value returned MUST be identical to the <code>iss</code> value of the JWT. If
+these values are not identical, the data contained in the response MUST NOT be
+used.<a href="#section-5.3-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
 </div>
-<div id="verifiable-presentation-support">
-<section id="section-7">
-      <h2 id="name-verifiable-presentation-sup">
-<a href="#section-7" class="section-number selfRef">7. </a><a href="#name-verifiable-presentation-sup" class="section-name selfRef">Verifiable Presentation Support</a>
+<div id="presenting-verifiable-credentials">
+<section id="section-6">
+      <h2 id="name-presenting-verifiable-crede">
+<a href="#section-6" class="section-number selfRef">6. </a><a href="#name-presenting-verifiable-crede" class="section-name selfRef">Presenting Verifiable Credentials</a>
       </h2>
-<p id="section-7-1">TBD: we would like to register a media type for vp+sd-jwt<a href="#section-7-1" class="pilcrow">¶</a></p>
+<p id="section-6-1">This section defines encoding, validation and processing rules for presentations
+of SD-JWT VCs.<a href="#section-6-1" class="pilcrow">¶</a></p>
+<div id="data-format-1">
+<section id="section-6.1">
+        <h3 id="name-data-format-2">
+<a href="#section-6.1" class="section-number selfRef">6.1. </a><a href="#name-data-format-2" class="section-name selfRef">Data Format</a>
+        </h3>
+<p id="section-6.1-1">A presentation of an SD-JWT VC MUST be encoded using the SD-JWT Combined
+Format for Presentation as defined in Section 5.4. of
+<span>[<a href="#I-D.ietf-oauth-selective-disclosure-jwt" class="cite xref">I-D.ietf-oauth-selective-disclosure-jwt</a>]</span>.<a href="#section-6.1-1" class="pilcrow">¶</a></p>
+<p id="section-6.1-2">A presentation of an SD-JWT VC MAY contain a Holder Binding JWT as described in
+Section 5.4.1. of <span>[<a href="#I-D.ietf-oauth-selective-disclosure-jwt" class="cite xref">I-D.ietf-oauth-selective-disclosure-jwt</a>]</span>.<a href="#section-6.1-2" class="pilcrow">¶</a></p>
+<div id="holder-binding-jwt">
+<section id="section-6.1.1">
+          <h4 id="name-holder-binding-jwt">
+<a href="#section-6.1.1" class="section-number selfRef">6.1.1. </a><a href="#name-holder-binding-jwt" class="section-name selfRef">Holder Binding JWT</a>
+          </h4>
+<p id="section-6.1.1-1">If the presentation of the SD-JWT VC includes a Holder Binding JWT, the
+following claims are used within the Holder Binding JWT:<a href="#section-6.1.1-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-6.1.1-2.1">
+              <p id="section-6.1.1-2.1.1"><code>nonce</code><a href="#section-6.1.1-2.1.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-6.1.1-2.1.2.1">REQUIRED. String value used to associate a transaction between a Verifier
+an a Holder, and to mitigate replay attacks. The value is passed
+through unmodified from the Verifier to the Holder Binding JWT. Sufficient
+entropy MUST be present in the <code>nonce</code> values used to prevent attackers from
+guessing values.<a href="#section-6.1.1-2.1.2.1" class="pilcrow">¶</a>
+</li>
+              </ul>
+</li>
+            <li class="normal" id="section-6.1.1-2.2">
+              <p id="section-6.1.1-2.2.1"><code>aud</code><a href="#section-6.1.1-2.2.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-6.1.1-2.2.2.1">REQUIRED. The intended recipient of the Holder Binding JWT which is
+typically the Verifier. See <span>[<a href="#RFC7519" class="cite xref">RFC7519</a>]</span> for more information.<a href="#section-6.1.1-2.2.2.1" class="pilcrow">¶</a>
+</li>
+              </ul>
+</li>
+            <li class="normal" id="section-6.1.1-2.3">
+              <p id="section-6.1.1-2.3.1"><code>iat</code><a href="#section-6.1.1-2.3.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-6.1.1-2.3.2.1">REQUIRED. The time of issuance of the Holder Binding JWT. See
+<span>[<a href="#RFC7519" class="cite xref">RFC7519</a>]</span> for more information.<a href="#section-6.1.1-2.3.2.1" class="pilcrow">¶</a>
+</li>
+              </ul>
+</li>
+            <li class="normal" id="section-6.1.1-2.4">
+              <p id="section-6.1.1-2.4.1"><code>exp</code><a href="#section-6.1.1-2.4.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-6.1.1-2.4.2.1">OPTIONAL. The expiration time of the signature when
+the Holder Binding is no longer considered valid. See <span>[<a href="#RFC7519" class="cite xref">RFC7519</a>]</span>
+for more information.<a href="#section-6.1.1-2.4.2.1" class="pilcrow">¶</a>
+</li>
+              </ul>
+</li>
+          </ul>
+<p id="section-6.1.1-3">The Holder Binding JWT MAY include addtional claims which when not understood
+MUST be ignored.<a href="#section-6.1.1-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="examples">
+<section id="section-6.2">
+        <h3 id="name-examples">
+<a href="#section-6.2" class="section-number selfRef">6.2. </a><a href="#name-examples" class="section-name selfRef">Examples</a>
+        </h3>
+<p id="section-6.2-1">The following is a non-normative example of a presentation of the SD-JWT shown
+above including a Holder Binding JWT:<a href="#section-6.2-1" class="pilcrow">¶</a></p>
+<div class="lang-txt sourcecode" id="section-6.2-2">
+<pre>eyJhbGciOiAiRVMyNTYifQ.eyJfc2QiOiBbIjA5dktySk1PbHlUV00wc2pwdV9wZE9CV
+kJRMk0xeTNLaHBINTE1blhrcFkiLCAiMnJzakdiYUMwa3k4bVQwcEpyUGlvV1RxMF9kY
+Xcxc1g3NnBvVWxnQ3diSSIsICJFa084ZGhXMGRIRUpidlVIbEVfVkNldUM5dVJFTE9pZ
+UxaaGg3WGJVVHRBIiwgIklsRHpJS2VpWmREd3BxcEs2WmZieXBoRnZ6NUZnbldhLXNON
+ndxUVhDaXciLCAiSnpZakg0c3ZsaUgwUjNQeUVNZmVadTZKdDY5dTVxZWhabzdGN0VQW
+WxTRSIsICJQb3JGYnBLdVZ1Nnh5bUphZ3ZrRnNGWEFiUm9jMkpHbEFVQTJCQTRvN2NJI
+iwgIlRHZjRvTGJnd2Q1SlFhSHlLVlFaVTlVZEdFMHc1cnREc3JaemZVYW9tTG8iLCAia
+mRyVEU4WWNiWTRFaWZ1Z2loaUFlX0JQZWt4SlFaSUNlaVVRd1k5UXF4SSIsICJqc3U5e
+VZ1bHdRUWxoRmxNXzNKbHpNYVNGemdsaFFHMERwZmF5UXdMVUs0Il0sICJpc3MiOiAia
+HR0cHM6Ly9leGFtcGxlLmNvbS9pc3N1ZXIiLCAiaWF0IjogMTY4MzAwMDAwMCwgImV4c
+CI6IDE4ODMwMDAwMDAsICJ0eXBlIjogIklkZW50aXR5Q3JlZGVudGlhbCIsICJfc2RfY
+WxnIjogInNoYS0yNTYiLCAiY25mIjogeyJqd2siOiB7Imt0eSI6ICJFQyIsICJjcnYiO
+iAiUC0yNTYiLCAieCI6ICJUQ0FFUjE5WnZ1M09IRjRqNFc0dmZTVm9ISVAxSUxpbERsc
+zd2Q2VHZW1jIiwgInkiOiAiWnhqaVdXYlpNUUdIVldLVlE0aGJTSWlyc1ZmdWVjQ0U2d
+DRqVDlGMkhaUSJ9fX0.jU6cPL0S03UngNyg6ngomwfEqURQTt2szTaSLJ4ZeEjMQ2YkQ
+4TmS8qplaTZtGM3jNThiMA_QItoy6a6nQglPQ~eyJhbGciOiAiRVMyNTYiLCAidHlwIj
+ogImhiK2p3dCJ9.eyJub25jZSI6ICIxMjM0NTY3ODkwIiwgImF1ZCI6ICJodHRwczovL
+2V4YW1wbGUuY29tL3ZlcmlmaWVyIiwgImlhdCI6IDE2ODYxNzc0MzB9.rXhO6fKb3ucH
+gg4EBjndyKe5Gslwlt3WOXQ2kh6NZiEyImWDgBCvIwj7A_6q9WDvTbcCjKIwUP9gVxMh
+bbN-KA
+</pre><a href="#section-6.2-2" class="pilcrow">¶</a>
+</div>
+<p id="section-6.2-3">In this presentation, the Holder provides only the Disclosure for the claim
+<code>address</code>. Other claims are not disclosed to the Verifier.<a href="#section-6.2-3" class="pilcrow">¶</a></p>
+<p id="section-6.2-4">The following example shows a presentation of a (different) SD-JWT without a
+Holder Binding JWT:<a href="#section-6.2-4" class="pilcrow">¶</a></p>
+<div class="lang-txt sourcecode" id="section-6.2-5">
+<pre>eyJhbGciOiAiRVMyNTYifQ.eyJfc2QiOiBbIjA5dktySk1PbHlUV00wc2pwdV9wZE9CV
+kJRMk0xeTNLaHBINTE1blhrcFkiLCAiMnJzakdiYUMwa3k4bVQwcEpyUGlvV1RxMF9kY
+Xcxc1g3NnBvVWxnQ3diSSIsICJFa084ZGhXMGRIRUpidlVIbEVfVkNldUM5dVJFTE9pZ
+UxaaGg3WGJVVHRBIiwgIklsRHpJS2VpWmREd3BxcEs2WmZieXBoRnZ6NUZnbldhLXNON
+ndxUVhDaXciLCAiSnpZakg0c3ZsaUgwUjNQeUVNZmVadTZKdDY5dTVxZWhabzdGN0VQW
+WxTRSIsICJQb3JGYnBLdVZ1Nnh5bUphZ3ZrRnNGWEFiUm9jMkpHbEFVQTJCQTRvN2NJI
+iwgIlRHZjRvTGJnd2Q1SlFhSHlLVlFaVTlVZEdFMHc1cnREc3JaemZVYW9tTG8iLCAia
+mRyVEU4WWNiWTRFaWZ1Z2loaUFlX0JQZWt4SlFaSUNlaVVRd1k5UXF4SSIsICJqc3U5e
+VZ1bHdRUWxoRmxNXzNKbHpNYVNGemdsaFFHMERwZmF5UXdMVUs0Il0sICJpc3MiOiAia
+HR0cHM6Ly9leGFtcGxlLmNvbS9pc3N1ZXIiLCAiaWF0IjogMTY4MzAwMDAwMCwgImV4c
+CI6IDE4ODMwMDAwMDAsICJ0eXBlIjogIklkZW50aXR5Q3JlZGVudGlhbCIsICJfc2RfY
+WxnIjogInNoYS0yNTYifQ.Nk9vtBjZN7jJIg2sDqzoJLIvHCcnvF47gBjJx005fhSzmc
+mLbCYZC1OGN04roFgiQr_LT8ZMuXQsIuqujd50Sw~
+</pre><a href="#section-6.2-5" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+<div id="vp-sd-jwt-verification-and-processing">
+<section id="section-6.3">
+        <h3 id="name-verification-and-processing-2">
+<a href="#section-6.3" class="section-number selfRef">6.3. </a><a href="#name-verification-and-processing-2" class="section-name selfRef">Verification and Processing</a>
+        </h3>
+<p id="section-6.3-1">The Verifier MUST process and verify a presentation of SD-JWT VC as follows:<a href="#section-6.3-1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-6.3-2">
+<li id="section-6.3-2.1">REQUIRED. When processing and verifying the presentation of the SD-JWT VC,
+the Verifier MUST follow the same verification and processing rules as defined
+in <a href="#vc-sd-jwt-verification-and-processing" class="auto internal xref">Section 4.4</a>.<a href="#section-6.3-2.1" class="pilcrow">¶</a>
+</li>
+          <li id="section-6.3-2.2">OPTIONAL. If provided, the Verifier MUST verify the Holder Binding JWT
+according to Section 6.2. of <span>[<a href="#I-D.ietf-oauth-selective-disclosure-jwt" class="cite xref">I-D.ietf-oauth-selective-disclosure-jwt</a>]</span>.
+To verify the Holder Binding JWT, the <code>cnf</code> claim of the SD-JWT MUST be used.<a href="#section-6.3-2.2" class="pilcrow">¶</a>
+</li>
+        </ol>
+</section>
+</div>
 </section>
 </div>
 <div id="security-considerations">
-<section id="section-8">
+<section id="section-7">
       <h2 id="name-security-considerations">
-<a href="#section-8" class="section-number selfRef">8. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
+<a href="#section-7" class="section-number selfRef">7. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
-<p id="section-8-1">TBD<a href="#section-8-1" class="pilcrow">¶</a></p>
+<p id="section-7-1">TBD: Verifier provided <code>nonce</code>.<a href="#section-7-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="privacy-considerations">
-<section id="section-9">
+<section id="section-8">
       <h2 id="name-privacy-considerations">
-<a href="#section-9" class="section-number selfRef">9. </a><a href="#name-privacy-considerations" class="section-name selfRef">Privacy Considerations</a>
+<a href="#section-8" class="section-number selfRef">8. </a><a href="#name-privacy-considerations" class="section-name selfRef">Privacy Considerations</a>
+      </h2>
+<p id="section-8-1">TBD: Holder provided nonce via <code>jti</code>.<a href="#section-8-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="relationships-to-other-documents">
+<section id="section-9">
+      <h2 id="name-relationships-to-other-docu">
+<a href="#section-9" class="section-number selfRef">9. </a><a href="#name-relationships-to-other-docu" class="section-name selfRef">Relationships to Other Documents</a>
       </h2>
 <p id="section-9-1">TBD<a href="#section-9-1" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="relationships-to-other-documents">
 <section id="section-10">
-      <h2 id="name-relationships-to-other-docu">
-<a href="#section-10" class="section-number selfRef">10. </a><a href="#name-relationships-to-other-docu" class="section-name selfRef">Relationships to Other Documents</a>
-      </h2>
-<div id="w3c-verifiable-credential-data-model-2-0">
-<section id="section-10.1">
-        <h3 id="name-w3c-verifiable-credential-d">
-<a href="#section-10.1" class="section-number selfRef">10.1. </a><a href="#name-w3c-verifiable-credential-d" class="section-name selfRef">W3C Verifiable Credential Data Model 2.0</a>
-        </h3>
-<div id="mapping-mechanism">
-<section id="section-10.1.1">
-          <h4 id="name-mapping-mechanism">
-<a href="#section-10.1.1" class="section-number selfRef">10.1.1. </a><a href="#name-mapping-mechanism" class="section-name selfRef">Mapping Mechanism</a>
-          </h4>
-<p id="section-10.1.1-1">TBD<a href="#section-10.1.1-1" class="pilcrow">¶</a></p>
-</section>
-</div>
-</section>
-</div>
-</section>
-</div>
-<section id="section-11">
       <h2 id="name-normative-references">
-<a href="#section-11" class="section-number selfRef">11. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
+<a href="#section-10" class="section-number selfRef">10. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
       </h2>
 <dl class="references">
+<dt id="I-D.ietf-oauth-selective-disclosure-jwt">[I-D.ietf-oauth-selective-disclosure-jwt]</dt>
+      <dd>
+<span class="refAuthor">Fett, D.</span>, <span class="refAuthor">Yasuda, K.</span>, and <span class="refAuthor">B. Campbell</span>, <span class="refTitle">"Selective Disclosure for JWTs (SD-JWT)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-oauth-selective-disclosure-jwt-04</span>, <time datetime="2023-04-11" class="refDate">11 April 2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-oauth-selective-disclosure-jwt-04">https://datatracker.ietf.org/doc/html/draft-ietf-oauth-selective-disclosure-jwt-04</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC2119">[RFC2119]</dt>
-    <dd>
+      <dd>
 <span class="refAuthor">Bradner, S.</span>, <span class="refTitle">"Key words for use in RFCs to Indicate Requirement Levels"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 2119</span>, <span class="seriesInfo">DOI 10.17487/RFC2119</span>, <time datetime="1997-03" class="refDate">March 1997</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc2119">https://www.rfc-editor.org/info/rfc2119</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC7519">[RFC7519]</dt>
+      <dd>
+<span class="refAuthor">Jones, M.</span>, <span class="refAuthor">Bradley, J.</span>, and <span class="refAuthor">N. Sakimura</span>, <span class="refTitle">"JSON Web Token (JWT)"</span>, <span class="seriesInfo">RFC 7519</span>, <span class="seriesInfo">DOI 10.17487/RFC7519</span>, <time datetime="2015-05" class="refDate">May 2015</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc7519">https://www.rfc-editor.org/info/rfc7519</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC7800">[RFC7800]</dt>
+    <dd>
+<span class="refAuthor">Jones, M.</span>, <span class="refAuthor">Bradley, J.</span>, and <span class="refAuthor">H. Tschofenig</span>, <span class="refTitle">"Proof-of-Possession Key Semantics for JSON Web Tokens (JWTs)"</span>, <span class="seriesInfo">RFC 7800</span>, <span class="seriesInfo">DOI 10.17487/RFC7800</span>, <time datetime="2016-04" class="refDate">April 2016</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc7800">https://www.rfc-editor.org/info/rfc7800</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+</dl>
+</section>
+<section id="section-11">
+      <h2 id="name-informative-references">
+<a href="#section-11" class="section-number selfRef">11. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
+      </h2>
+<dl class="references">
+<dt id="RFC7517">[RFC7517]</dt>
+    <dd>
+<span class="refAuthor">Jones, M.</span>, <span class="refTitle">"JSON Web Key (JWK)"</span>, <span class="seriesInfo">RFC 7517</span>, <span class="seriesInfo">DOI 10.17487/RFC7517</span>, <time datetime="2015-05" class="refDate">May 2015</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc7517">https://www.rfc-editor.org/info/rfc7517</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
@@ -1512,7 +2160,78 @@ svg :is([fill="white"], [fill^="#fff"]) {
       <h2 id="name-iana-considerations">
 <a href="#appendix-A" class="section-number selfRef">Appendix A. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
       </h2>
-<p id="appendix-A-1">TBD<a href="#appendix-A-1" class="pilcrow">¶</a></p>
+<div id="json-web-token-claims-registration">
+<section id="appendix-A.1">
+        <h3 id="name-json-web-token-claims-regis">
+<a href="#appendix-A.1" class="section-number selfRef">A.1. </a><a href="#name-json-web-token-claims-regis" class="section-name selfRef">JSON Web Token Claims Registration</a>
+        </h3>
+<ul class="normal">
+<li class="normal" id="appendix-A.1-1.1">
+            <p id="appendix-A.1-1.1.1">Claim Name: "type"<a href="#appendix-A.1-1.1.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="appendix-A.1-1.1.2.1">Claim Description: Credential Type<a href="#appendix-A.1-1.1.2.1" class="pilcrow">¶</a>
+</li>
+              <li class="normal" id="appendix-A.1-1.1.2.2">Change Controller: IESG<a href="#appendix-A.1-1.1.2.2" class="pilcrow">¶</a>
+</li>
+              <li class="normal" id="appendix-A.1-1.1.2.3">Specification Document(s): <a href="#type-claim" class="auto internal xref">Section 4.2.2.1</a> of this document<a href="#appendix-A.1-1.1.2.3" class="pilcrow">¶</a>
+</li>
+            </ul>
+</li>
+        </ul>
+</section>
+</div>
+<div id="media-types-registry">
+<section id="appendix-A.2">
+        <h3 id="name-media-types-registry">
+<a href="#appendix-A.2" class="section-number selfRef">A.2. </a><a href="#name-media-types-registry" class="section-name selfRef">Media Types Registry</a>
+        </h3>
+<div id="application-vc-sd-jwt">
+<section id="appendix-A.2.1">
+          <h4 id="name-application-vcsd-jwt">
+<a href="#appendix-A.2.1" class="section-number selfRef">A.2.1. </a><a href="#name-application-vcsd-jwt" class="section-name selfRef">application/vc+sd-jwt</a>
+          </h4>
+<p id="appendix-A.2.1-1">The Internet media type for a SD-JWT VC is <code>application/vc+sd-jwt</code>.<a href="#appendix-A.2.1-1" class="pilcrow">¶</a></p>
+<p id="appendix-A.2.1-2">Type name: : <code>application</code><a href="#appendix-A.2.1-2" class="pilcrow">¶</a></p>
+<p id="appendix-A.2.1-3">Subtype name: : <code>vc+sd-jwt</code><a href="#appendix-A.2.1-3" class="pilcrow">¶</a></p>
+<p id="appendix-A.2.1-4">Required parameters: : n/a<a href="#appendix-A.2.1-4" class="pilcrow">¶</a></p>
+<p id="appendix-A.2.1-5">Optional parameters: : n/a<a href="#appendix-A.2.1-5" class="pilcrow">¶</a></p>
+<p id="appendix-A.2.1-6">Encoding considerations: : 8-bit code points; SD-JWT VC values are encoded as a
+series of base64url-encoded values (some of which may be the empty string)
+separated by period ('.') and tilde ('~') characters.<a href="#appendix-A.2.1-6" class="pilcrow">¶</a></p>
+<p id="appendix-A.2.1-7">Security considerations: : See Security Considerations in <a href="#security-considerations" class="auto internal xref">Section 7</a>.<a href="#appendix-A.2.1-7" class="pilcrow">¶</a></p>
+<p id="appendix-A.2.1-8">Interoperability considerations: : n/a<a href="#appendix-A.2.1-8" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="appendix-A.2.1-9.1">Published specification: : RFC TODO<a href="#appendix-A.2.1-9.1" class="pilcrow">¶</a>
+</li>
+            <li class="normal" id="appendix-A.2.1-9.2">Applications that use this media type: : Applications that issue, present,
+verify verifiable credentials and presentations.<a href="#appendix-A.2.1-9.2" class="pilcrow">¶</a>
+</li>
+            <li class="normal" id="appendix-A.2.1-9.3">
+              <p id="appendix-A.2.1-9.3.1">Additional information:<a href="#appendix-A.2.1-9.3.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="appendix-A.2.1-9.3.2.1">Magic number(s): n/a<a href="#appendix-A.2.1-9.3.2.1" class="pilcrow">¶</a>
+</li>
+                <li class="normal" id="appendix-A.2.1-9.3.2.2">File extension(s): n/a<a href="#appendix-A.2.1-9.3.2.2" class="pilcrow">¶</a>
+</li>
+                <li class="normal" id="appendix-A.2.1-9.3.2.3">Macintosh file type code(s): n/a<a href="#appendix-A.2.1-9.3.2.3" class="pilcrow">¶</a>
+</li>
+                <li class="normal" id="appendix-A.2.1-9.3.2.4">Person &amp; email address to contact for further information: TBD<a href="#appendix-A.2.1-9.3.2.4" class="pilcrow">¶</a>
+</li>
+                <li class="normal" id="appendix-A.2.1-9.3.2.5">Intended usage: COMMON<a href="#appendix-A.2.1-9.3.2.5" class="pilcrow">¶</a>
+</li>
+                <li class="normal" id="appendix-A.2.1-9.3.2.6">Restrictions on usage: none<a href="#appendix-A.2.1-9.3.2.6" class="pilcrow">¶</a>
+</li>
+                <li class="normal" id="appendix-A.2.1-9.3.2.7">Author: Oliver Terbu <a href="mailto:oliver.terbu@spruceid.com">oliver.terbu@spruceid.com</a><a href="#appendix-A.2.1-9.3.2.7" class="pilcrow">¶</a>
+</li>
+                <li class="normal" id="appendix-A.2.1-9.3.2.8">Change controller: IETF<a href="#appendix-A.2.1-9.3.2.8" class="pilcrow">¶</a>
+</li>
+              </ul>
+</li>
+          </ul>
+</section>
+</div>
+</section>
+</div>
 </section>
 </div>
 <div id="Acknowledgements">
@@ -1520,27 +2239,38 @@ svg :is([fill="white"], [fill^="#fff"]) {
       <h2 id="name-acknowledgements">
 <a href="#appendix-B" class="section-number selfRef">Appendix B. </a><a href="#name-acknowledgements" class="section-name selfRef">Acknowledgements</a>
       </h2>
-<p id="appendix-B-1">TBD<a href="#appendix-B-1" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="notices">
-<section id="appendix-C">
-      <h2 id="name-notices">
-<a href="#appendix-C" class="section-number selfRef">Appendix C. </a><a href="#name-notices" class="section-name selfRef">Notices</a>
-      </h2>
-<p id="appendix-C-1">TBD<a href="#appendix-C-1" class="pilcrow">¶</a></p>
+<p id="appendix-B-1">We would like to thank Alen Horvat, Andres Uribe, Christian Bormann,
+Giuseppe De Marco, Paul Bastian, Torsten Lodderstedt, Tobias Looker
+and Kristina Yasuda for their contributions (some of which substantial) to this
+draft and to the initial set of implementations.<a href="#appendix-B-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="document-history">
-<section id="appendix-D">
+<section id="appendix-C">
       <h2 id="name-document-history">
-<a href="#appendix-D" class="section-number selfRef">Appendix D. </a><a href="#name-document-history" class="section-name selfRef">Document History</a>
+<a href="#appendix-C" class="section-number selfRef">Appendix C. </a><a href="#name-document-history" class="section-name selfRef">Document History</a>
       </h2>
-<p id="appendix-D-1">TBD<a href="#appendix-D-1" class="pilcrow">¶</a></p>
+<p id="appendix-C-1">-02<a href="#appendix-C-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="appendix-C-2.1">Adjusted terminology based on feedback<a href="#appendix-C-2.1" class="pilcrow">¶</a>
+</li>
+      </ul>
+<p id="appendix-C-3">-01<a href="#appendix-C-3" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="appendix-C-4.1">Removed W3C VCDM transformation algorithm<a href="#appendix-C-4.1" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="appendix-C-4.2">Various editorial changes based on feedback<a href="#appendix-C-4.2" class="pilcrow">¶</a>
+</li>
+      </ul>
+<p id="appendix-C-5">-00<a href="#appendix-C-5" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="appendix-C-6.1">Initial Version<a href="#appendix-C-6.1" class="pilcrow">¶</a>
+</li>
+      </ul>
 </section>
 </div>
 <div id="authors-addresses">
-<section id="appendix-E">
+<section id="appendix-D">
       <h2 id="name-authors-addresses">
 <a href="#name-authors-addresses" class="section-name selfRef">Authors' Addresses</a>
       </h2>
