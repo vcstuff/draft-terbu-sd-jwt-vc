@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-06-01T02:11:17.551189+00:00",
+  "timestamp": "2023-06-08T01:54:18.631234+00:00",
   "repo": "vcstuff/draft-terbu-sd-jwt-vc",
   "labels": [
     {
@@ -2242,6 +2242,22 @@
       "body": "My  expectation was that the SD-JWT's combined format for presentation would be used inside a verifiable presentation. Something similar to the example below\r\n```json\r\n{\r\n  \"@context\": [\r\n    \"https://www.w3.org/2018/credentials/v1\",\r\n    \"https://www.w3.org/2018/credentials/examples/v1\"\r\n  ],\r\n  \"id\": \"urn:uuid:3978344f-8596-4c3a-a978-8fcaba3903c5\",\r\n  \"type\": [\"VerifiablePresentation\"],\r\n  \"verifiableCredential\": [{\r\n    \"type\": \"SD-JWT Presentation\",\r\n    \"combinedFormat\": \"XXX.XXX.XXX~YYY~ZZZ\"\r\n  }]\r\n}\r\n```\r\n\r\nI'm curious whether this was considered. If so, it would be nice to add a section on that to the spec on the relationship. ",
       "createdAt": "2023-05-26T21:51:00Z",
       "updatedAt": "2023-05-26T21:51:00Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 116,
+      "id": "I_kwDOJbVClc5oF6gH",
+      "title": "Need a way to define confidence or assurance levels",
+      "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/issues/116",
+      "state": "OPEN",
+      "author": "awoie",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "If SD-JWT holder binding is focusing on key (device/wallet) binding in terms of cloning/replay protection, we will need some mechanism to define how we want to communicate how the holder was authenticated if certain claims are presented to verifiers. To verifiers it will be also interesting to understand the confidence (ISO 23220-5) / assurance levels (eIDAS) especially if credentials and wallets support multiple levels. This information could be conveyed by another claim, or it could be just some annotations in form of new members of the specific `cnf` method.\r\n\r\nFor example:\r\n\r\n```\r\n\"cnf\": {\r\n  \"jwk\": {\r\n     ... JWK members ...,\r\n     \"trust_framework\": \"some-ecosystem\",\r\n     \"profile\": \"some-configuration-type\"\r\n  }\r\n}\r\n```\r\n\r\nVS something like the following ...\r\n\r\n```\r\n\"cnf\": {\r\n  \"jwk\": {\r\n     ... JWK members ...\r\n  }\r\n},\r\n\"holder_authentication\": {\r\n  \"trust_framework\": \"some-ecosystem\",\r\n  \"profile\": \"some-configuration-type\"\r\n}\r\n\r\n```\r\n\r\nIMO, it makes no sense to provide the authenticator assertion directly to the verifier. ",
+      "createdAt": "2023-06-07T17:37:11Z",
+      "updatedAt": "2023-06-07T17:37:56Z",
       "closedAt": null,
       "comments": []
     }
@@ -5779,6 +5795,32 @@
           "updatedAt": "2023-05-27T08:05:43Z"
         }
       ],
+      "reviews": []
+    },
+    {
+      "number": 117,
+      "id": "PR_kwDOJbVClc5Sdgbd",
+      "title": "copy MikeP draft",
+      "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/pull/117",
+      "state": "OPEN",
+      "author": "Sakurann",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-06-07T22:37:12Z",
+      "updatedAt": "2023-06-07T22:37:13Z",
+      "baseRepository": "vcstuff/draft-terbu-sd-jwt-vc",
+      "baseRefName": "sakuran-nbf",
+      "baseRefOid": "38e84d744a0f4825fc09d1f8d5acd52f18caf165",
+      "headRepository": "vcstuff/draft-terbu-sd-jwt-vc",
+      "headRefName": "diff-vc-jwt",
+      "headRefOid": "0fb898c231155aab2fd62c6a9b3dc1bd5b2b075d",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
       "reviews": []
     }
   ]
