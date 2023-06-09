@@ -61,7 +61,7 @@ Table of Contents
      1.4.  Terms and Definitions
    2.  Scope
    3.  Use Cases
-   4.  Common Data Format
+   4.  Common Data Format for JWT VC and SD-JWT VC
      4.1.  Header Parameters
      4.2.  Claims
        4.2.1.  type claim
@@ -83,11 +83,11 @@ Table of Contents
      8.3.  JWT Issuer Metadata Validation
    9.  Presenting Verifiable Credentials
      9.1.  Data Format
-     9.2.  JWT VC Data Format
-     9.3.  SD-JWT VC Data Format
-       9.3.1.  Holder Binding JWT
-     9.4.  SD-JWT VC Presentation Examples
-     9.5.  Verification and Processing
+       9.1.1.  JWT VC Data Format
+       9.1.2.  SD-JWT VC Data Format
+       9.1.3.  Holder Binding JWT
+     9.2.  SD-JWT VC Presentation Examples
+     9.3.  Verification and Processing
    10. Security Considerations
    11. Privacy Considerations
    12. Relationships to Other Documents
@@ -230,7 +230,7 @@ Table of Contents
    TBD: conventional crypt, hardware security, hsm, mobile secure area,
    compliance with FIPS
 
-4.  Common Data Format
+4.  Common Data Format for JWT VC and SD-JWT VC
 
    JWT VCs and SD-JWT VCs MUST follow the common rules defined in this
    section.
@@ -540,8 +540,8 @@ Table of Contents
    WxnIjogInNoYS0yNTYiLCAiY25mIjogeyJqd2siOiB7Imt0eSI6ICJFQyIsICJjcnYiO
    iAiUC0yNTYiLCAieCI6ICJUQ0FFUjE5WnZ1M09IRjRqNFc0dmZTVm9ISVAxSUxpbERsc
    zd2Q2VHZW1jIiwgInkiOiAiWnhqaVdXYlpNUUdIVldLVlE0aGJTSWlyc1ZmdWVjQ0U2d
-   DRqVDlGMkhaUSJ9fX0.uzP8zgLNWftUsk9ZEWMKIix6ODLBfnmqFJJrLl6mhv7tJlzar
-   ycMcBxSLfsU-tUKePommsqxguBK6eSMlFiugA~WyIyR0xDNDJzS1F2ZUNmR2ZyeU5STj
+   DRqVDlGMkhaUSJ9fX0.IAjHlqTyd2ArMQLT7zya7ijuGgJQ3Kq6okOAxQItTxxEpC7HJ
+   9M53dqTJqnxEAB9X8QThVFRT5dXPHtu1dG85A~WyIyR0xDNDJzS1F2ZUNmR2ZyeU5STj
    l3IiwgImdpdmVuX25hbWUiLCAiSm9obiJd~WyJlbHVWNU9nM2dTTklJOEVZbnN4QV9BI
    iwgImZhbWlseV9uYW1lIiwgIkRvZSJd~WyI2SWo3dE0tYTVpVlBHYm9TNXRtdlZBIiwg
    ImVtYWlsIiwgImpvaG5kb2VAZXhhbXBsZS5jb20iXQ~WyJlSThaV205UW5LUHBOUGVOZ
@@ -703,7 +703,7 @@ Table of Contents
    Binding JWT defined in Section 5.4.1. of
    [I-D.ietf-oauth-selective-disclosure-jwt].
 
-9.2.  JWT VC Data Format
+9.1.1.  JWT VC Data Format
 
    When a presentation of a JWT VC contains a Holder Binding JWT, a JWT
    VC and a Holder Binding JWT MUST be separated from each other by a
@@ -711,13 +711,13 @@ Table of Contents
 
    <JWT VC>~<optional Holder Binding JWT>
 
-9.3.  SD-JWT VC Data Format
+9.1.2.  SD-JWT VC Data Format
 
    A presentation of an SD-JWT VC MUST be encoded using the SD-JWT
    Combined Format for Presentation as defined in Section 5.4. of
    [I-D.ietf-oauth-selective-disclosure-jwt].
 
-9.3.1.  Holder Binding JWT
+9.1.3.  Holder Binding JWT
 
    If the presentation includes a Holder Binding JWT, the following
    claims are used within the Holder Binding JWT in addition to those
@@ -733,7 +733,7 @@ Table of Contents
    The Holder Binding JWT MAY include addtional claims which, when not
    understood, MUST be ignored.
 
-9.4.  SD-JWT VC Presentation Examples
+9.2.  SD-JWT VC Presentation Examples
 
    The following is a non-normative example of a presentation of the SD-
    JWT shown above including a Holder Binding JWT:
@@ -752,12 +752,12 @@ Table of Contents
    WxnIjogInNoYS0yNTYiLCAiY25mIjogeyJqd2siOiB7Imt0eSI6ICJFQyIsICJjcnYiO
    iAiUC0yNTYiLCAieCI6ICJUQ0FFUjE5WnZ1M09IRjRqNFc0dmZTVm9ISVAxSUxpbERsc
    zd2Q2VHZW1jIiwgInkiOiAiWnhqaVdXYlpNUUdIVldLVlE0aGJTSWlyc1ZmdWVjQ0U2d
-   DRqVDlGMkhaUSJ9fX0.uzP8zgLNWftUsk9ZEWMKIix6ODLBfnmqFJJrLl6mhv7tJlzar
-   ycMcBxSLfsU-tUKePommsqxguBK6eSMlFiugA~eyJhbGciOiAiRVMyNTYiLCAidHlwIj
+   DRqVDlGMkhaUSJ9fX0.IAjHlqTyd2ArMQLT7zya7ijuGgJQ3Kq6okOAxQItTxxEpC7HJ
+   9M53dqTJqnxEAB9X8QThVFRT5dXPHtu1dG85A~eyJhbGciOiAiRVMyNTYiLCAidHlwIj
    ogImhiK2p3dCJ9.eyJub25jZSI6ICIxMjM0NTY3ODkwIiwgImF1ZCI6ICJodHRwczovL
-   2V4YW1wbGUuY29tL3ZlcmlmaWVyIiwgImlhdCI6IDE2ODYyOTg0MTR9.2womUn_VRvMp
-   wFY7e-PpGHv7v2FZ0CldMJyGua7c2sc1YH7PLMBvtH8OonbEEGAL25v6NyEJlclsnbh2
-   kDZJIA
+   2V4YW1wbGUuY29tL3ZlcmlmaWVyIiwgImlhdCI6IDE2ODYyOTg4MzR9.4h2stTveJIEn
+   e9g8-v4evci0m6w16_S9Dap76nltTDQ6ZY1xeIOqPUzpz_JbKZrCMFJiYy0yW5V0jtmL
+   ToVLig
 
    In this presentation, the Holder provides only the Disclosure for the
    claim address.  Other claims are not disclosed to the Verifier.
@@ -776,10 +776,10 @@ Table of Contents
    VZ1bHdRUWxoRmxNXzNKbHpNYVNGemdsaFFHMERwZmF5UXdMVUs0Il0sICJpc3MiOiAia
    HR0cHM6Ly9leGFtcGxlLmNvbS9pc3N1ZXIiLCAiaWF0IjogMTY4MzAwMDAwMCwgImV4c
    CI6IDE4ODMwMDAwMDAsICJ0eXBlIjogIklkZW50aXR5Q3JlZGVudGlhbCIsICJfc2RfY
-   WxnIjogInNoYS0yNTYifQ.4TsDdxnAUdns0QS9dKmtb2Wzttn1ZkSOM9BF4H4lZuxHiZ
-   h1oCSBI65mOSX9xiPXSU-jnp8puPryJ0IoSBc5DQ~
+   WxnIjogInNoYS0yNTYifQ.QFBWIKKKmmysqpagdD6uxoLwzHNuNIKer7T7lt8H2e8ac9
+   moX-QL69PTg22vaxR-_GrH2-ewkIfoIJFQXlXPpQ~
 
-9.5.  Verification and Processing
+9.3.  Verification and Processing
 
    The Verifier MUST process and verify a presentation as follows:
 
@@ -951,6 +951,10 @@ Appendix B.  Acknowledgements
    the initial set of implementations.
 
 Appendix C.  Document History
+
+   -03
+
+   *  added non-selectively disclosable JWT VC
 
    -02
 
