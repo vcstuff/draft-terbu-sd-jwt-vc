@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-06-08T01:54:18.631234+00:00",
+  "timestamp": "2023-06-11T02:01:47.672333+00:00",
   "repo": "vcstuff/draft-terbu-sd-jwt-vc",
   "labels": [
     {
@@ -1906,7 +1906,7 @@
       "labels": [],
       "body": "Every entity in the OAuth/OpenID is potentially a JWT issuer, then I found the name of this endpoint misleading.\r\n\r\nConsidering that this brand new specification defines a profile for SD JWT verifiable credentials, I'd propose to change the pathname to\r\n\r\n.well-known/vc-jwt-issuer\r\n ",
       "createdAt": "2023-05-25T22:30:38Z",
-      "updatedAt": "2023-05-28T14:29:54Z",
+      "updatedAt": "2023-06-09T10:28:38Z",
       "closedAt": null,
       "comments": [
         {
@@ -1950,6 +1950,41 @@
           "body": "I agree @tlodderstedt, \r\n\r\nKey attestation alone Is not enough, this endpoint deserves a proper identity with a specialized protocol metadata\r\n\r\nAlso the verifiable attestations related to the entity may be available in it",
           "createdAt": "2023-05-28T14:13:38Z",
           "updatedAt": "2023-05-28T14:13:38Z"
+        },
+        {
+          "author": "awoie",
+          "authorAssociation": "COLLABORATOR",
+          "body": "To me this sounds reasonable. I will update the spec accordingly. ",
+          "createdAt": "2023-06-08T14:43:18Z",
+          "updatedAt": "2023-06-08T14:43:18Z"
+        },
+        {
+          "author": "TakahikoKawasaki",
+          "authorAssociation": "NONE",
+          "body": "(As a record, I repeat my question I made elsewhere in the past.)\r\n\r\nWhy is it necessary to introduce a new `/.well-known` path, especially if the expected content is just like below (excerpt from \"[5.2. JWT Issuer Metadata Response](https://www.ietf.org/archive/id/draft-terbu-sd-jwt-vc-02.html#name-jwt-issuer-metadata-response-3)\")?\r\n\r\n```json\r\n{\r\n   \"issuer\":\"https://example.com/\",\r\n   \"jwks_uri\":\"https://jwt-issuer.example.org/my_public_keys.jwks\"\r\n}\r\n```\r\n\r\nIsn't the `jku` JWS header parameter (RFC 7515 [Section 4.1.2](https://www.rfc-editor.org/rfc/rfc7515.html#section-4.1.2)) like below sufficient?\r\n\r\n```json\r\n{\r\n  \"alg\": \"ES256\",\r\n  \"typ\": \"vc+sd-jwt\",\r\n  \"jku\": \"https://jwt-issuer.example.org/my_public_keys.jwks\"\r\n}\r\n```",
+          "createdAt": "2023-06-08T15:14:48Z",
+          "updatedAt": "2023-06-08T15:14:48Z"
+        },
+        {
+          "author": "tlodderstedt",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "(For the record, I repeat my answer I gave on Slack and add more context)\r\n\r\nThe jku header is not sufficient for the intended purpose. The purpose of the well-know endpoint is to establish a stable issuer identifier independent of the jwks location. This issuer identifier can be used in other structures to establish trust, e.g. it can be added to trusted lists (verifier end or trusted 3rd party). Additionally, it fits nicely with the other well-known locations, like openid-credential-issuer and oauth-authorization-server. So the issuer can distribute the role specific metadata in different location residing under the same issuer identifier. And not to forget, this well-known location also could work well with openid-federation.\r\n\r\nMoreover, any additional VC issuer metadata we will come across can be added to this endpoint.\r\n\r\nBTW: I think a dedicated issue would be the better place for this discussion.",
+          "createdAt": "2023-06-08T15:45:57Z",
+          "updatedAt": "2023-06-09T00:50:56Z"
+        },
+        {
+          "author": "Sakurann",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I am actually in favor of `jwt-issuer`. This mechanism is meant to be general enough to be used with not just a 'verifiable credential'. and I don't think anyone would think to use `.well-known/jwt-issuer` with ID Tokens and Access Tokens, UserInfo responses , etc. that are JWTs.",
+          "createdAt": "2023-06-09T01:58:59Z",
+          "updatedAt": "2023-06-09T01:58:59Z"
+        },
+        {
+          "author": "peppelinux",
+          "authorAssociation": "NONE",
+          "body": "I understand your point @Sakurann, below my thoughts\r\n\r\n1. Why defining jwt-issuer for general purpose in a spec that's specialized for VC? Requirement: definition of a specs in IETF for general purpose JWT Issuer metadata (enabling client metadata, that today is only available in openid-federation...)\r\n\r\n2. I agree that jwt-vc-issuer semantically collides with credential-issuer, and we should not do collisions\r\n\r\n3. why we can't use .well-known/openid-federation? Federation entity discovery is required for the entities that builds trust chain according to the federation specs, nothing prevent to publish all the metadata of all thw \"JWT-role\" in a single metadata, that should not be signed if request (content-type) asks it in plain text\r\n\r\nI suggest to use `.well-known/openid-federation` to consolidate a unique way to publish all the metadata types and roles of an entity.\r\n\r\ncoming back to the name change proposal. Why we use the term `issuer` since the metadata contains also general capabilities not related to the issuance?\r\n\r\nin a more general purpose way, wouldn't it be a `.well-known/oauth-entity`?\r\nthen the question: if that entity has more functionalities and roles, being at the same time a RP and a AS, how the metadata should be organized?\r\n\r\nWe've resolved this issue in openid-federation, with the below schema, where a RP can be also a OP, AS, Client, credential-issuer and so on:\r\nhttps://github.com/italia/spid-cie-oidc-docs/blob/versione-corrente/docs/common/common_examples.rst#en-11-entity-configuration-response-relying-party",
+          "createdAt": "2023-06-09T10:27:12Z",
+          "updatedAt": "2023-06-09T10:28:38Z"
         }
       ]
     },
@@ -2257,9 +2292,128 @@
       "labels": [],
       "body": "If SD-JWT holder binding is focusing on key (device/wallet) binding in terms of cloning/replay protection, we will need some mechanism to define how we want to communicate how the holder was authenticated if certain claims are presented to verifiers. To verifiers it will be also interesting to understand the confidence (ISO 23220-5) / assurance levels (eIDAS) especially if credentials and wallets support multiple levels. This information could be conveyed by another claim, or it could be just some annotations in form of new members of the specific `cnf` method.\r\n\r\nFor example:\r\n\r\n```\r\n\"cnf\": {\r\n  \"jwk\": {\r\n     ... JWK members ...,\r\n     \"trust_framework\": \"some-ecosystem\",\r\n     \"profile\": \"some-configuration-type\"\r\n  }\r\n}\r\n```\r\n\r\nVS something like the following ...\r\n\r\n```\r\n\"cnf\": {\r\n  \"jwk\": {\r\n     ... JWK members ...\r\n  }\r\n},\r\n\"holder_authentication\": {\r\n  \"trust_framework\": \"some-ecosystem\",\r\n  \"profile\": \"some-configuration-type\"\r\n}\r\n\r\n```\r\n\r\nIMO, it makes no sense to provide the authenticator assertion directly to the verifier. ",
       "createdAt": "2023-06-07T17:37:11Z",
-      "updatedAt": "2023-06-07T17:37:56Z",
+      "updatedAt": "2023-06-08T16:20:23Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "tlodderstedt",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Clarifying questions:\r\n\r\n* Do I understand correctly that you want to convey from the issuer through the VC to wallet and verifier what requirements the issuer has regarding holder authentication?\r\n* Why is this need caused by the focus of SD-JWT on key binding?\r\n* To my knowledge the eIDAS assurance levels do not differentiate identification and authentication. Do you think this is a suitable vocabulary?",
+          "createdAt": "2023-06-08T16:20:23Z",
+          "updatedAt": "2023-06-08T16:20:23Z"
+        }
+      ]
+    },
+    {
+      "number": 119,
+      "id": "I_kwDOJbVClc5oNNOC",
+      "title": "Why splitting iss weburl to insert .well-known/jwt-issuer?",
+      "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/issues/119",
+      "state": "OPEN",
+      "author": "peppelinux",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "in https://github.com/vcstuff/draft-terbu-sd-jwt-vc/blob/main/draft-terbu-sd-jwt-vc.md#jwt-issuer-metadata-request\r\n\r\nI propose to change the current approach in favor of the solution below:\r\n````\r\nIf the `iss` value contains a path component, any terminating `/` MUST be\r\nremoved before inserting the `/.well-known/jwt-issuer` at the end of the\r\npath.\r\n\r\nThe following is a non-normative example of a HTTP request for the JWT Issuer\r\nMetadata configuration when `iss` is set to `https://example.com/user/1234`:\r\n\r\n\r\nGET /user/1234/.well-known/jwt-issuer HTTP/1.1\r\nHost: example.com\r\n````\r\nI'm aware that https://datatracker.ietf.org/doc/html/rfc8414 defines the current approach but It seems to me that splitting a url, including other path in it, is worst then simply append the .well-known\r\n\r\nthere are some cases where the webpath matches specific web routing in specific contexts, like `user/1234` might be in a multitenant solution, and givin the .well-known resource in a context coherent path I think it is better.\r\n\r\nps = OIDC Federation 1.0 uses the proposed approach.",
+      "createdAt": "2023-06-08T16:31:36Z",
+      "updatedAt": "2023-06-09T13:59:34Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "tlodderstedt",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "As far as I understand, the splitting is required by RFC 5785, which we must comply with to get this specification through the IETF approval process. @selfissued can tell you more about it. ",
+          "createdAt": "2023-06-08T17:04:31Z",
+          "updatedAt": "2023-06-08T17:04:31Z"
+        },
+        {
+          "author": "peppelinux",
+          "authorAssociation": "NONE",
+          "body": "Well, specifically here\r\nhttps://openid.net/specs/openid-connect-federation-1_0.html#section-6\r\n\r\nIn Federation we have them both",
+          "createdAt": "2023-06-08T20:07:49Z",
+          "updatedAt": "2023-06-08T20:07:49Z"
+        },
+        {
+          "author": "tlodderstedt",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "That\u2019s an OIDF spec, not an IETF spec. Please talk to Mike about the journey with RFC 8414.",
+          "createdAt": "2023-06-08T20:14:54Z",
+          "updatedAt": "2023-06-08T20:14:54Z"
+        },
+        {
+          "author": "peppelinux",
+          "authorAssociation": "NONE",
+          "body": "here I report Mike's comments on OAUTH2-WG\r\n\r\nIn [https://www.ietf.org/archive/id/draft-terbu-sd-jwt-vc-02.html#section-5.1](https://www.ietf.org/archive/id/draft-terbu-sd-jwt-vc-02.html#section-5.1) (JWT Issuer Metadata Request), I question whether \u201cIf the iss value contains a path component, any terminating / MUST be removed before inserting /.well-known/ and the well-known URI suffix between the host component and the path component.\u201d is always the right choice.  Yes, I know that that\u2019s what it takes to conform to RFC 5785 and I wrote similar text at https://www.rfc-editor.org/rfc/rfc8414#section-5 , but practically, the permissions on servers may not be administered in a way that allows tenants to write to this location.",
+          "createdAt": "2023-06-09T10:43:20Z",
+          "updatedAt": "2023-06-09T10:43:20Z"
+        },
+        {
+          "author": "tlodderstedt",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I'm not defending the RFC 5785 rules. I'm just pointing out we will not get this draft over the finishing line without complying to them. ",
+          "createdAt": "2023-06-09T13:59:33Z",
+          "updatedAt": "2023-06-09T13:59:33Z"
+        }
+      ]
+    },
+    {
+      "number": 121,
+      "id": "I_kwDOJbVClc5oUDwc",
+      "title": "Is the following a valid SD-JWT-VC or how can it be mapped to the SD-JWT-VC?",
+      "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/issues/121",
+      "state": "OPEN",
+      "author": "alenhorvat",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "<img width=\"591\" alt=\"image\" src=\"https://github.com/vcstuff/draft-terbu-sd-jwt-vc/assets/10848802/48c0ead3-3657-4cf5-8380-6bcb6063ce08\">\r\n\r\nAll the claims need to be present, along with the @context.\r\n\r\nWould this be a valid SD-JWT-VC?",
+      "createdAt": "2023-06-09T15:18:28Z",
+      "updatedAt": "2023-06-10T12:19:31Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "tlodderstedt",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "From first read, mostly, however, the processing result might not what you would expect. \r\n\r\nThe \"type\" violates the definition in SD-JWT VC. \r\n\r\nI miss the JOSE header, which is important as it marks SD-JWT VCs as such (with the `typ` `vc+sd-jwt`).  \r\n\r\nInterpretation of \"@context\", \"id\", \"credentialSubject\", \"credentialStatus\", \"credentialSchema\", \"termsOfUse\" is up to your application. \r\n\r\nThere will be a status management mechanism in SD-JWT VC similar to credentialStatus but using the JWT `status` to represent the status list (https://github.com/vcstuff/draft-looker-jwt-cwt-status-list). \r\n\r\nI guess \"credentialSubject\" is intended to be used for holder binding. SD-JWT VC uses the JWT `cnf` claim for that purpose. \r\n\r\nI think we could come up with a JWTish equivalent to \"termsOfUse\".\r\n\r\n\"type\" is defined single value for SD-JWT VC - I'm not sure which of the type information in your example I would put into the \"type\" claim of a SD-JWT VC. \"VerifiableCredential\" is already covered by the \"typ\" JOSE header \"vc+sd-jwt\". \"VerifiableAttestation\" does not sound that much different. Not sure how to interpret the \"credentialSchema\". \r\n\r\nI see two directions: \r\n\r\n1. You may modify the content to use JWT claims.\r\n2. You can use a different kind of SD-JWT envelop to carry the current JSON-LD (inspired) content (which would use a different `typ` header). ",
+          "createdAt": "2023-06-09T15:36:01Z",
+          "updatedAt": "2023-06-09T15:36:01Z"
+        },
+        {
+          "author": "alenhorvat",
+          "authorAssociation": "NONE",
+          "body": "- We need the \"type\" to support an array of strings.\r\n- We define our own status and the status list should support an object\r\n- credentialSubject contains domain-specific claims about the subject (name, ...)\r\n- termsOfUse is currently misused; we need to express: rules what the credential can be used for (termsOfUse name is appropriate), and to express the accreditation information/trust information/...\r\n\r\ntyp header is not working for us, since we need an ability to arbitrarily extend the schema. Type as array is the best approach so far\r\n\r\nI need to think about the header type names.",
+          "createdAt": "2023-06-09T15:48:55Z",
+          "updatedAt": "2023-06-09T15:48:55Z"
+        },
+        {
+          "author": "alenhorvat",
+          "authorAssociation": "NONE",
+          "body": "- credentialSchema references JSON schema that used to validate the VC format and plays a role when it comes to accreditations; in open systems, it is an important information\r\n- type: Verifiable Credential defines the data model as per w3c vc; Verifiable Attestation data model extends the VC data model; other credentials that we're using: V. Authorisation to Onboard, V. Authorisation for Trust Chain, V. Accreditation for accrediting, V. Accreditation for attesting all extend the V. Attestation.\r\n- Domains that define the data models also extend the V. Attestation data model\r\nHence the type and credentialSchema claims play an important role in an open ecosystem as it allows coherent data modelling across different domains.",
+          "createdAt": "2023-06-09T19:53:28Z",
+          "updatedAt": "2023-06-09T19:53:28Z"
+        },
+        {
+          "author": "alenhorvat",
+          "authorAssociation": "NONE",
+          "body": "The relevant header typ values would be\r\n- vc+json+jwt - VCDM + JWT claims processed as JSON\r\n- vc+json-ld+jwt - VCDM + JWT claims processed as JSON-LD\r\n- vc+json+sd+jwt - same as above, except that it is SD\r\n- vc+json-ld+sd+jwt - same as above, except that is SD\r\n\r\nIf SD-JWT has 0 hidden claims, it boils down to JWT-VC? If yes, then one needs only last 2\r\n\r\nIt is inappropriate to put the type values I'm mentioning above, in the typ header value since it is not a new media type, but an extended data model",
+          "createdAt": "2023-06-09T19:59:42Z",
+          "updatedAt": "2023-06-09T19:59:42Z"
+        },
+        {
+          "author": "alenhorvat",
+          "authorAssociation": "NONE",
+          "body": "Based on experience and feedback from a wide range of stakeholders, a full data model should contain the following claims:\r\nImportant property is that use cases have the ability to extend the different claims when required.\r\n\r\n```jsonc\r\n{\r\n  \"@context\": [\r\n    \"https://www.w3.org/2018/credentials/v1\"\r\n  ], // Type: array of URIs. Use: CONDITIONAL: If credential is JSON-LD, the claim MUST be present, else it MUST NOT be present\r\n\r\n  \"iss\": \"did:ebsi:alice\", // Type: String (URI) or object. Use: REQUIRED\r\n  \"aud\": \"did:ebsi:bob\", // Type: String (URI) or object. Use: OPTIONAL\r\n\r\n  \"id\": \"urn:uuid:003a1dd8-a5d2-42ef-8182-e921c0a9f2cd\", // Unique ID of the credential. Use: OPTIONAL\r\n\r\n  // Credential validity information. \r\n  \"validity\": {\r\n    \"iat\": \"2021-11-01T00:00:00Z\", // Date and time of issuance - required\r\n    \"exp\": \"2024-06-22T14:11:44Z\", // Date at and after which the VC MUST be considered invalid - optional - e.g., credential cannot be used for online authentication (e.g., the bound key/certificate expired), but can be used for offline identification where person is compared against the photo if notAfter > exp.\r\n    \"nbf\": \"2024-06-22T14:11:44Z\", // date at an after which the VC is valid (e.g., signature expires) - optional\r\n    \"notAfter\": \"2024-06-22T14:11:44Z\" // Date and time after which the business content becomes invalid - optional \r\n  },\r\n\r\n  // REQUIRED. String or object\r\n  \"subject\": {\r\n    // If object, type MUST be present and define the business type of the credential. Can be string or array\r\n    \"type\": [\r\n      \"VerifiableCredential\",\r\n      \"VerifiableAttestation\", \"VerifiableID\"\r\n    ],\r\n    \"id\": \"did:ebsi:00001235\" // optional - subject identifier\r\n  },\r\n\r\n  // OPTIONAL. Cryptographic binding information. Can be JWK or other object/string\r\n  \"cnf\": {},\r\n\r\n  // OPTIONAL. Credential status. MUST be object. Type determines the processing rules and the additional claims\r\n  \"status\": { \r\n    \"type\": \"AnyExtension\"\r\n  },\r\n\r\n  // OPTIONAL. JSON schema that validates the credential. Type: object. Type determines the validation rules\r\n  \"schema\": {\r\n    \"id\": \"https://api-test.ebsi.eu/trusted-schemas-registry/v2/schemas/0x23039e6356ea6b703ce672e7cfac0b42765b150f63df78e2bd18ae785787f6a2\",\r\n    \"type\": \"FullJsonSchemaValidator2021\"\r\n  },\r\n\r\n  // OPTIONAL. Defines the rules and limitations when/how the credential can be used/consumed. E.g., medical data can be shared only with certified entities, diploma cannot be used for identification, ...; Type: object or array of objects\r\n  \"termsOfUse\": {\r\n    \"type\": \"AnyExtension\"\r\n  },\r\n\r\n  // OPTIONAL. Contains all the necessary information about the trust chain. Can be Federation Trust Chain, Accreditation chain, etc.; Type: object or array of objects\r\n  \"trustChain\": {\r\n    \"type\": \"AnyExtension\"\r\n  },\r\n\r\n  // OPTIONAL. Contains information about rendering. Type determines the processing rules.\r\n  \"rendering\": {\r\n    \"type\": \"AnyExtension\"\r\n  }\r\n}\r\n```",
+          "createdAt": "2023-06-09T20:36:20Z",
+          "updatedAt": "2023-06-09T20:36:20Z"
+        },
+        {
+          "author": "tlodderstedt",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Hi @alenhorvat, \r\n\r\nyou have added a lot of information to this issue. I suggest we discuss them step by step. \r\n\r\nI would like to start with `type` vs `typ`. \r\n\r\nThe JOSE `typ` header is used to determine the structure and processing rules of the payload. The `typ` value `vc+sd-jwt` indicates \"this thing is a VC with pure JSON content following the rules defined for JWTs and it can selectively disclosed using SD-JWT + there are some more rules defined in the sd-jwt vc spec\". This `typ` value plays the same role the \"VerifiableCredential\" type values has in the VCDM. So we don't need it in the `type`.\r\n\r\nPart of the rules defined for `vc+sd-jwt` is the presence of the `type` claim. \r\n\r\n> This specification defines the JWT claim type. The type claim is used to express the type of the JSON object that is secured by the JWT. The type value MUST be a case-sensitive StringOrURI value.\r\n\r\nThis is an application type, such as \"MyEMailCredential\", so it basically tells you what end-user (or subject) claims to expect in this type of a credential. The `type` value is especially important for presentation requests, as it used to determine the kind of credential that is being requested and it also determines what claims can be used to filter matching credentials and those claims can also be selectively disclosed. \r\n\r\nTo me, the `type` as defined in sd-jwt vc and `type` as well as `credentialSchema` that you use have a similar purpose. \r\n\r\nI have a couple of questions to that end: \r\n\r\n1. Can you shed some light on why you use both, `type` and `credentialSchema`? The reason why I'm asking is, I assume the schema could be derived from the type value or the type value could even be the schema URL. \r\n2. Can you please share examples of credentials where you use two or more type values in addition to the \"VerifiableCredential\". The reason I'm asking is, in my observation VCs typically have the \"VerifiableCredential\" value plus another application specific type. As \"VerifiableCredential\" is replaced in sd-jwt vc by the `typ`value, we have come to the conclusion (for now), a String literal is enough. I'm a bit hesitant to make that an array because I think there might be unintended consequences as clashes between rules defined for the different VC types. ",
+          "createdAt": "2023-06-10T12:19:31Z",
+          "updatedAt": "2023-06-10T12:19:31Z"
+        }
+      ]
     }
   ],
   "pulls": [
@@ -5775,7 +5929,7 @@
       "labels": [],
       "body": "Issue #108 ",
       "createdAt": "2023-05-26T20:23:07Z",
-      "updatedAt": "2023-05-27T08:05:44Z",
+      "updatedAt": "2023-06-08T16:51:35Z",
       "baseRepository": "vcstuff/draft-terbu-sd-jwt-vc",
       "baseRefName": "main",
       "baseRefOid": "588ea557ea5861784bbaf7051eddefdeb6d0751f",
@@ -5795,7 +5949,21 @@
           "updatedAt": "2023-05-27T08:05:43Z"
         }
       ],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOJbVClc5XpIah",
+          "commit": {
+            "abbreviatedOid": "21ed8a0"
+          },
+          "author": "tlodderstedt",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-06-08T16:51:35Z",
+          "updatedAt": "2023-06-08T16:51:35Z",
+          "comments": []
+        }
+      ]
     },
     {
       "number": 117,
@@ -5809,7 +5977,7 @@
       "labels": [],
       "body": "",
       "createdAt": "2023-06-07T22:37:12Z",
-      "updatedAt": "2023-06-07T22:37:13Z",
+      "updatedAt": "2023-06-08T16:50:23Z",
       "baseRepository": "vcstuff/draft-terbu-sd-jwt-vc",
       "baseRefName": "sakuran-nbf",
       "baseRefOid": "38e84d744a0f4825fc09d1f8d5acd52f18caf165",
@@ -5821,7 +5989,358 @@
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOJbVClc5XpAum",
+          "commit": {
+            "abbreviatedOid": "0fb898c"
+          },
+          "author": "tlodderstedt",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "I think the joint spec requires several sections explaining the concepts used by both representations, namely the structure of the payload (all the JWT claims), JWT Issuer Metadata, Key Binding, and individual section covering the differences, namely `typ` values and none selectively disclosable claims (for SD-JWT).\r\nI guess we first need to agree on the objectives and principles of a joint spec. \r\n",
+          "createdAt": "2023-06-08T16:30:16Z",
+          "updatedAt": "2023-06-08T16:50:23Z",
+          "comments": [
+            {
+              "originalPosition": 7,
+              "body": "```suggestion\r\ntitle = \"JWT representation of Verifiable Credentials\"\r\n```\r\n\r\nWhat does \"native\" mean? I would rather like to have a title along the lines of \"Verifiable Credentials with JSON payload following JWT rules with optional selective disclosure support\" but I know that sounds pretty artificial. So removing native might be ok. ",
+              "createdAt": "2023-06-08T16:30:16Z",
+              "updatedAt": "2023-06-08T16:48:56Z"
+            },
+            {
+              "originalPosition": 13,
+              "body": "```suggestion\r\nkeyword = [\"OAUTH\",\"SD-JWT\",\"JWT\"]\r\n```",
+              "createdAt": "2023-06-08T16:31:00Z",
+              "updatedAt": "2023-06-08T16:48:10Z"
+            },
+            {
+              "originalPosition": 18,
+              "body": "I thought we wanted to integrate the JWT part into Oliver's draft. ",
+              "createdAt": "2023-06-08T16:36:41Z",
+              "updatedAt": "2023-06-08T16:48:10Z"
+            },
+            {
+              "originalPosition": 220,
+              "body": "what does \"mapping\" mean? ",
+              "createdAt": "2023-06-08T16:37:59Z",
+              "updatedAt": "2023-06-08T16:48:10Z"
+            },
+            {
+              "originalPosition": 233,
+              "body": "sounds like a self fulfilling prophecy - why is that needed? I would rather state what the expected `typ` value is. ",
+              "createdAt": "2023-06-08T16:39:02Z",
+              "updatedAt": "2023-06-08T16:48:10Z"
+            },
+            {
+              "originalPosition": 245,
+              "body": "or `vc+sd-jwt`",
+              "createdAt": "2023-06-08T16:39:20Z",
+              "updatedAt": "2023-06-08T16:48:10Z"
+            },
+            {
+              "originalPosition": 263,
+              "body": "no definition of the MUST claims in a JWT VC?",
+              "createdAt": "2023-06-08T16:40:40Z",
+              "updatedAt": "2023-06-08T16:48:11Z"
+            },
+            {
+              "originalPosition": 278,
+              "body": "which vc and vp claims? seems this is another self fulfilling prophecy ",
+              "createdAt": "2023-06-08T16:41:10Z",
+              "updatedAt": "2023-06-08T16:48:11Z"
+            },
+            {
+              "originalPosition": 279,
+              "body": "typ or cty? I don't understand this sentence. Given line 211 states `typ` is `vc+jwt`.",
+              "createdAt": "2023-06-08T16:41:59Z",
+              "updatedAt": "2023-06-08T16:48:11Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 118,
+      "id": "PR_kwDOJbVClc5Sikpr",
+      "title": "breaking change: .well-known/jwt-issuer renamed to .well-known/jwt-vc-issuer",
+      "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/pull/118",
+      "state": "OPEN",
+      "author": "peppelinux",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "~this PR resolves~ https://github.com/vcstuff/draft-terbu-sd-jwt-vc/issues/101\r\n\r\nmore discussion is needed",
+      "createdAt": "2023-06-08T16:19:23Z",
+      "updatedAt": "2023-06-09T10:59:09Z",
+      "baseRepository": "vcstuff/draft-terbu-sd-jwt-vc",
+      "baseRefName": "main",
+      "baseRefOid": "588ea557ea5861784bbaf7051eddefdeb6d0751f",
+      "headRepository": "peppelinux/draft-terbu-sd-jwt-vc",
+      "headRefName": "vc-issuer-md",
+      "headRefOid": "cafdb7fd7b93248941b20eca924e149009f2b10e",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "tlodderstedt",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "might be a stupid question: but given the latest change from VC-SD-JWT to SD-JWT VC, shouldn\u2019t the metadata location name be `jwt-vc-issuer` instead of `vc-jwt-issuer`?",
+          "createdAt": "2023-06-08T16:24:36Z",
+          "updatedAt": "2023-06-08T16:24:36Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJbVClc5Xo9xc",
+          "commit": {
+            "abbreviatedOid": "b0d0d2c"
+          },
+          "author": "tlodderstedt",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "please also see my comment",
+          "createdAt": "2023-06-08T16:23:07Z",
+          "updatedAt": "2023-06-08T16:24:58Z",
+          "comments": [
+            {
+              "originalPosition": 14,
+              "body": "```suggestion\r\n# JWT VC Issuer Metadata {#vc-jwt-issuer-metadata}\r\n```",
+              "createdAt": "2023-06-08T16:23:07Z",
+              "updatedAt": "2023-06-08T16:24:58Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJbVClc5XpDDr",
+          "commit": {
+            "abbreviatedOid": "b0d0d2c"
+          },
+          "author": "peppelinux",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-06-08T16:36:59Z",
+          "updatedAt": "2023-06-08T16:36:59Z",
+          "comments": [
+            {
+              "originalPosition": 14,
+              "body": "done, thank you",
+              "createdAt": "2023-06-08T16:36:59Z",
+              "updatedAt": "2023-06-08T16:36:59Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 120,
+      "id": "PR_kwDOJbVClc5SmL7F",
+      "title": "first pass at adding a non-selectively disclosable JWT VC to the spec",
+      "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/pull/120",
+      "state": "OPEN",
+      "author": "Sakurann",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Changes\r\n- renamed the draft \r\n    - kept the short name, might need to introduce a term like `JOSE-VC` to aggregate both \"JWT VC and SD-JWT VC\" but might work without it too)\r\n    - I must admit I fought the urge to call it JWS VC...\r\n- restructured so that there is a `common data format` section with headers and payload requirements\r\n    - followed by a section per jwt vc and sd-jwt vc that defines media type and non-disclosable claims (for sd-jwt vc)\r\n- verification and processing is a top level section now\r\n- no changes to the jwt issuer metadata section\r\n- presenting VC section is common to both\r\n    - introduced ho to present a JWT VC with a HB JWT. this is currently the only way to do HB with JWT VC when HB is necessary. \r\n- no example of JWT VC yet - can be another PR I think",
+      "createdAt": "2023-06-09T08:20:25Z",
+      "updatedAt": "2023-06-09T22:28:00Z",
+      "baseRepository": "vcstuff/draft-terbu-sd-jwt-vc",
+      "baseRefName": "main",
+      "baseRefOid": "588ea557ea5861784bbaf7051eddefdeb6d0751f",
+      "headRepository": "vcstuff/draft-terbu-sd-jwt-vc",
+      "headRefName": "jwt-vc",
+      "headRefOid": "8acb37d4e5ceef1476039c6d42e8e600e208fa4e",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJbVClc5Xtdfk",
+          "commit": {
+            "abbreviatedOid": "8acb37d"
+          },
+          "author": "tplooker",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-06-09T08:56:14Z",
+          "updatedAt": "2023-06-09T08:56:15Z",
+          "comments": [
+            {
+              "originalPosition": 3,
+              "body": "How about just `JWT based Verifiable Credentials` I think the fact that they are selectively disclosable can be addressed right in the intro and abstract",
+              "createdAt": "2023-06-09T08:56:14Z",
+              "updatedAt": "2023-06-09T08:56:15Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJbVClc5XteJs",
+          "commit": {
+            "abbreviatedOid": "8acb37d"
+          },
+          "author": "tplooker",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-06-09T08:57:48Z",
+          "updatedAt": "2023-06-09T08:57:48Z",
+          "comments": [
+            {
+              "originalPosition": 19,
+              "body": "```suggestion\r\nrules to express Verifiable Credentials as a JWT [@!RFC7519] or an SD-JWT [@!I-D.ietf-oauth-selective-disclosure-jwt]\r\n```\r\n\r\nproposed simplification",
+              "createdAt": "2023-06-09T08:57:48Z",
+              "updatedAt": "2023-06-09T08:57:48Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJbVClc5XtedX",
+          "commit": {
+            "abbreviatedOid": "8acb37d"
+          },
+          "author": "tplooker",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-06-09T08:58:36Z",
+          "updatedAt": "2023-06-09T08:58:36Z",
+          "comments": [
+            {
+              "originalPosition": 31,
+              "body": "```suggestion\r\nThis specification defines Verifiable Credentials based on the JWT and SD-JWT.\r\n```",
+              "createdAt": "2023-06-09T08:58:36Z",
+              "updatedAt": "2023-06-09T08:58:36Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJbVClc5XyRGN",
+          "commit": {
+            "abbreviatedOid": "8acb37d"
+          },
+          "author": "Sakurann",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-06-09T17:51:43Z",
+          "updatedAt": "2023-06-09T17:51:43Z",
+          "comments": [
+            {
+              "originalPosition": 3,
+              "body": "yeah, title.. `JWT based` and `with a JWT Claim set` is different in my mind because `JWT != SD-JWT`, and the most important thing we are trying to convey is that the payload is vanilla JSON and I found `with a JWT Claim set` to be a good compromise because JSON-LD payload does not use JWT claims while JSON-LD is still JSON.",
+              "createdAt": "2023-06-09T17:51:43Z",
+              "updatedAt": "2023-06-09T17:51:43Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJbVClc5XyRzS",
+          "commit": {
+            "abbreviatedOid": "8acb37d"
+          },
+          "author": "Sakurann",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-06-09T17:53:02Z",
+          "updatedAt": "2023-06-09T17:53:02Z",
+          "comments": [
+            {
+              "originalPosition": 19,
+              "body": "I think we need to highlight that we are proposing two different ways to protect JSON payload (JWT claim set) with and without SD, and the current text is more explicit about it.",
+              "createdAt": "2023-06-09T17:53:02Z",
+              "updatedAt": "2023-06-09T17:53:02Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJbVClc5XySAN",
+          "commit": {
+            "abbreviatedOid": "8acb37d"
+          },
+          "author": "Sakurann",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-06-09T17:53:24Z",
+          "updatedAt": "2023-06-09T17:53:25Z",
+          "comments": [
+            {
+              "originalPosition": 31,
+              "body": "same comment as above two comments..",
+              "createdAt": "2023-06-09T17:53:24Z",
+              "updatedAt": "2023-06-09T17:53:25Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJbVClc5Xzg4f",
+          "commit": {
+            "abbreviatedOid": "8acb37d"
+          },
+          "author": "bc-pi",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-06-09T22:21:02Z",
+          "updatedAt": "2023-06-09T22:21:03Z",
+          "comments": [
+            {
+              "originalPosition": 3,
+              "body": "I'd argue that a shorter more succinct title like `JWT and SD-JWT Verifiable Credentials` would be better. Any subtleties could be added/addressed in the abstract or intro. If needed. But the title doesn't seem like the right place to be differentiating a JWT claim set (which is JSON) or JSON or JSON-LD or whatever. ",
+              "createdAt": "2023-06-09T22:21:03Z",
+              "updatedAt": "2023-06-09T22:21:03Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJbVClc5XzhkZ",
+          "commit": {
+            "abbreviatedOid": "8acb37d"
+          },
+          "author": "bc-pi",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-06-09T22:26:04Z",
+          "updatedAt": "2023-06-09T22:26:04Z",
+          "comments": [
+            {
+              "originalPosition": 3,
+              "body": "And yes, I know there's a recent [title change committed to SD-JWT](https://github.com/oauth-wg/oauth-selective-disclosure-jwt/commit/332ded8faf20d528c5c05e04cebed28aab1a0d33) but I don't love it.  ",
+              "createdAt": "2023-06-09T22:26:04Z",
+              "updatedAt": "2023-06-09T22:26:04Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJbVClc5Xzhz8",
+          "commit": {
+            "abbreviatedOid": "8acb37d"
+          },
+          "author": "bc-pi",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-06-09T22:27:59Z",
+          "updatedAt": "2023-06-09T22:27:59Z",
+          "comments": [
+            {
+              "originalPosition": 19,
+              "body": "I think the suggested text from @tplooker conveys it too.  ",
+              "createdAt": "2023-06-09T22:27:59Z",
+              "updatedAt": "2023-06-09T22:27:59Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
