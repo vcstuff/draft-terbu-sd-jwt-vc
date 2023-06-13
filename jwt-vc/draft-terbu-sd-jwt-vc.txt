@@ -9,7 +9,7 @@ Expires: 15 December 2023                                  Authlete Inc.
                                                             13 June 2023
 
 
-                 JWT and SD-JWT Verifiable Credentials
+               JWT-based Verifiable Credentials (JWT VC)
                       draft-terbu-sd-jwt-vc-latest
 
 Abstract
@@ -533,8 +533,8 @@ Table of Contents
    VZ1bHdRUWxoRmxNXzNKbHpNYVNGemdsaFFHMERwZmF5UXdMVUs0Il0sICJpc3MiOiAia
    HR0cHM6Ly9leGFtcGxlLmNvbS9pc3N1ZXIiLCAiaWF0IjogMTY4MzAwMDAwMCwgImV4c
    CI6IDE4ODMwMDAwMDAsICJ0eXBlIjogIklkZW50aXR5Q3JlZGVudGlhbCIsICJfc2RfY
-   WxnIjogInNoYS0yNTYifQ.DFI-TERCRFdndfRug9eyP3LMsd80hZ1Rc_yFjlanntrKbl
-   QPVPFlSqFynt1OaAMP8qW-5AlQT3W1xTtFbnMPTw~WyIyR0xDNDJzS1F2ZUNmR2ZyeU5
+   WxnIjogInNoYS0yNTYifQ.2XvDhZt4vf9Z8oFjdE28RID6wWInjuz3kFpwenxPDFe6km
+   xpQSNAOjeYclQrS_eWbSv56Jz0oTuO02MtvIUrlA~WyIyR0xDNDJzS1F2ZUNmR2ZyeU5
    STjl3IiwgImdpdmVuX25hbWUiLCAiSm9obiJd~WyJlbHVWNU9nM2dTTklJOEVZbnN4QV
    9BIiwgImZhbWlseV9uYW1lIiwgIkRvZSJd~WyI2SWo3dE0tYTVpVlBHYm9TNXRtdlZBI
    iwgImVtYWlsIiwgImpvaG5kb2VAZXhhbXBsZS5jb20iXQ~WyJlSThaV205UW5LUHBOUG
@@ -742,8 +742,8 @@ Table of Contents
    VZ1bHdRUWxoRmxNXzNKbHpNYVNGemdsaFFHMERwZmF5UXdMVUs0Il0sICJpc3MiOiAia
    HR0cHM6Ly9leGFtcGxlLmNvbS9pc3N1ZXIiLCAiaWF0IjogMTY4MzAwMDAwMCwgImV4c
    CI6IDE4ODMwMDAwMDAsICJ0eXBlIjogIklkZW50aXR5Q3JlZGVudGlhbCIsICJfc2RfY
-   WxnIjogInNoYS0yNTYifQ.DFI-TERCRFdndfRug9eyP3LMsd80hZ1Rc_yFjlanntrKbl
-   QPVPFlSqFynt1OaAMP8qW-5AlQT3W1xTtFbnMPTw~
+   WxnIjogInNoYS0yNTYifQ.2XvDhZt4vf9Z8oFjdE28RID6wWInjuz3kFpwenxPDFe6km
+   xpQSNAOjeYclQrS_eWbSv56Jz0oTuO02MtvIUrlA~
 
    In this presentation, the Holder provides only the Disclosure for the
    claim address.  Other claims are not disclosed to the Verifier.
@@ -762,8 +762,8 @@ Table of Contents
    VZ1bHdRUWxoRmxNXzNKbHpNYVNGemdsaFFHMERwZmF5UXdMVUs0Il0sICJpc3MiOiAia
    HR0cHM6Ly9leGFtcGxlLmNvbS9pc3N1ZXIiLCAiaWF0IjogMTY4MzAwMDAwMCwgImV4c
    CI6IDE4ODMwMDAwMDAsICJ0eXBlIjogIklkZW50aXR5Q3JlZGVudGlhbCIsICJfc2RfY
-   WxnIjogInNoYS0yNTYifQ.VV3Q4kOAmSgqhLWMvcnwqOyteheom-vz_gZy1DVzLxdlEN
-   RpfHLODO08q-wpOpdYh4xtKZ2IzsPS1py3T16kdA~
+   WxnIjogInNoYS0yNTYifQ.JoB5D3t6WORghG_v5aWnyQq5oVM49z6YJqK0CMg0D2FTdD
+   1zzkE6gsn42mCVRWT0JK5X2ZXO_KPtTwoyHPatLA~
 
 9.3.  Verification and Processing
 
