@@ -151,8 +151,8 @@ Table of Contents
    information to Verifiers.  (The Verifier can also serve as the Status
    Provider.)
 
-   This specification defines Verifiable Credentials based on the JWS
-   and SD-JWT with a JWT Claim Set.
+   This specification defines Verifiable Credentials based on JWT and
+   SD-JWT.
 
 1.2.  Rationale
 
@@ -222,7 +222,7 @@ Table of Contents
    *  This specification defines
 
       -  Data model and media types for Verifiable Credentials based on
-         JWS and SD-JWTs.
+         JWTs and SD-JWTs.
 
       -  Validation and processing rules for Verifiers and Holders.
 
@@ -240,8 +240,8 @@ Table of Contents
 
 4.1.  Header Parameters
 
-   This section defines JWT header parameters for the JWT VC and the SD-
-   JWT component of the SD-JWT VC.
+   This section defines JOSE header parameters for the JWT VC and the
+   SD-JWT component of the SD-JWT VC.
 
    The typ header parameter MUST be present.  The typ value MUST use the
    values defined in Section 5.1 or Section 6.1.  This indicates that
@@ -533,8 +533,8 @@ Table of Contents
    VZ1bHdRUWxoRmxNXzNKbHpNYVNGemdsaFFHMERwZmF5UXdMVUs0Il0sICJpc3MiOiAia
    HR0cHM6Ly9leGFtcGxlLmNvbS9pc3N1ZXIiLCAiaWF0IjogMTY4MzAwMDAwMCwgImV4c
    CI6IDE4ODMwMDAwMDAsICJ0eXBlIjogIklkZW50aXR5Q3JlZGVudGlhbCIsICJfc2RfY
-   WxnIjogInNoYS0yNTYifQ.2XvDhZt4vf9Z8oFjdE28RID6wWInjuz3kFpwenxPDFe6km
-   xpQSNAOjeYclQrS_eWbSv56Jz0oTuO02MtvIUrlA~WyIyR0xDNDJzS1F2ZUNmR2ZyeU5
+   WxnIjogInNoYS0yNTYifQ.CDWZmcA0gUSYM1rvsZnxDxni3lNRQVqBEs6dRN2FG6B5Kx
+   yJSOkQj7xzjEQQrfxD2_JqxEV3wJvRKZUpiOQjWg~WyIyR0xDNDJzS1F2ZUNmR2ZyeU5
    STjl3IiwgImdpdmVuX25hbWUiLCAiSm9obiJd~WyJlbHVWNU9nM2dTTklJOEVZbnN4QV
    9BIiwgImZhbWlseV9uYW1lIiwgIkRvZSJd~WyI2SWo3dE0tYTVpVlBHYm9TNXRtdlZBI
    iwgImVtYWlsIiwgImpvaG5kb2VAZXhhbXBsZS5jb20iXQ~WyJlSThaV205UW5LUHBOUG
@@ -552,9 +552,9 @@ Table of Contents
    The recipient of the JWT VC MUST process and verify a JWT VC as
    follows:
 
-   1.  REQUIRED.  To process and verify the JWT VC, follow the stepd
-       defined in Section 7.2 of [RFC7519].  To process and verify the
-       SD-JWT VC, follow the steps defined in Section 6 of
+   1.  REQUIRED.  To process and verify a JWT VC, follow the stepd
+       defined in Section 7.2 of [RFC7519].  To process and verify a SD-
+       JWT VC, follow the steps defined in Section 6 of
        [I-D.ietf-oauth-selective-disclosure-jwt].  For the verification,
        the iss claim in the payload MAY be used to retrieve the public
        key from the JWT Issuer Metadata configuration (as defined in
@@ -742,8 +742,8 @@ Table of Contents
    VZ1bHdRUWxoRmxNXzNKbHpNYVNGemdsaFFHMERwZmF5UXdMVUs0Il0sICJpc3MiOiAia
    HR0cHM6Ly9leGFtcGxlLmNvbS9pc3N1ZXIiLCAiaWF0IjogMTY4MzAwMDAwMCwgImV4c
    CI6IDE4ODMwMDAwMDAsICJ0eXBlIjogIklkZW50aXR5Q3JlZGVudGlhbCIsICJfc2RfY
-   WxnIjogInNoYS0yNTYifQ.2XvDhZt4vf9Z8oFjdE28RID6wWInjuz3kFpwenxPDFe6km
-   xpQSNAOjeYclQrS_eWbSv56Jz0oTuO02MtvIUrlA~
+   WxnIjogInNoYS0yNTYifQ.CDWZmcA0gUSYM1rvsZnxDxni3lNRQVqBEs6dRN2FG6B5Kx
+   yJSOkQj7xzjEQQrfxD2_JqxEV3wJvRKZUpiOQjWg~
 
    In this presentation, the Holder provides only the Disclosure for the
    claim address.  Other claims are not disclosed to the Verifier.
@@ -762,8 +762,8 @@ Table of Contents
    VZ1bHdRUWxoRmxNXzNKbHpNYVNGemdsaFFHMERwZmF5UXdMVUs0Il0sICJpc3MiOiAia
    HR0cHM6Ly9leGFtcGxlLmNvbS9pc3N1ZXIiLCAiaWF0IjogMTY4MzAwMDAwMCwgImV4c
    CI6IDE4ODMwMDAwMDAsICJ0eXBlIjogIklkZW50aXR5Q3JlZGVudGlhbCIsICJfc2RfY
-   WxnIjogInNoYS0yNTYifQ.JoB5D3t6WORghG_v5aWnyQq5oVM49z6YJqK0CMg0D2FTdD
-   1zzkE6gsn42mCVRWT0JK5X2ZXO_KPtTwoyHPatLA~
+   WxnIjogInNoYS0yNTYifQ.XtdS7scG8nhcRCGlJzJmPWyfV3l9Ybhhk39Rh0jMSdT-XL
+   Y5ViC6DqqTtu3ZSNr5kkp8E2E3JXLtaDfpUV6fSg~
 
 9.3.  Verification and Processing
 

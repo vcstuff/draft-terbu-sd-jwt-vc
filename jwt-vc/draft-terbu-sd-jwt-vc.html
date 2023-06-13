@@ -1358,8 +1358,7 @@ described in <span>[<a href="#I-D.ietf-oauth-selective-disclosure-jwt" class="ci
 <p id="section-1.1-4">To support revocation of Verifiable Credentials, an optional fourth party can be
 involved, a Status Provider, who delivers revocation information to Verifiers.
 (The Verifier can also serve as the Status Provider.)<a href="#section-1.1-4" class="pilcrow">¶</a></p>
-<p id="section-1.1-5">This specification defines Verifiable Credentials based on the JWS and SD-JWT
-with a JWT Claim Set.<a href="#section-1.1-5" class="pilcrow">¶</a></p>
+<p id="section-1.1-5">This specification defines Verifiable Credentials based on JWT and SD-JWT.<a href="#section-1.1-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="rationale">
@@ -1446,7 +1445,7 @@ an SD-JWT VC complying to this specification.<a href="#section-1.4-2.6" class="p
 <li class="normal" id="section-2-1.1">
           <p id="section-2-1.1.1">This specification defines<a href="#section-2-1.1.1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-2-1.1.2.1">Data model and media types for Verifiable Credentials based on JWS and SD-JWTs.<a href="#section-2-1.1.2.1" class="pilcrow">¶</a>
+<li class="normal" id="section-2-1.1.2.1">Data model and media types for Verifiable Credentials based on JWTs and SD-JWTs.<a href="#section-2-1.1.2.1" class="pilcrow">¶</a>
 </li>
             <li class="normal" id="section-2-1.1.2.2">Validation and processing rules for Verifiers and Holders.<a href="#section-2-1.1.2.2" class="pilcrow">¶</a>
 </li>
@@ -1476,7 +1475,7 @@ compliance with FIPS<a href="#section-3-2" class="pilcrow">¶</a></p>
         <h3 id="name-header-parameters">
 <a href="#section-4.1" class="section-number selfRef">4.1. </a><a href="#name-header-parameters" class="section-name selfRef">Header Parameters</a>
         </h3>
-<p id="section-4.1-1">This section defines JWT header parameters for the JWT VC
+<p id="section-4.1-1">This section defines JOSE header parameters for the JWT VC
 and the SD-JWT component of the SD-JWT VC.<a href="#section-4.1-1" class="pilcrow">¶</a></p>
 <p id="section-4.1-2">The <code>typ</code> header parameter MUST be present. The <code>typ</code> value MUST
 use the values defined in <a href="#media-type-jwt-vc" class="auto internal xref">Section 5.1</a> or <a href="#media-type-sd-jwt-vc" class="auto internal xref">Section 6.1</a>.
@@ -1839,8 +1838,8 @@ mRyVEU4WWNiWTRFaWZ1Z2loaUFlX0JQZWt4SlFaSUNlaVVRd1k5UXF4SSIsICJqc3U5e
 VZ1bHdRUWxoRmxNXzNKbHpNYVNGemdsaFFHMERwZmF5UXdMVUs0Il0sICJpc3MiOiAia
 HR0cHM6Ly9leGFtcGxlLmNvbS9pc3N1ZXIiLCAiaWF0IjogMTY4MzAwMDAwMCwgImV4c
 CI6IDE4ODMwMDAwMDAsICJ0eXBlIjogIklkZW50aXR5Q3JlZGVudGlhbCIsICJfc2RfY
-WxnIjogInNoYS0yNTYifQ.2XvDhZt4vf9Z8oFjdE28RID6wWInjuz3kFpwenxPDFe6km
-xpQSNAOjeYclQrS_eWbSv56Jz0oTuO02MtvIUrlA~WyIyR0xDNDJzS1F2ZUNmR2ZyeU5
+WxnIjogInNoYS0yNTYifQ.CDWZmcA0gUSYM1rvsZnxDxni3lNRQVqBEs6dRN2FG6B5Kx
+yJSOkQj7xzjEQQrfxD2_JqxEV3wJvRKZUpiOQjWg~WyIyR0xDNDJzS1F2ZUNmR2ZyeU5
 STjl3IiwgImdpdmVuX25hbWUiLCAiSm9obiJd~WyJlbHVWNU9nM2dTTklJOEVZbnN4QV
 9BIiwgImZhbWlseV9uYW1lIiwgIkRvZSJd~WyI2SWo3dE0tYTVpVlBHYm9TNXRtdlZBI
 iwgImVtYWlsIiwgImpvaG5kb2VAZXhhbXBsZS5jb20iXQ~WyJlSThaV205UW5LUHBOUG
@@ -1866,8 +1865,8 @@ mlzX292ZXJfNjUiLCB0cnVlXQ
 <p id="section-7-1">The recipient of the JWT VC MUST process and verify a JWT VC as
 follows:<a href="#section-7-1" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-7-2">
-<li id="section-7-2.1">REQUIRED. To process and verify the JWT VC, follow the stepd defined in
-Section 7.2 of <span>[<a href="#RFC7519" class="cite xref">RFC7519</a>]</span>. To process and verify the SD-JWT VC, follow the steps
+<li id="section-7-2.1">REQUIRED. To process and verify a JWT VC, follow the stepd defined in
+Section 7.2 of <span>[<a href="#RFC7519" class="cite xref">RFC7519</a>]</span>. To process and verify a SD-JWT VC, follow the steps
 defined in Section 6 of <span>[<a href="#I-D.ietf-oauth-selective-disclosure-jwt" class="cite xref">I-D.ietf-oauth-selective-disclosure-jwt</a>]</span>. For the
 verification, the <code>iss</code> claim in the payload MAY be used to retrieve the public
 key from the JWT Issuer Metadata configuration (as defined in
@@ -2096,8 +2095,8 @@ mRyVEU4WWNiWTRFaWZ1Z2loaUFlX0JQZWt4SlFaSUNlaVVRd1k5UXF4SSIsICJqc3U5e
 VZ1bHdRUWxoRmxNXzNKbHpNYVNGemdsaFFHMERwZmF5UXdMVUs0Il0sICJpc3MiOiAia
 HR0cHM6Ly9leGFtcGxlLmNvbS9pc3N1ZXIiLCAiaWF0IjogMTY4MzAwMDAwMCwgImV4c
 CI6IDE4ODMwMDAwMDAsICJ0eXBlIjogIklkZW50aXR5Q3JlZGVudGlhbCIsICJfc2RfY
-WxnIjogInNoYS0yNTYifQ.2XvDhZt4vf9Z8oFjdE28RID6wWInjuz3kFpwenxPDFe6km
-xpQSNAOjeYclQrS_eWbSv56Jz0oTuO02MtvIUrlA~
+WxnIjogInNoYS0yNTYifQ.CDWZmcA0gUSYM1rvsZnxDxni3lNRQVqBEs6dRN2FG6B5Kx
+yJSOkQj7xzjEQQrfxD2_JqxEV3wJvRKZUpiOQjWg~
 </pre><a href="#section-9.2-2" class="pilcrow">¶</a>
 </div>
 <p id="section-9.2-3">In this presentation, the Holder provides only the Disclosure for the claim
@@ -2116,8 +2115,8 @@ mRyVEU4WWNiWTRFaWZ1Z2loaUFlX0JQZWt4SlFaSUNlaVVRd1k5UXF4SSIsICJqc3U5e
 VZ1bHdRUWxoRmxNXzNKbHpNYVNGemdsaFFHMERwZmF5UXdMVUs0Il0sICJpc3MiOiAia
 HR0cHM6Ly9leGFtcGxlLmNvbS9pc3N1ZXIiLCAiaWF0IjogMTY4MzAwMDAwMCwgImV4c
 CI6IDE4ODMwMDAwMDAsICJ0eXBlIjogIklkZW50aXR5Q3JlZGVudGlhbCIsICJfc2RfY
-WxnIjogInNoYS0yNTYifQ.JoB5D3t6WORghG_v5aWnyQq5oVM49z6YJqK0CMg0D2FTdD
-1zzkE6gsn42mCVRWT0JK5X2ZXO_KPtTwoyHPatLA~
+WxnIjogInNoYS0yNTYifQ.XtdS7scG8nhcRCGlJzJmPWyfV3l9Ybhhk39Rh0jMSdT-XL
+Y5ViC6DqqTtu3ZSNr5kkp8E2E3JXLtaDfpUV6fSg~
 </pre><a href="#section-9.2-5" class="pilcrow">¶</a>
 </div>
 </section>
