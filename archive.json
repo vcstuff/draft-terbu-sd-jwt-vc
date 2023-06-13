@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-06-11T02:01:47.672333+00:00",
+  "timestamp": "2023-06-13T01:46:52.823989+00:00",
   "repo": "vcstuff/draft-terbu-sd-jwt-vc",
   "labels": [
     {
@@ -6147,7 +6147,7 @@
       "labels": [],
       "body": "Changes\r\n- renamed the draft \r\n    - kept the short name, might need to introduce a term like `JOSE-VC` to aggregate both \"JWT VC and SD-JWT VC\" but might work without it too)\r\n    - I must admit I fought the urge to call it JWS VC...\r\n- restructured so that there is a `common data format` section with headers and payload requirements\r\n    - followed by a section per jwt vc and sd-jwt vc that defines media type and non-disclosable claims (for sd-jwt vc)\r\n- verification and processing is a top level section now\r\n- no changes to the jwt issuer metadata section\r\n- presenting VC section is common to both\r\n    - introduced ho to present a JWT VC with a HB JWT. this is currently the only way to do HB with JWT VC when HB is necessary. \r\n- no example of JWT VC yet - can be another PR I think",
       "createdAt": "2023-06-09T08:20:25Z",
-      "updatedAt": "2023-06-09T22:28:00Z",
+      "updatedAt": "2023-06-12T21:21:53Z",
       "baseRepository": "vcstuff/draft-terbu-sd-jwt-vc",
       "baseRefName": "main",
       "baseRefOid": "588ea557ea5861784bbaf7051eddefdeb6d0751f",
@@ -6337,6 +6337,26 @@
               "body": "I think the suggested text from @tplooker conveys it too.  ",
               "createdAt": "2023-06-09T22:27:59Z",
               "updatedAt": "2023-06-09T22:27:59Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJbVClc5X95e1",
+          "commit": {
+            "abbreviatedOid": "8acb37d"
+          },
+          "author": "tplooker",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-06-12T21:21:52Z",
+          "updatedAt": "2023-06-12T21:21:52Z",
+          "comments": [
+            {
+              "originalPosition": 3,
+              "body": "> I'd argue that a shorter more succinct title like JWT and SD-JWT Verifiable Credentials would be better. Any subtleties could be added/addressed in the abstract or intro. If needed. But the title doesn't seem like the right place to be differentiating a JWT claim set (which is JSON) or JSON or JSON-LD or whatever.\r\n\r\nI'm in support of this.",
+              "createdAt": "2023-06-12T21:21:52Z",
+              "updatedAt": "2023-06-12T21:21:52Z"
             }
           ]
         }
