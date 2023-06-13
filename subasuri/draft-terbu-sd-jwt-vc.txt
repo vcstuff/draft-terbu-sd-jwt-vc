@@ -328,9 +328,9 @@ Table of Contents
    *  sub
 
       -  OPTIONAL.  The identifier of the Subject of the Verifiable
-         Credential as known to the . The Issuer MAY use it to provide
-         the Subject identifier known by the Issuer.  There is no
-         requirement for a binding to exist between sub and cnf claims.
+         Credential.  The Issuer MAY use it to provide the Subject
+         identifier known by the Issuer.  There is no requirement for a
+         binding to exist between sub and cnf claims.
 
 4.2.2.3.  Public JWT claims
 
@@ -510,8 +510,8 @@ Table of Contents
    WxnIjogInNoYS0yNTYiLCAiY25mIjogeyJqd2siOiB7Imt0eSI6ICJFQyIsICJjcnYiO
    iAiUC0yNTYiLCAieCI6ICJUQ0FFUjE5WnZ1M09IRjRqNFc0dmZTVm9ISVAxSUxpbERsc
    zd2Q2VHZW1jIiwgInkiOiAiWnhqaVdXYlpNUUdIVldLVlE0aGJTSWlyc1ZmdWVjQ0U2d
-   DRqVDlGMkhaUSJ9fX0.GQyGBdCqA2YFiQ8JhF6phiEmSzqOYqyLxTJ3rGdmvBLFAm_JQ
-   82YkDY5DOZokkGNRGRMOITjFY8OnqEN5_4BKQ~WyIyR0xDNDJzS1F2ZUNmR2ZyeU5STj
+   DRqVDlGMkhaUSJ9fX0.HBCaU5-uiOF_RwvZ-pe43o_iTBNq6p6xIJ6XkL5bSdAO7CgkL
+   yxLqZ5ywuYuz5Q_s0XWJ_LF7uE2VBpel-QTXA~WyIyR0xDNDJzS1F2ZUNmR2ZyeU5STj
    l3IiwgImdpdmVuX25hbWUiLCAiSm9obiJd~WyJlbHVWNU9nM2dTTklJOEVZbnN4QV9BI
    iwgImZhbWlseV9uYW1lIiwgIkRvZSJd~WyI2SWo3dE0tYTVpVlBHYm9TNXRtdlZBIiwg
    ImVtYWlsIiwgImpvaG5kb2VAZXhhbXBsZS5jb20iXQ~WyJlSThaV205UW5LUHBOUGVOZ
@@ -727,12 +727,12 @@ Table of Contents
    WxnIjogInNoYS0yNTYiLCAiY25mIjogeyJqd2siOiB7Imt0eSI6ICJFQyIsICJjcnYiO
    iAiUC0yNTYiLCAieCI6ICJUQ0FFUjE5WnZ1M09IRjRqNFc0dmZTVm9ISVAxSUxpbERsc
    zd2Q2VHZW1jIiwgInkiOiAiWnhqaVdXYlpNUUdIVldLVlE0aGJTSWlyc1ZmdWVjQ0U2d
-   DRqVDlGMkhaUSJ9fX0.GQyGBdCqA2YFiQ8JhF6phiEmSzqOYqyLxTJ3rGdmvBLFAm_JQ
-   82YkDY5DOZokkGNRGRMOITjFY8OnqEN5_4BKQ~eyJhbGciOiAiRVMyNTYiLCAidHlwIj
+   DRqVDlGMkhaUSJ9fX0.HBCaU5-uiOF_RwvZ-pe43o_iTBNq6p6xIJ6XkL5bSdAO7CgkL
+   yxLqZ5ywuYuz5Q_s0XWJ_LF7uE2VBpel-QTXA~eyJhbGciOiAiRVMyNTYiLCAidHlwIj
    ogImhiK2p3dCJ9.eyJub25jZSI6ICIxMjM0NTY3ODkwIiwgImF1ZCI6ICJodHRwczovL
-   2V4YW1wbGUuY29tL3ZlcmlmaWVyIiwgImlhdCI6IDE2ODY2NTczMzF9.lHn5EnGbp6hZ
-   o8jqwGhBn9MM3wBye1z_TbpCT0kySrNSDNkuKEiy5iPWxdjfV_Mag75ab6lWiEJ7v-8L
-   J-W0Ow
+   2V4YW1wbGUuY29tL3ZlcmlmaWVyIiwgImlhdCI6IDE2ODY2NTczODl9.dClNinJK9FmI
+   gFaQ_ltJgTcMcz7l28f6Xilf57yXwV3CD96gGv_tahmqjf0qmqQFsxt_wjq5yUyHn6Ha
+   BEbFvw
 
    In this presentation, the Holder provides only the Disclosure for the
    claim address.  Other claims are not disclosed to the Verifier.
@@ -751,8 +751,8 @@ Table of Contents
    VZ1bHdRUWxoRmxNXzNKbHpNYVNGemdsaFFHMERwZmF5UXdMVUs0Il0sICJpc3MiOiAia
    HR0cHM6Ly9leGFtcGxlLmNvbS9pc3N1ZXIiLCAiaWF0IjogMTY4MzAwMDAwMCwgImV4c
    CI6IDE4ODMwMDAwMDAsICJ0eXBlIjogIklkZW50aXR5Q3JlZGVudGlhbCIsICJfc2RfY
-   WxnIjogInNoYS0yNTYifQ.po3wXEjVrSETVCCd82s6eP7cXHBntjXmqAKydl7Ubuof56
-   BrmgCQjX_hVinhPkfsuxOh60Dn0oA5mSX_DcMKTg~
+   WxnIjogInNoYS0yNTYifQ.42lSx4CXZQoxNMb64xLb0KU7duBa4LNVqNruM5PavRZPop
+   pBdWK8lpmeMDewHyrixbjxxrYCSLxFdJN4vo9XJQ~
 
 6.3.  Verification and Processing
 
