@@ -5,12 +5,11 @@
 TODO Working Group                                              O. Terbu
 Internet-Draft                                      Spruce Systems, Inc.
 Intended status: Standards Track                                 D. Fett
-Expires: 11 December 2023                                  Authlete Inc.
-                                                             9 June 2023
+Expires: 15 December 2023                                  Authlete Inc.
+                                                            13 June 2023
 
 
- Verifiable Credentials with a JWT Claim Set with or without Selective
-                               Disclosure
+                 JWT and SD-JWT Verifiable Credentials
                       draft-terbu-sd-jwt-vc-latest
 
 Abstract
@@ -36,7 +35,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 11 December 2023.
+   This Internet-Draft will expire on 15 December 2023.
 
 Copyright Notice
 
@@ -540,8 +539,8 @@ Table of Contents
    WxnIjogInNoYS0yNTYiLCAiY25mIjogeyJqd2siOiB7Imt0eSI6ICJFQyIsICJjcnYiO
    iAiUC0yNTYiLCAieCI6ICJUQ0FFUjE5WnZ1M09IRjRqNFc0dmZTVm9ISVAxSUxpbERsc
    zd2Q2VHZW1jIiwgInkiOiAiWnhqaVdXYlpNUUdIVldLVlE0aGJTSWlyc1ZmdWVjQ0U2d
-   DRqVDlGMkhaUSJ9fX0.IAjHlqTyd2ArMQLT7zya7ijuGgJQ3Kq6okOAxQItTxxEpC7HJ
-   9M53dqTJqnxEAB9X8QThVFRT5dXPHtu1dG85A~WyIyR0xDNDJzS1F2ZUNmR2ZyeU5STj
+   DRqVDlGMkhaUSJ9fX0.xH5YqTHeXYB0ZV4v3iMvcVCHEEz3Q2l5o_aIIm2ySwjeZXsjb
+   74lxUn6-MuJ7bCL_LHQu7awPQgzJ063kbdnBA~WyIyR0xDNDJzS1F2ZUNmR2ZyeU5STj
    l3IiwgImdpdmVuX25hbWUiLCAiSm9obiJd~WyJlbHVWNU9nM2dTTklJOEVZbnN4QV9BI
    iwgImZhbWlseV9uYW1lIiwgIkRvZSJd~WyI2SWo3dE0tYTVpVlBHYm9TNXRtdlZBIiwg
    ImVtYWlsIiwgImpvaG5kb2VAZXhhbXBsZS5jb20iXQ~WyJlSThaV205UW5LUHBOUGVOZ
@@ -752,12 +751,12 @@ Table of Contents
    WxnIjogInNoYS0yNTYiLCAiY25mIjogeyJqd2siOiB7Imt0eSI6ICJFQyIsICJjcnYiO
    iAiUC0yNTYiLCAieCI6ICJUQ0FFUjE5WnZ1M09IRjRqNFc0dmZTVm9ISVAxSUxpbERsc
    zd2Q2VHZW1jIiwgInkiOiAiWnhqaVdXYlpNUUdIVldLVlE0aGJTSWlyc1ZmdWVjQ0U2d
-   DRqVDlGMkhaUSJ9fX0.IAjHlqTyd2ArMQLT7zya7ijuGgJQ3Kq6okOAxQItTxxEpC7HJ
-   9M53dqTJqnxEAB9X8QThVFRT5dXPHtu1dG85A~eyJhbGciOiAiRVMyNTYiLCAidHlwIj
+   DRqVDlGMkhaUSJ9fX0.xH5YqTHeXYB0ZV4v3iMvcVCHEEz3Q2l5o_aIIm2ySwjeZXsjb
+   74lxUn6-MuJ7bCL_LHQu7awPQgzJ063kbdnBA~eyJhbGciOiAiRVMyNTYiLCAidHlwIj
    ogImhiK2p3dCJ9.eyJub25jZSI6ICIxMjM0NTY3ODkwIiwgImF1ZCI6ICJodHRwczovL
-   2V4YW1wbGUuY29tL3ZlcmlmaWVyIiwgImlhdCI6IDE2ODYyOTg4MzR9.4h2stTveJIEn
-   e9g8-v4evci0m6w16_S9Dap76nltTDQ6ZY1xeIOqPUzpz_JbKZrCMFJiYy0yW5V0jtmL
-   ToVLig
+   2V4YW1wbGUuY29tL3ZlcmlmaWVyIiwgImlhdCI6IDE2ODY2MzUwNjl9.ndVgPVKsOlhM
+   QNeAzToccMW2O46cKPCTPy6nrh5LGTtSYoF4FtKjX33pXuBIwi8ejJ6qKw_BIzY8EYsN
+   8h5XuQ
 
    In this presentation, the Holder provides only the Disclosure for the
    claim address.  Other claims are not disclosed to the Verifier.
@@ -776,8 +775,8 @@ Table of Contents
    VZ1bHdRUWxoRmxNXzNKbHpNYVNGemdsaFFHMERwZmF5UXdMVUs0Il0sICJpc3MiOiAia
    HR0cHM6Ly9leGFtcGxlLmNvbS9pc3N1ZXIiLCAiaWF0IjogMTY4MzAwMDAwMCwgImV4c
    CI6IDE4ODMwMDAwMDAsICJ0eXBlIjogIklkZW50aXR5Q3JlZGVudGlhbCIsICJfc2RfY
-   WxnIjogInNoYS0yNTYifQ.QFBWIKKKmmysqpagdD6uxoLwzHNuNIKer7T7lt8H2e8ac9
-   moX-QL69PTg22vaxR-_GrH2-ewkIfoIJFQXlXPpQ~
+   WxnIjogInNoYS0yNTYifQ.BSX5-R62bMaSxpKsWArZ5jjfk8LGiDzJ32Ez0yGUIeyTjH
+   -iZFBliM0qIx5sSR4WUnBXH7YYXVRETctu9Gj5UQ~
 
 9.3.  Verification and Processing
 
