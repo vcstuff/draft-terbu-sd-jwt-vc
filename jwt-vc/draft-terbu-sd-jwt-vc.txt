@@ -15,10 +15,9 @@ Expires: 15 December 2023                                  Authlete Inc.
 Abstract
 
    This specification describes data formats as well as validation and
-   processing rules to express Verifiable Credentials with a JWT Claim
-   set [RFC7519] that are protected using the JWS [RFC7515], or the SD-
-   JWT [I-D.ietf-oauth-selective-disclosure-jwt] when the selective
-   disclosure capability is required.
+   processing rules to express Verifiable Credentials based on JWT
+   [RFC7519] or SD-JWT [I-D.ietf-oauth-selective-disclosure-jwt] when
+   the selective disclosure capability is required.
 
 Status of This Memo
 
@@ -241,7 +240,7 @@ Table of Contents
 4.1.  Header Parameters
 
    This section defines JOSE header parameters for the JWT VC and the
-   SD-JWT component of the SD-JWT VC.
+   SD-JWT VC.
 
    The typ header parameter MUST be present.  The typ value MUST use the
    values defined in Section 5.1 or Section 6.1.  This indicates that
@@ -533,8 +532,8 @@ Table of Contents
    VZ1bHdRUWxoRmxNXzNKbHpNYVNGemdsaFFHMERwZmF5UXdMVUs0Il0sICJpc3MiOiAia
    HR0cHM6Ly9leGFtcGxlLmNvbS9pc3N1ZXIiLCAiaWF0IjogMTY4MzAwMDAwMCwgImV4c
    CI6IDE4ODMwMDAwMDAsICJ0eXBlIjogIklkZW50aXR5Q3JlZGVudGlhbCIsICJfc2RfY
-   WxnIjogInNoYS0yNTYifQ.CDWZmcA0gUSYM1rvsZnxDxni3lNRQVqBEs6dRN2FG6B5Kx
-   yJSOkQj7xzjEQQrfxD2_JqxEV3wJvRKZUpiOQjWg~WyIyR0xDNDJzS1F2ZUNmR2ZyeU5
+   WxnIjogInNoYS0yNTYifQ.KKtUrrqZoaQXJousHNJem1AxGVnJM0fJEFWA3e8yxo9TUA
+   TitJ9bNvzzKonoptGGiccqkVuitqzYE-W5a3p_tw~WyIyR0xDNDJzS1F2ZUNmR2ZyeU5
    STjl3IiwgImdpdmVuX25hbWUiLCAiSm9obiJd~WyJlbHVWNU9nM2dTTklJOEVZbnN4QV
    9BIiwgImZhbWlseV9uYW1lIiwgIkRvZSJd~WyI2SWo3dE0tYTVpVlBHYm9TNXRtdlZBI
    iwgImVtYWlsIiwgImpvaG5kb2VAZXhhbXBsZS5jb20iXQ~WyJlSThaV205UW5LUHBOUG
@@ -549,8 +548,8 @@ Table of Contents
 
 7.  Verification and Processing
 
-   The recipient of the JWT VC MUST process and verify a JWT VC as
-   follows:
+   The recipient of the JWT VC MUST process and verify a JWT VC or an
+   SD-JWT VC as follows:
 
    1.  REQUIRED.  To process and verify a JWT VC, follow the stepd
        defined in Section 7.2 of [RFC7519].  To process and verify a SD-
@@ -742,8 +741,8 @@ Table of Contents
    VZ1bHdRUWxoRmxNXzNKbHpNYVNGemdsaFFHMERwZmF5UXdMVUs0Il0sICJpc3MiOiAia
    HR0cHM6Ly9leGFtcGxlLmNvbS9pc3N1ZXIiLCAiaWF0IjogMTY4MzAwMDAwMCwgImV4c
    CI6IDE4ODMwMDAwMDAsICJ0eXBlIjogIklkZW50aXR5Q3JlZGVudGlhbCIsICJfc2RfY
-   WxnIjogInNoYS0yNTYifQ.CDWZmcA0gUSYM1rvsZnxDxni3lNRQVqBEs6dRN2FG6B5Kx
-   yJSOkQj7xzjEQQrfxD2_JqxEV3wJvRKZUpiOQjWg~
+   WxnIjogInNoYS0yNTYifQ.KKtUrrqZoaQXJousHNJem1AxGVnJM0fJEFWA3e8yxo9TUA
+   TitJ9bNvzzKonoptGGiccqkVuitqzYE-W5a3p_tw~
 
    In this presentation, the Holder provides only the Disclosure for the
    claim address.  Other claims are not disclosed to the Verifier.
@@ -762,8 +761,8 @@ Table of Contents
    VZ1bHdRUWxoRmxNXzNKbHpNYVNGemdsaFFHMERwZmF5UXdMVUs0Il0sICJpc3MiOiAia
    HR0cHM6Ly9leGFtcGxlLmNvbS9pc3N1ZXIiLCAiaWF0IjogMTY4MzAwMDAwMCwgImV4c
    CI6IDE4ODMwMDAwMDAsICJ0eXBlIjogIklkZW50aXR5Q3JlZGVudGlhbCIsICJfc2RfY
-   WxnIjogInNoYS0yNTYifQ.XtdS7scG8nhcRCGlJzJmPWyfV3l9Ybhhk39Rh0jMSdT-XL
-   Y5ViC6DqqTtu3ZSNr5kkp8E2E3JXLtaDfpUV6fSg~
+   WxnIjogInNoYS0yNTYifQ.irNubtySXBQgTKiP-cIW_stOZNlvs7rhVoLIB-MLJ1pFKw
+   2mVb_3mq85nwfeuyx2lRhGXx76eOam-PNHbSoztw~
 
 9.3.  Verification and Processing
 
@@ -804,10 +803,6 @@ Table of Contents
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/info/rfc2119>.
-
-   [RFC7515]  Jones, M., Bradley, J., and N. Sakimura, "JSON Web
-              Signature (JWS)", RFC 7515, DOI 10.17487/RFC7515, May
-              2015, <https://www.rfc-editor.org/info/rfc7515>.
 
    [RFC7519]  Jones, M., Bradley, J., and N. Sakimura, "JSON Web Token
               (JWT)", RFC 7519, DOI 10.17487/RFC7519, May 2015,
