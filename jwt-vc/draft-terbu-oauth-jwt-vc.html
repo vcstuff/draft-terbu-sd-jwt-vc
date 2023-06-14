@@ -17,7 +17,7 @@ when the selective disclosure capability is required.
 <meta content="oauth" name="keyword">
 <meta content="sd-jwt" name="keyword">
 <meta content="jwt" name="keyword">
-<meta content="draft-terbu-sd-jwt-vc-latest" name="ietf.draft">
+<meta content="draft-terbu-oauth-jwt-vc-latest" name="ietf.draft">
 <!-- Generator version information:
   xml2rfc 3.17.3
     Python 3.11.3
@@ -34,7 +34,7 @@ when the selective disclosure capability is required.
     six 1.16.0
     wcwidth 0.2.6
 -->
-<link href="draft-terbu-sd-jwt-vc.xml" rel="alternate" type="application/rfc+xml">
+<link href="draft-terbu-oauth-jwt-vc.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
 <style type="text/css">@font-face {
   font-family: 'Lora';
@@ -1052,12 +1052,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <table class="ears">
 <thead><tr>
 <td class="left">Internet-Draft</td>
-<td class="center">SD-JWT VC</td>
+<td class="center">JWT VC</td>
 <td class="right">June 2023</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Terbu &amp; Fett</td>
-<td class="center">Expires 15 December 2023</td>
+<td class="center">Expires 16 December 2023</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1067,15 +1067,15 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dt class="label-workgroup">Workgroup:</dt>
 <dd class="workgroup">TODO Working Group</dd>
 <dt class="label-internet-draft">Internet-Draft:</dt>
-<dd class="internet-draft">draft-terbu-sd-jwt-vc-latest</dd>
+<dd class="internet-draft">draft-terbu-oauth-jwt-vc-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2023-06-13" class="published">13 June 2023</time>
+<time datetime="2023-06-14" class="published">14 June 2023</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2023-12-15">15 December 2023</time></dd>
+<dd class="expires"><time datetime="2023-12-16">16 December 2023</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1115,7 +1115,7 @@ when the selective disclosure capability is required.<a href="#section-abstract-
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 15 December 2023.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 16 December 2023.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1364,24 +1364,20 @@ involved, a Status Provider, who delivers revocation information to Verifiers.
         <h3 id="name-rationale">
 <a href="#section-1.2" class="section-number selfRef">1.2. </a><a href="#name-rationale" class="section-name selfRef">Rationale</a>
         </h3>
-<p id="section-1.2-1">JSON Web Tokens (JWTs) <span>[<a href="#RFC7519" class="cite xref">RFC7519</a>]</span> can in principle be used to express
-Verifiable Credentials in a way that is easy to understand and process as it
+<p id="section-1.2-1">JSON Web Tokens (JWTs) <span>[<a href="#RFC7519" class="cite xref">RFC7519</a>]</span> can be used to express
+Verifiable Credentials in the three-party-model
+in a way that is easy to understand and process as it
 builds upon established web primitives.<a href="#section-1.2-1" class="pilcrow">¶</a></p>
-<p id="section-1.2-2">While JWT-based credentials enable selective
-disclosure, i.e., the ability for a Holder to disclose only a subset of the contained
-claims, in an Identity Provider ecosystem by issuing new JWTs to the Verifier for
-every presentation, this approach does not work in the three-party-model.<a href="#section-1.2-2" class="pilcrow">¶</a></p>
-<p id="section-1.2-3">Selective Disclosure JWT (SD-JWT) <span>[<a href="#I-D.ietf-oauth-selective-disclosure-jwt" class="cite xref">I-D.ietf-oauth-selective-disclosure-jwt</a>]</span> is
+<p id="section-1.2-2">Selective Disclosure JWT (SD-JWT) <span>[<a href="#I-D.ietf-oauth-selective-disclosure-jwt" class="cite xref">I-D.ietf-oauth-selective-disclosure-jwt</a>]</span> is
 a specification that introduces conventions to support selective disclosure for
 JWTs: For an SD-JWT document, a Holder can decide which claims to release (within
-bounds defined by the Issuer). This format is therefore perfectly suited for
-Verifiable Credentials.<a href="#section-1.2-3" class="pilcrow">¶</a></p>
-<p id="section-1.2-4">SD-JWT itself does not define the claims that must be used within the payload or
-their semantics. JWT defines rules for payload but does not define who Verifiable
-Credentials can be expressed using JWT.<a href="#section-1.2-4" class="pilcrow">¶</a></p>
-<p id="section-1.2-5">This specification therefore defines how Verifiable Credentials
-can be expressed using JWT or SD-JWT.<a href="#section-1.2-5" class="pilcrow">¶</a></p>
-<p id="section-1.2-6">JWTs (and SD-JWTs) can contain claims that are registered in "JSON Web Token Claims"
+bounds defined by the Issuer).<a href="#section-1.2-2" class="pilcrow">¶</a></p>
+<p id="section-1.2-3">SD-JWT itself does not define the claims that must be used within the payload or
+their semantics. JWT defines rules for payload but does not define how Verifiable
+Credentials can be expressed using JWT.<a href="#section-1.2-3" class="pilcrow">¶</a></p>
+<p id="section-1.2-4">This specification therefore defines how Verifiable Credentials
+can be expressed using JWT or SD-JWT.<a href="#section-1.2-4" class="pilcrow">¶</a></p>
+<p id="section-1.2-5">JWTs (and SD-JWTs) can contain claims that are registered in "JSON Web Token Claims"
 registry as defined in <span>[<a href="#RFC7519" class="cite xref">RFC7519</a>]</span>, as well as public and
 private claims. Private claims are not relevant for this specification due to the
 openness of the three-party-model. Since SD-JWTs are based on JWTs, this specification
@@ -1389,7 +1385,7 @@ aims to express the basic
 Verifiable Credential data model purely through JWT Claim Sets, using registered
 claims while allowing Issuers to use additional registered claims, as well as
 new or existing public claims, to make statements about the Subject of the
-Verifiable Credential.<a href="#section-1.2-6" class="pilcrow">¶</a></p>
+Verifiable Credential.<a href="#section-1.2-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="requirements-notation-and-conventions">
@@ -1836,8 +1832,8 @@ mRyVEU4WWNiWTRFaWZ1Z2loaUFlX0JQZWt4SlFaSUNlaVVRd1k5UXF4SSIsICJqc3U5e
 VZ1bHdRUWxoRmxNXzNKbHpNYVNGemdsaFFHMERwZmF5UXdMVUs0Il0sICJpc3MiOiAia
 HR0cHM6Ly9leGFtcGxlLmNvbS9pc3N1ZXIiLCAiaWF0IjogMTY4MzAwMDAwMCwgImV4c
 CI6IDE4ODMwMDAwMDAsICJ0eXBlIjogIklkZW50aXR5Q3JlZGVudGlhbCIsICJfc2RfY
-WxnIjogInNoYS0yNTYifQ.KKtUrrqZoaQXJousHNJem1AxGVnJM0fJEFWA3e8yxo9TUA
-TitJ9bNvzzKonoptGGiccqkVuitqzYE-W5a3p_tw~WyIyR0xDNDJzS1F2ZUNmR2ZyeU5
+WxnIjogInNoYS0yNTYifQ.Ywck_ZxbxiQzCkqY3Uwfb-zZ47rfVzhEA2ulJR315p2Fwn
+nVphLHPAm7xioJSwXSP4Lsfkq2cfuezrNpc7BRFA~WyIyR0xDNDJzS1F2ZUNmR2ZyeU5
 STjl3IiwgImdpdmVuX25hbWUiLCAiSm9obiJd~WyJlbHVWNU9nM2dTTklJOEVZbnN4QV
 9BIiwgImZhbWlseV9uYW1lIiwgIkRvZSJd~WyI2SWo3dE0tYTVpVlBHYm9TNXRtdlZBI
 iwgImVtYWlsIiwgImpvaG5kb2VAZXhhbXBsZS5jb20iXQ~WyJlSThaV205UW5LUHBOUG
@@ -2093,8 +2089,8 @@ mRyVEU4WWNiWTRFaWZ1Z2loaUFlX0JQZWt4SlFaSUNlaVVRd1k5UXF4SSIsICJqc3U5e
 VZ1bHdRUWxoRmxNXzNKbHpNYVNGemdsaFFHMERwZmF5UXdMVUs0Il0sICJpc3MiOiAia
 HR0cHM6Ly9leGFtcGxlLmNvbS9pc3N1ZXIiLCAiaWF0IjogMTY4MzAwMDAwMCwgImV4c
 CI6IDE4ODMwMDAwMDAsICJ0eXBlIjogIklkZW50aXR5Q3JlZGVudGlhbCIsICJfc2RfY
-WxnIjogInNoYS0yNTYifQ.KKtUrrqZoaQXJousHNJem1AxGVnJM0fJEFWA3e8yxo9TUA
-TitJ9bNvzzKonoptGGiccqkVuitqzYE-W5a3p_tw~
+WxnIjogInNoYS0yNTYifQ.Ywck_ZxbxiQzCkqY3Uwfb-zZ47rfVzhEA2ulJR315p2Fwn
+nVphLHPAm7xioJSwXSP4Lsfkq2cfuezrNpc7BRFA~
 </pre><a href="#section-9.2-2" class="pilcrow">¶</a>
 </div>
 <p id="section-9.2-3">In this presentation, the Holder provides only the Disclosure for the claim
@@ -2113,8 +2109,8 @@ mRyVEU4WWNiWTRFaWZ1Z2loaUFlX0JQZWt4SlFaSUNlaVVRd1k5UXF4SSIsICJqc3U5e
 VZ1bHdRUWxoRmxNXzNKbHpNYVNGemdsaFFHMERwZmF5UXdMVUs0Il0sICJpc3MiOiAia
 HR0cHM6Ly9leGFtcGxlLmNvbS9pc3N1ZXIiLCAiaWF0IjogMTY4MzAwMDAwMCwgImV4c
 CI6IDE4ODMwMDAwMDAsICJ0eXBlIjogIklkZW50aXR5Q3JlZGVudGlhbCIsICJfc2RfY
-WxnIjogInNoYS0yNTYifQ.irNubtySXBQgTKiP-cIW_stOZNlvs7rhVoLIB-MLJ1pFKw
-2mVb_3mq85nwfeuyx2lRhGXx76eOam-PNHbSoztw~
+WxnIjogInNoYS0yNTYifQ.IGYZNk7_Xp9MGKSu2v7A73r5weX1ihBFD6dl0-1KwNyj7x
+ZXNNz0op6Ej_sjbApwTFxNDp-BCMpL9E6cJQOlQg~
 </pre><a href="#section-9.2-5" class="pilcrow">¶</a>
 </div>
 </section>

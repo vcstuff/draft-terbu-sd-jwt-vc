@@ -5,12 +5,12 @@
 TODO Working Group                                              O. Terbu
 Internet-Draft                                      Spruce Systems, Inc.
 Intended status: Standards Track                                 D. Fett
-Expires: 15 December 2023                                  Authlete Inc.
-                                                            13 June 2023
+Expires: 16 December 2023                                  Authlete Inc.
+                                                            14 June 2023
 
 
                JWT-based Verifiable Credentials (JWT VC)
-                      draft-terbu-sd-jwt-vc-latest
+                    draft-terbu-oauth-jwt-vc-latest
 
 Abstract
 
@@ -34,7 +34,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 15 December 2023.
+   This Internet-Draft will expire on 16 December 2023.
 
 Copyright Notice
 
@@ -155,26 +155,19 @@ Table of Contents
 
 1.2.  Rationale
 
-   JSON Web Tokens (JWTs) [RFC7519] can in principle be used to express
-   Verifiable Credentials in a way that is easy to understand and
-   process as it builds upon established web primitives.
-
-   While JWT-based credentials enable selective disclosure, i.e., the
-   ability for a Holder to disclose only a subset of the contained
-   claims, in an Identity Provider ecosystem by issuing new JWTs to the
-   Verifier for every presentation, this approach does not work in the
-   three-party-model.
+   JSON Web Tokens (JWTs) [RFC7519] can be used to express Verifiable
+   Credentials in the three-party-model in a way that is easy to
+   understand and process as it builds upon established web primitives.
 
    Selective Disclosure JWT (SD-JWT)
    [I-D.ietf-oauth-selective-disclosure-jwt] is a specification that
    introduces conventions to support selective disclosure for JWTs: For
    an SD-JWT document, a Holder can decide which claims to release
-   (within bounds defined by the Issuer).  This format is therefore
-   perfectly suited for Verifiable Credentials.
+   (within bounds defined by the Issuer).
 
    SD-JWT itself does not define the claims that must be used within the
    payload or their semantics.  JWT defines rules for payload but does
-   not define who Verifiable Credentials can be expressed using JWT.
+   not define how Verifiable Credentials can be expressed using JWT.
 
    This specification therefore defines how Verifiable Credentials can
    be expressed using JWT or SD-JWT.
@@ -532,8 +525,8 @@ Table of Contents
    VZ1bHdRUWxoRmxNXzNKbHpNYVNGemdsaFFHMERwZmF5UXdMVUs0Il0sICJpc3MiOiAia
    HR0cHM6Ly9leGFtcGxlLmNvbS9pc3N1ZXIiLCAiaWF0IjogMTY4MzAwMDAwMCwgImV4c
    CI6IDE4ODMwMDAwMDAsICJ0eXBlIjogIklkZW50aXR5Q3JlZGVudGlhbCIsICJfc2RfY
-   WxnIjogInNoYS0yNTYifQ.KKtUrrqZoaQXJousHNJem1AxGVnJM0fJEFWA3e8yxo9TUA
-   TitJ9bNvzzKonoptGGiccqkVuitqzYE-W5a3p_tw~WyIyR0xDNDJzS1F2ZUNmR2ZyeU5
+   WxnIjogInNoYS0yNTYifQ.Ywck_ZxbxiQzCkqY3Uwfb-zZ47rfVzhEA2ulJR315p2Fwn
+   nVphLHPAm7xioJSwXSP4Lsfkq2cfuezrNpc7BRFA~WyIyR0xDNDJzS1F2ZUNmR2ZyeU5
    STjl3IiwgImdpdmVuX25hbWUiLCAiSm9obiJd~WyJlbHVWNU9nM2dTTklJOEVZbnN4QV
    9BIiwgImZhbWlseV9uYW1lIiwgIkRvZSJd~WyI2SWo3dE0tYTVpVlBHYm9TNXRtdlZBI
    iwgImVtYWlsIiwgImpvaG5kb2VAZXhhbXBsZS5jb20iXQ~WyJlSThaV205UW5LUHBOUG
@@ -741,8 +734,8 @@ Table of Contents
    VZ1bHdRUWxoRmxNXzNKbHpNYVNGemdsaFFHMERwZmF5UXdMVUs0Il0sICJpc3MiOiAia
    HR0cHM6Ly9leGFtcGxlLmNvbS9pc3N1ZXIiLCAiaWF0IjogMTY4MzAwMDAwMCwgImV4c
    CI6IDE4ODMwMDAwMDAsICJ0eXBlIjogIklkZW50aXR5Q3JlZGVudGlhbCIsICJfc2RfY
-   WxnIjogInNoYS0yNTYifQ.KKtUrrqZoaQXJousHNJem1AxGVnJM0fJEFWA3e8yxo9TUA
-   TitJ9bNvzzKonoptGGiccqkVuitqzYE-W5a3p_tw~
+   WxnIjogInNoYS0yNTYifQ.Ywck_ZxbxiQzCkqY3Uwfb-zZ47rfVzhEA2ulJR315p2Fwn
+   nVphLHPAm7xioJSwXSP4Lsfkq2cfuezrNpc7BRFA~
 
    In this presentation, the Holder provides only the Disclosure for the
    claim address.  Other claims are not disclosed to the Verifier.
@@ -761,8 +754,8 @@ Table of Contents
    VZ1bHdRUWxoRmxNXzNKbHpNYVNGemdsaFFHMERwZmF5UXdMVUs0Il0sICJpc3MiOiAia
    HR0cHM6Ly9leGFtcGxlLmNvbS9pc3N1ZXIiLCAiaWF0IjogMTY4MzAwMDAwMCwgImV4c
    CI6IDE4ODMwMDAwMDAsICJ0eXBlIjogIklkZW50aXR5Q3JlZGVudGlhbCIsICJfc2RfY
-   WxnIjogInNoYS0yNTYifQ.irNubtySXBQgTKiP-cIW_stOZNlvs7rhVoLIB-MLJ1pFKw
-   2mVb_3mq85nwfeuyx2lRhGXx76eOam-PNHbSoztw~
+   WxnIjogInNoYS0yNTYifQ.IGYZNk7_Xp9MGKSu2v7A73r5weX1ihBFD6dl0-1KwNyj7x
+   ZXNNz0op6Ej_sjbApwTFxNDp-BCMpL9E6cJQOlQg~
 
 9.3.  Verification and Processing
 
