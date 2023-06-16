@@ -1779,8 +1779,8 @@ mRyVEU4WWNiWTRFaWZ1Z2loaUFlX0JQZWt4SlFaSUNlaVVRd1k5UXF4SSIsICJqc3U5e
 VZ1bHdRUWxoRmxNXzNKbHpNYVNGemdsaFFHMERwZmF5UXdMVUs0Il0sICJpc3MiOiAia
 HR0cHM6Ly9leGFtcGxlLmNvbS9pc3N1ZXIiLCAiaWF0IjogMTY4MzAwMDAwMCwgImV4c
 CI6IDE4ODMwMDAwMDAsICJ0eXBlIjogIklkZW50aXR5Q3JlZGVudGlhbCIsICJfc2RfY
-WxnIjogInNoYS0yNTYifQ.Aoma5v-XMnLMvnLWhBqyg7QOSDl8FS_OtwZOare56oTGff
-RD-tnh1c59pjlfJlUfZznfK-i3apqRrj2rn2T5wA~WyIyR0xDNDJzS1F2ZUNmR2ZyeU5
+WxnIjogInNoYS0yNTYifQ.KahHyEP6toKZjwJRfWZys38rN2P4EyWkxi0jvnMdxMB1N_
+Xd_uwuhO_ckt9bRUKLC7V7Is5k2z5wDa98xse_Mw~WyIyR0xDNDJzS1F2ZUNmR2ZyeU5
 STjl3IiwgImdpdmVuX25hbWUiLCAiSm9obiJd~WyJlbHVWNU9nM2dTTklJOEVZbnN4QV
 9BIiwgImZhbWlseV9uYW1lIiwgIkRvZSJd~WyI2SWo3dE0tYTVpVlBHYm9TNXRtdlZBI
 iwgImVtYWlsIiwgImpvaG5kb2VAZXhhbXBsZS5jb20iXQ~WyJlSThaV205UW5LUHBOUG
@@ -1810,8 +1810,8 @@ verification, the <code>iss</code> claim in the SD-JWT MAY be used to retrieve t
 key from the JWT Issuer Metadata configuration (as defined in
 <a href="#jwt-issuer-metadata" class="auto internal xref">Section 5</a>) of the SD-JWT VC issuer. A Verifier MAY use alternative
 methods to obtain the public key to verify the signature of the SD-JWT.
-If there are no selectively disclosable claims, there is no need to process
-<code>_sd</code> claim nor Disclosures.<a href="#section-4.4-2.1" class="pilcrow">¶</a>
+If there are no selectively disclosable claims, there is no need to process the
+<code>_sd</code> claim nor any Disclosures.<a href="#section-4.4-2.1" class="pilcrow">¶</a>
 </li>
           <li id="section-4.4-2.2">OPTIONAL. If <code>status</code> is present in the verified payload of the SD-JWT,
 the status SHOULD be checked. It depends on the Verifier policy to reject or
@@ -1974,7 +1974,7 @@ Format for Presentation as defined in Section 5.4. of
 <p id="section-6.1-2">A presentation of an SD-JWT VC MAY contain a Holder Binding JWT as described in
 Section 5.4.1. of <span>[<a href="#I-D.ietf-oauth-selective-disclosure-jwt" class="cite xref">I-D.ietf-oauth-selective-disclosure-jwt</a>]</span>.<a href="#section-6.1-2" class="pilcrow">¶</a></p>
 <p id="section-6.1-3">When there are no selectively disclosable claims, a presentation of SD-JWT VC
-does not contain any disclosures.<a href="#section-6.1-3" class="pilcrow">¶</a></p>
+does not contain any Disclosures.<a href="#section-6.1-3" class="pilcrow">¶</a></p>
 <div id="holder-binding-jwt">
 <section id="section-6.1.1">
           <h4 id="name-holder-binding-jwt">
@@ -2045,8 +2045,8 @@ mRyVEU4WWNiWTRFaWZ1Z2loaUFlX0JQZWt4SlFaSUNlaVVRd1k5UXF4SSIsICJqc3U5e
 VZ1bHdRUWxoRmxNXzNKbHpNYVNGemdsaFFHMERwZmF5UXdMVUs0Il0sICJpc3MiOiAia
 HR0cHM6Ly9leGFtcGxlLmNvbS9pc3N1ZXIiLCAiaWF0IjogMTY4MzAwMDAwMCwgImV4c
 CI6IDE4ODMwMDAwMDAsICJ0eXBlIjogIklkZW50aXR5Q3JlZGVudGlhbCIsICJfc2RfY
-WxnIjogInNoYS0yNTYifQ.Aoma5v-XMnLMvnLWhBqyg7QOSDl8FS_OtwZOare56oTGff
-RD-tnh1c59pjlfJlUfZznfK-i3apqRrj2rn2T5wA~
+WxnIjogInNoYS0yNTYifQ.KahHyEP6toKZjwJRfWZys38rN2P4EyWkxi0jvnMdxMB1N_
+Xd_uwuhO_ckt9bRUKLC7V7Is5k2z5wDa98xse_Mw~
 </pre><a href="#section-6.2-2" class="pilcrow">¶</a>
 </div>
 <p id="section-6.2-3">In this presentation, the Holder provides only the Disclosure for the claim
@@ -2065,8 +2065,8 @@ mRyVEU4WWNiWTRFaWZ1Z2loaUFlX0JQZWt4SlFaSUNlaVVRd1k5UXF4SSIsICJqc3U5e
 VZ1bHdRUWxoRmxNXzNKbHpNYVNGemdsaFFHMERwZmF5UXdMVUs0Il0sICJpc3MiOiAia
 HR0cHM6Ly9leGFtcGxlLmNvbS9pc3N1ZXIiLCAiaWF0IjogMTY4MzAwMDAwMCwgImV4c
 CI6IDE4ODMwMDAwMDAsICJ0eXBlIjogIklkZW50aXR5Q3JlZGVudGlhbCIsICJfc2RfY
-WxnIjogInNoYS0yNTYifQ.P7kV4P7dY-IPHGJoOsWRMzvKqo-rlSB34lq1DxSVke7lAV
-vXQ-8I-_n2abl2glN_u_quV3ogvdvqfrNu_tuwlQ~
+WxnIjogInNoYS0yNTYifQ.FVXvDCP3jZjmEO5Z3rJtGPMjTFsuNoAazQKWzooqV7iepY
+KIRPxTj7n7EcZQ0JS-Zc1fvIZSc9a8bjus1t9UjA~
 </pre><a href="#section-6.2-5" class="pilcrow">¶</a>
 </div>
 </section>
