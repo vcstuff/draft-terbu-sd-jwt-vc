@@ -1339,19 +1339,16 @@ builds upon established web primitives.<a href="#section-1.2-1" class="pilcrow">
 a specification that introduces conventions to support selective disclosure for
 JWTs: For an SD-JWT document, a Holder can decide which claims to release (within
 bounds defined by the Issuer).<a href="#section-1.2-2" class="pilcrow">¶</a></p>
-<p id="section-1.2-3">SD-JWT itself does not define the claims that must be used within the payload or
-their semantics. SD-JWT can be used when there are no selectively disclosable claims.
-This specification therefore defines how Verifiable Credentials
-can be expressed using SD-JWT.<a href="#section-1.2-3" class="pilcrow">¶</a></p>
-<p id="section-1.2-4">JWTs (and SD-JWTs) can contain claims that are registered in "JSON Web Token Claims"
+<p id="section-1.2-3">SD-JWT is a superset of JWT as it can also be used when there are no selectively
+disclosable claims and also supports JWS JSON serialization, which is useful for
+long term archiving and multi signatures. However, SD-JWT itself does not define
+the claims that must be used within the payload or their semantics.<a href="#section-1.2-3" class="pilcrow">¶</a></p>
+<p id="section-1.2-4">This specification therefore uses SD-JWT and the well-established JWT content rules and
+extensibility model as basis for representing Verifiable Credentials with JSON payload.
+Those Verifiable Credentials are called SD-JWT VCs.<a href="#section-1.2-4" class="pilcrow">¶</a></p>
+<p id="section-1.2-5">SD-JWTs VC can contain claims that are registered in "JSON Web Token Claims"
 registry as defined in <span>[<a href="#RFC7519" class="cite xref">RFC7519</a>]</span>, as well as public and
-private claims. Private claims are not relevant for this specification due to the
-openness of the three-party-model. Since SD-JWTs are based on JWTs, this specification
-aims to express the basic
-Verifiable Credential data model purely through JWT Claim Sets, using registered
-claims while allowing Issuers to use additional registered claims, as well as
-new or existing public claims, to make statements about the Subject of the
-Verifiable Credential.<a href="#section-1.2-4" class="pilcrow">¶</a></p>
+private claims.<a href="#section-1.2-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="requirements-notation-and-conventions">
@@ -1782,8 +1779,8 @@ mRyVEU4WWNiWTRFaWZ1Z2loaUFlX0JQZWt4SlFaSUNlaVVRd1k5UXF4SSIsICJqc3U5e
 VZ1bHdRUWxoRmxNXzNKbHpNYVNGemdsaFFHMERwZmF5UXdMVUs0Il0sICJpc3MiOiAia
 HR0cHM6Ly9leGFtcGxlLmNvbS9pc3N1ZXIiLCAiaWF0IjogMTY4MzAwMDAwMCwgImV4c
 CI6IDE4ODMwMDAwMDAsICJ0eXBlIjogIklkZW50aXR5Q3JlZGVudGlhbCIsICJfc2RfY
-WxnIjogInNoYS0yNTYifQ.HxVpxEarN_frDWXF8iixLOnLnKaSeB5ruNS7d6KFsCfMMp
-NxstKkvII68_xWqiFm9kBIy2cTxMLxr8boVnnE0w~WyIyR0xDNDJzS1F2ZUNmR2ZyeU5
+WxnIjogInNoYS0yNTYifQ.mL-3aKVDwOm4sMrFGTw3Ca6kpFzOTVERqH5WjAJ7lfhHvo
+STcIjVzi4MpuTmsGuL2_rEkppgboTCrDGQGBcNYA~WyIyR0xDNDJzS1F2ZUNmR2ZyeU5
 STjl3IiwgImdpdmVuX25hbWUiLCAiSm9obiJd~WyJlbHVWNU9nM2dTTklJOEVZbnN4QV
 9BIiwgImZhbWlseV9uYW1lIiwgIkRvZSJd~WyI2SWo3dE0tYTVpVlBHYm9TNXRtdlZBI
 iwgImVtYWlsIiwgImpvaG5kb2VAZXhhbXBsZS5jb20iXQ~WyJlSThaV205UW5LUHBOUG
@@ -2048,8 +2045,8 @@ mRyVEU4WWNiWTRFaWZ1Z2loaUFlX0JQZWt4SlFaSUNlaVVRd1k5UXF4SSIsICJqc3U5e
 VZ1bHdRUWxoRmxNXzNKbHpNYVNGemdsaFFHMERwZmF5UXdMVUs0Il0sICJpc3MiOiAia
 HR0cHM6Ly9leGFtcGxlLmNvbS9pc3N1ZXIiLCAiaWF0IjogMTY4MzAwMDAwMCwgImV4c
 CI6IDE4ODMwMDAwMDAsICJ0eXBlIjogIklkZW50aXR5Q3JlZGVudGlhbCIsICJfc2RfY
-WxnIjogInNoYS0yNTYifQ.HxVpxEarN_frDWXF8iixLOnLnKaSeB5ruNS7d6KFsCfMMp
-NxstKkvII68_xWqiFm9kBIy2cTxMLxr8boVnnE0w~
+WxnIjogInNoYS0yNTYifQ.mL-3aKVDwOm4sMrFGTw3Ca6kpFzOTVERqH5WjAJ7lfhHvo
+STcIjVzi4MpuTmsGuL2_rEkppgboTCrDGQGBcNYA~
 </pre><a href="#section-6.2-2" class="pilcrow">¶</a>
 </div>
 <p id="section-6.2-3">In this presentation, the Holder provides only the Disclosure for the claim
@@ -2068,8 +2065,8 @@ mRyVEU4WWNiWTRFaWZ1Z2loaUFlX0JQZWt4SlFaSUNlaVVRd1k5UXF4SSIsICJqc3U5e
 VZ1bHdRUWxoRmxNXzNKbHpNYVNGemdsaFFHMERwZmF5UXdMVUs0Il0sICJpc3MiOiAia
 HR0cHM6Ly9leGFtcGxlLmNvbS9pc3N1ZXIiLCAiaWF0IjogMTY4MzAwMDAwMCwgImV4c
 CI6IDE4ODMwMDAwMDAsICJ0eXBlIjogIklkZW50aXR5Q3JlZGVudGlhbCIsICJfc2RfY
-WxnIjogInNoYS0yNTYifQ.OAm1243ZbW0LCEQMtcK7OHQbxyjdce7aJReXfPKf3xiNQL
-e9qv5R-NiCwLtKNFyzr_bnnssqzurHxOB_RQhI3A~
+WxnIjogInNoYS0yNTYifQ.01vTA0DgGRLR3sx6HUfZeRouVzbSHMDeMIQ6hORHB7jqaT
+R2wVWG9d5fBlGO-s02RYsX2eJKmIWzb5Nz4Sp-1w~
 </pre><a href="#section-6.2-5" class="pilcrow">¶</a>
 </div>
 </section>
