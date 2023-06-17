@@ -326,10 +326,9 @@ Table of Contents
    *  sub
 
       -  OPTIONAL.  The identifier of the Subject of the Verifiable
-         Credential.  The value of sub MUST be a URI.  The Issuer MAY
-         use it to provide the Subject identifier known by the Issuer.
-         There is no requirement for a binding to exist between sub and
-         cnf claims.
+         Credential.  The Issuer MAY use it to provide the Subject
+         identifier known by the Issuer.  There is no requirement for a
+         binding to exist between sub and cnf claims.
 
 4.2.2.3.  Public JWT claims
 
@@ -498,8 +497,8 @@ Table of Contents
    VZ1bHdRUWxoRmxNXzNKbHpNYVNGemdsaFFHMERwZmF5UXdMVUs0Il0sICJpc3MiOiAia
    HR0cHM6Ly9leGFtcGxlLmNvbS9pc3N1ZXIiLCAiaWF0IjogMTY4MzAwMDAwMCwgImV4c
    CI6IDE4ODMwMDAwMDAsICJ0eXBlIjogIklkZW50aXR5Q3JlZGVudGlhbCIsICJfc2RfY
-   WxnIjogInNoYS0yNTYifQ.UtLxuiU6EYpM2Md5xj9I84GrinikkYDWZrmLo-MCkF8koR
-   zbdEOI8ht7z66XUYYX_wUqvK6TWxbVl0ECQrGAPw~WyIyR0xDNDJzS1F2ZUNmR2ZyeU5
+   WxnIjogInNoYS0yNTYifQ.aGWabltjnlHV2JFJl18H35DbSDyso4ycy0d7P3z2NRMn0N
+   mdAg8MQMv-czWA23a7aqgCXhRmkvKSnQOmzqO-rQ~WyIyR0xDNDJzS1F2ZUNmR2ZyeU5
    STjl3IiwgImdpdmVuX25hbWUiLCAiSm9obiJd~WyJlbHVWNU9nM2dTTklJOEVZbnN4QV
    9BIiwgImZhbWlseV9uYW1lIiwgIkRvZSJd~WyI2SWo3dE0tYTVpVlBHYm9TNXRtdlZBI
    iwgImVtYWlsIiwgImpvaG5kb2VAZXhhbXBsZS5jb20iXQ~WyJlSThaV205UW5LUHBOUG
@@ -712,8 +711,8 @@ Table of Contents
    VZ1bHdRUWxoRmxNXzNKbHpNYVNGemdsaFFHMERwZmF5UXdMVUs0Il0sICJpc3MiOiAia
    HR0cHM6Ly9leGFtcGxlLmNvbS9pc3N1ZXIiLCAiaWF0IjogMTY4MzAwMDAwMCwgImV4c
    CI6IDE4ODMwMDAwMDAsICJ0eXBlIjogIklkZW50aXR5Q3JlZGVudGlhbCIsICJfc2RfY
-   WxnIjogInNoYS0yNTYifQ.UtLxuiU6EYpM2Md5xj9I84GrinikkYDWZrmLo-MCkF8koR
-   zbdEOI8ht7z66XUYYX_wUqvK6TWxbVl0ECQrGAPw~
+   WxnIjogInNoYS0yNTYifQ.aGWabltjnlHV2JFJl18H35DbSDyso4ycy0d7P3z2NRMn0N
+   mdAg8MQMv-czWA23a7aqgCXhRmkvKSnQOmzqO-rQ~
 
    In this presentation, the Holder provides only the Disclosure for the
    claim address.  Other claims are not disclosed to the Verifier.
@@ -732,8 +731,8 @@ Table of Contents
    VZ1bHdRUWxoRmxNXzNKbHpNYVNGemdsaFFHMERwZmF5UXdMVUs0Il0sICJpc3MiOiAia
    HR0cHM6Ly9leGFtcGxlLmNvbS9pc3N1ZXIiLCAiaWF0IjogMTY4MzAwMDAwMCwgImV4c
    CI6IDE4ODMwMDAwMDAsICJ0eXBlIjogIklkZW50aXR5Q3JlZGVudGlhbCIsICJfc2RfY
-   WxnIjogInNoYS0yNTYifQ.9hnGCcOcvjQ-dORC9yjv3qHJ2sE5_tDHVW7Mrn4vv72Kjj
-   q_k7bZjszSRl_cs6QkxLTZl8hYqeDzrDae9Y20fg~
+   WxnIjogInNoYS0yNTYifQ.YuVtUI_9RiEa_GwzcE6FDO-OF-4oeb9mxMPT76y6ZQI8pe
+   1eqS69NAKnxmFRlcoPrDOg_gc1a9EucJegDSIElg~
 
 6.3.  Verification and Processing
 
