@@ -5,8 +5,8 @@
 TODO Working Group                                              O. Terbu
 Internet-Draft                                      Spruce Systems, Inc.
 Intended status: Standards Track                                 D. Fett
-Expires: 27 November 2023                                  Authlete Inc.
-                                                             26 May 2023
+Expires: 19 December 2023                                  Authlete Inc.
+                                                            17 June 2023
 
 
    SD-JWT-based Verifiable Credentials with JSON payloads (SD-JWT VC)
@@ -33,7 +33,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 27 November 2023.
+   This Internet-Draft will expire on 19 December 2023.
 
 Copyright Notice
 
@@ -164,13 +164,11 @@ Table of Contents
 
    JWTs (and SD-JWTs) can contain claims that are registered in "JSON
    Web Token Claims" registry as defined in [RFC7519], as well as public
-   and private claims.  Private claims are not relevant for this
-   specification due to the openness of the three-party-model.  Since
-   SD-JWTs are based on JWTs, this specification aims to express the
-   basic Verifiable Credential data model purely through JWT Claim Sets,
-   using registered claims while allowing Issuers to use additional
-   registered claims, as well as new or existing public claims, to make
-   statements about the Subject of the Verifiable Credential.
+   and private claims.  This specification aims to express metadata of
+   the properties of the Verifiable Credentials utilizing registered JWT
+   claims, while allowing Issuers to use other registered, public, or
+   private claims to make statements about the Subject of the Verifiable
+   Credential.
 
 1.3.  Requirements Notation and Conventions
 
@@ -382,15 +380,7 @@ Table of Contents
      "iat": 1683000000,
      "exp": 1883000000,
      "type": "IdentityCredential",
-     "_sd_alg": "sha-256",
-     "cnf": {
-       "jwk": {
-         "kty": "EC",
-         "crv": "P-256",
-         "x": "TCAER19Zvu3OHF4j4W4vfSVoHIP1ILilDls7vCeGemc",
-         "y": "ZxjiWWbZMQGHVWKVQ4hbSIirsVfuecCE6t4jT9F2HZQ"
-       }
-     }
+     "_sd_alg": "sha-256"
    }
 
    Note that a cnf claim has been added to the SD-JWT payload to express
@@ -399,7 +389,7 @@ Table of Contents
    The following are the Disclosures belonging to the SD-JWT payload
    above:
 
-   *Claim given_name:*
+   *Claim given_name*:
 
    *  SHA-256 Hash: jsu9yVulwQQlhFlM_3JlzMaSFzglhQG0DpfayQwLUK4
 
@@ -409,7 +399,7 @@ Table of Contents
 
    *  Contents: ["2GLC42sKQveCfGfryNRN9w", "given_name", "John"]
 
-   *Claim family_name:*
+   *Claim family_name*:
 
    *  SHA-256 Hash: TGf4oLbgwd5JQaHyKVQZU9UdGE0w5rtDsrZzfUaomLo
 
@@ -419,7 +409,7 @@ Table of Contents
 
    *  Contents: ["eluV5Og3gSNII8EYnsxA_A", "family_name", "Doe"]
 
-   *Claim email:*
+   *Claim email*:
 
    *  SHA-256 Hash: JzYjH4svliH0R3PyEMfeZu6Jt69u5qehZo7F7EPYlSE
 
@@ -430,7 +420,7 @@ Table of Contents
    *  Contents: ["6Ij7tM-a5iVPGboS5tmvVA", "email",
       "johndoe@example.com"]
 
-   *Claim phone_number:*
+   *Claim phone_number*:
 
    *  SHA-256 Hash: PorFbpKuVu6xymJagvkFsFXAbRoc2JGlAUA2BA4o7cI
 
@@ -441,7 +431,7 @@ Table of Contents
    *  Contents: ["eI8ZWm9QnKPpNPeNenHdhQ", "phone_number",
       "+1-202-555-0101"]
 
-   *Claim address:*
+   *Claim address*:
 
    *  SHA-256 Hash: IlDzIKeiZdDwpqpK6ZfbyphFvz5FgnWa-sN6wqQXCiw
 
@@ -454,7 +444,7 @@ Table of Contents
       "123 Main St", "locality": "Anytown", "region": "Anystate",
       "country": "US"}]
 
-   *Claim birthdate:*
+   *Claim birthdate*:
 
    *  SHA-256 Hash: jdrTE8YcbY4EifugihiAe_BPekxJQZICeiUQwY9QqxI
 
@@ -464,7 +454,7 @@ Table of Contents
 
    *  Contents: ["AJx-095VPrpTtN4QMOqROA", "birthdate", "1940-01-01"]
 
-   *Claim is_over_18:*
+   *Claim is_over_18*:
 
    *  SHA-256 Hash: 09vKrJMOlyTWM0sjpu_pdOBVBQ2M1y3KhpH515nXkpY
 
@@ -474,7 +464,7 @@ Table of Contents
 
    *  Contents: ["Pc33JM2LchcU_lHggv_ufQ", "is_over_18", true]
 
-   *Claim is_over_21:*
+   *Claim is_over_21*:
 
    *  SHA-256 Hash: 2rsjGbaC0ky8mT0pJrPioWTq0_daw1sX76poUlgCwbI
 
@@ -484,7 +474,7 @@ Table of Contents
 
    *  Contents: ["G02NSrQfjFXQ7Io09syajA", "is_over_21", true]
 
-   *Claim is_over_65:*
+   *Claim is_over_65*:
 
    *  SHA-256 Hash: EkO8dhW0dHEJbvUHlE_VCeuC9uRELOieLZhh7XbUTtA
 
@@ -508,22 +498,19 @@ Table of Contents
    VZ1bHdRUWxoRmxNXzNKbHpNYVNGemdsaFFHMERwZmF5UXdMVUs0Il0sICJpc3MiOiAia
    HR0cHM6Ly9leGFtcGxlLmNvbS9pc3N1ZXIiLCAiaWF0IjogMTY4MzAwMDAwMCwgImV4c
    CI6IDE4ODMwMDAwMDAsICJ0eXBlIjogIklkZW50aXR5Q3JlZGVudGlhbCIsICJfc2RfY
-   WxnIjogInNoYS0yNTYiLCAiY25mIjogeyJqd2siOiB7Imt0eSI6ICJFQyIsICJjcnYiO
-   iAiUC0yNTYiLCAieCI6ICJUQ0FFUjE5WnZ1M09IRjRqNFc0dmZTVm9ISVAxSUxpbERsc
-   zd2Q2VHZW1jIiwgInkiOiAiWnhqaVdXYlpNUUdIVldLVlE0aGJTSWlyc1ZmdWVjQ0U2d
-   DRqVDlGMkhaUSJ9fX0.7-uYweCWRwFrKmcv1sqd3HFMd5Tn1PcytgarFfO7k-L0uSo-M
-   WXmU-RjekKFblomzevP-6w8rNZ2sIo7f5D7fw~WyIyR0xDNDJzS1F2ZUNmR2ZyeU5STj
-   l3IiwgImdpdmVuX25hbWUiLCAiSm9obiJd~WyJlbHVWNU9nM2dTTklJOEVZbnN4QV9BI
-   iwgImZhbWlseV9uYW1lIiwgIkRvZSJd~WyI2SWo3dE0tYTVpVlBHYm9TNXRtdlZBIiwg
-   ImVtYWlsIiwgImpvaG5kb2VAZXhhbXBsZS5jb20iXQ~WyJlSThaV205UW5LUHBOUGVOZ
-   W5IZGhRIiwgInBob25lX251bWJlciIsICIrMS0yMDItNTU1LTAxMDEiXQ~WyJRZ19PNj
-   R6cUF4ZTQxMmExMDhpcm9BIiwgImFkZHJlc3MiLCB7InN0cmVldF9hZGRyZXNzIjogIj
-   EyMyBNYWluIFN0IiwgImxvY2FsaXR5IjogIkFueXRvd24iLCAicmVnaW9uIjogIkFueX
-   N0YXRlIiwgImNvdW50cnkiOiAiVVMifV0~WyJBSngtMDk1VlBycFR0TjRRTU9xUk9BIi
-   wgImJpcnRoZGF0ZSIsICIxOTQwLTAxLTAxIl0~WyJQYzMzSk0yTGNoY1VfbEhnZ3ZfdW
-   ZRIiwgImlzX292ZXJfMTgiLCB0cnVlXQ~WyJHMDJOU3JRZmpGWFE3SW8wOXN5YWpBIiw
-   gImlzX292ZXJfMjEiLCB0cnVlXQ~WyJsa2x4RjVqTVlsR1RQVW92TU5JdkNBIiwgImlz
-   X292ZXJfNjUiLCB0cnVlXQ
+   WxnIjogInNoYS0yNTYifQ.UtLxuiU6EYpM2Md5xj9I84GrinikkYDWZrmLo-MCkF8koR
+   zbdEOI8ht7z66XUYYX_wUqvK6TWxbVl0ECQrGAPw~WyIyR0xDNDJzS1F2ZUNmR2ZyeU5
+   STjl3IiwgImdpdmVuX25hbWUiLCAiSm9obiJd~WyJlbHVWNU9nM2dTTklJOEVZbnN4QV
+   9BIiwgImZhbWlseV9uYW1lIiwgIkRvZSJd~WyI2SWo3dE0tYTVpVlBHYm9TNXRtdlZBI
+   iwgImVtYWlsIiwgImpvaG5kb2VAZXhhbXBsZS5jb20iXQ~WyJlSThaV205UW5LUHBOUG
+   VOZW5IZGhRIiwgInBob25lX251bWJlciIsICIrMS0yMDItNTU1LTAxMDEiXQ~WyJRZ19
+   PNjR6cUF4ZTQxMmExMDhpcm9BIiwgImFkZHJlc3MiLCB7InN0cmVldF9hZGRyZXNzIjo
+   gIjEyMyBNYWluIFN0IiwgImxvY2FsaXR5IjogIkFueXRvd24iLCAicmVnaW9uIjogIkF
+   ueXN0YXRlIiwgImNvdW50cnkiOiAiVVMifV0~WyJBSngtMDk1VlBycFR0TjRRTU9xUk9
+   BIiwgImJpcnRoZGF0ZSIsICIxOTQwLTAxLTAxIl0~WyJQYzMzSk0yTGNoY1VfbEhnZ3Z
+   fdWZRIiwgImlzX292ZXJfMTgiLCB0cnVlXQ~WyJHMDJOU3JRZmpGWFE3SW8wOXN5YWpB
+   IiwgImlzX292ZXJfMjEiLCB0cnVlXQ~WyJsa2x4RjVqTVlsR1RQVW92TU5JdkNBIiwgI
+   mlzX292ZXJfNjUiLCB0cnVlXQ
 
 4.4.  Verification and Processing
 
@@ -725,17 +712,8 @@ Table of Contents
    VZ1bHdRUWxoRmxNXzNKbHpNYVNGemdsaFFHMERwZmF5UXdMVUs0Il0sICJpc3MiOiAia
    HR0cHM6Ly9leGFtcGxlLmNvbS9pc3N1ZXIiLCAiaWF0IjogMTY4MzAwMDAwMCwgImV4c
    CI6IDE4ODMwMDAwMDAsICJ0eXBlIjogIklkZW50aXR5Q3JlZGVudGlhbCIsICJfc2RfY
-   WxnIjogInNoYS0yNTYiLCAiY25mIjogeyJqd2siOiB7Imt0eSI6ICJFQyIsICJjcnYiO
-   iAiUC0yNTYiLCAieCI6ICJUQ0FFUjE5WnZ1M09IRjRqNFc0dmZTVm9ISVAxSUxpbERsc
-   zd2Q2VHZW1jIiwgInkiOiAiWnhqaVdXYlpNUUdIVldLVlE0aGJTSWlyc1ZmdWVjQ0U2d
-   DRqVDlGMkhaUSJ9fX0.7-uYweCWRwFrKmcv1sqd3HFMd5Tn1PcytgarFfO7k-L0uSo-M
-   WXmU-RjekKFblomzevP-6w8rNZ2sIo7f5D7fw~WyJRZ19PNjR6cUF4ZTQxMmExMDhpcm
-   9BIiwgImFkZHJlc3MiLCB7InN0cmVldF9hZGRyZXNzIjogIjEyMyBNYWluIFN0IiwgIm
-   xvY2FsaXR5IjogIkFueXRvd24iLCAicmVnaW9uIjogIkFueXN0YXRlIiwgImNvdW50cn
-   kiOiAiVVMifV0~eyJhbGciOiAiRVMyNTYifQ.eyJub25jZSI6ICIxMjM0NTY3ODkwIiw
-   gImF1ZCI6ICJodHRwczovL2V4YW1wbGUuY29tL3ZlcmlmaWVyIiwgImlhdCI6IDE2ODU
-   xMDc0NjJ9.LJW9AJ-tnpfaurCo7iaiNI3s37hxz6o5n_RifTtVy1ukqhrQ9GMcKbBhTm
-   RBhZI6FtQtV5EeuRFXUcDC3-gWeA
+   WxnIjogInNoYS0yNTYifQ.UtLxuiU6EYpM2Md5xj9I84GrinikkYDWZrmLo-MCkF8koR
+   zbdEOI8ht7z66XUYYX_wUqvK6TWxbVl0ECQrGAPw~
 
    In this presentation, the Holder provides only the Disclosure for the
    claim address.  Other claims are not disclosed to the Verifier.
@@ -754,11 +732,8 @@ Table of Contents
    VZ1bHdRUWxoRmxNXzNKbHpNYVNGemdsaFFHMERwZmF5UXdMVUs0Il0sICJpc3MiOiAia
    HR0cHM6Ly9leGFtcGxlLmNvbS9pc3N1ZXIiLCAiaWF0IjogMTY4MzAwMDAwMCwgImV4c
    CI6IDE4ODMwMDAwMDAsICJ0eXBlIjogIklkZW50aXR5Q3JlZGVudGlhbCIsICJfc2RfY
-   WxnIjogInNoYS0yNTYifQ.LY36fI1eCB8YgtXogy4yz5nuNk2VIEhOfQ1TZ94WO4wVYR
-   CRELbwuEmaimAyOU4STmRD4MHo0mdBvzzmPi5Png~WyJRZ19PNjR6cUF4ZTQxMmExMDh
-   pcm9BIiwgImFkZHJlc3MiLCB7InN0cmVldF9hZGRyZXNzIjogIjEyMyBNYWluIFN0Iiw
-   gImxvY2FsaXR5IjogIkFueXRvd24iLCAicmVnaW9uIjogIkFueXN0YXRlIiwgImNvdW5
-   0cnkiOiAiVVMifV0~
+   WxnIjogInNoYS0yNTYifQ.9hnGCcOcvjQ-dORC9yjv3qHJ2sE5_tDHVW7Mrn4vv72Kjj
+   q_k7bZjszSRl_cs6QkxLTZl8hYqeDzrDae9Y20fg~
 
 6.3.  Verification and Processing
 
