@@ -5,8 +5,8 @@
 TODO Working Group                                              O. Terbu
 Internet-Draft                                      Spruce Systems, Inc.
 Intended status: Standards Track                                 D. Fett
-Expires: 18 December 2023                                  Authlete Inc.
-                                                            16 June 2023
+Expires: 21 December 2023                                  Authlete Inc.
+                                                            19 June 2023
 
 
    SD-JWT-based Verifiable Credentials with JSON payloads (SD-JWT VC)
@@ -35,7 +35,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 18 December 2023.
+   This Internet-Draft will expire on 21 December 2023.
 
 Copyright Notice
 
@@ -338,11 +338,11 @@ Table of Contents
    Additional public claims MAY be used in SD-JWT VCs depending on the
    application.
 
-4.2.2.4.  SD-JWT VC without selectively disclosable claims
+4.2.2.4.  SD-JWT VC without Selectively Disclosable Claims
 
-   SD-JWT VC may not contain any selectively disclosable claims.  In
-   that case, the SD-JWT VC MUST NOT contain the _sd claim in the JWT
-   body.  I also MUST NOT have any Disclosures.
+   An SD-JWT VC MAY have no selectively disclosable claims.  In that
+   case, the SD-JWT VC MUST NOT contain the _sd claim in the JWT body.
+   It also MUST NOT have any Disclosures.
 
 4.3.  Example
 
@@ -506,8 +506,8 @@ Table of Contents
    VZ1bHdRUWxoRmxNXzNKbHpNYVNGemdsaFFHMERwZmF5UXdMVUs0Il0sICJpc3MiOiAia
    HR0cHM6Ly9leGFtcGxlLmNvbS9pc3N1ZXIiLCAiaWF0IjogMTY4MzAwMDAwMCwgImV4c
    CI6IDE4ODMwMDAwMDAsICJ0eXBlIjogIklkZW50aXR5Q3JlZGVudGlhbCIsICJfc2RfY
-   WxnIjogInNoYS0yNTYifQ.KahHyEP6toKZjwJRfWZys38rN2P4EyWkxi0jvnMdxMB1N_
-   Xd_uwuhO_ckt9bRUKLC7V7Is5k2z5wDa98xse_Mw~WyIyR0xDNDJzS1F2ZUNmR2ZyeU5
+   WxnIjogInNoYS0yNTYifQ.jpUwV1jUP46T59exV08nE9Rh0CeRfwErNgIZXKTX_IWbaC
+   8vfOeI9psaHzk9lJiehOKLGP5BNeqLILBtFNfsWQ~WyIyR0xDNDJzS1F2ZUNmR2ZyeU5
    STjl3IiwgImdpdmVuX25hbWUiLCAiSm9obiJd~WyJlbHVWNU9nM2dTTklJOEVZbnN4QV
    9BIiwgImZhbWlseV9uYW1lIiwgIkRvZSJd~WyI2SWo3dE0tYTVpVlBHYm9TNXRtdlZBI
    iwgImVtYWlsIiwgImpvaG5kb2VAZXhhbXBsZS5jb20iXQ~WyJlSThaV205UW5LUHBOUG
@@ -725,8 +725,8 @@ Table of Contents
    VZ1bHdRUWxoRmxNXzNKbHpNYVNGemdsaFFHMERwZmF5UXdMVUs0Il0sICJpc3MiOiAia
    HR0cHM6Ly9leGFtcGxlLmNvbS9pc3N1ZXIiLCAiaWF0IjogMTY4MzAwMDAwMCwgImV4c
    CI6IDE4ODMwMDAwMDAsICJ0eXBlIjogIklkZW50aXR5Q3JlZGVudGlhbCIsICJfc2RfY
-   WxnIjogInNoYS0yNTYifQ.KahHyEP6toKZjwJRfWZys38rN2P4EyWkxi0jvnMdxMB1N_
-   Xd_uwuhO_ckt9bRUKLC7V7Is5k2z5wDa98xse_Mw~
+   WxnIjogInNoYS0yNTYifQ.jpUwV1jUP46T59exV08nE9Rh0CeRfwErNgIZXKTX_IWbaC
+   8vfOeI9psaHzk9lJiehOKLGP5BNeqLILBtFNfsWQ~
 
    In this presentation, the Holder provides only the Disclosure for the
    claim address.  Other claims are not disclosed to the Verifier.
@@ -745,8 +745,8 @@ Table of Contents
    VZ1bHdRUWxoRmxNXzNKbHpNYVNGemdsaFFHMERwZmF5UXdMVUs0Il0sICJpc3MiOiAia
    HR0cHM6Ly9leGFtcGxlLmNvbS9pc3N1ZXIiLCAiaWF0IjogMTY4MzAwMDAwMCwgImV4c
    CI6IDE4ODMwMDAwMDAsICJ0eXBlIjogIklkZW50aXR5Q3JlZGVudGlhbCIsICJfc2RfY
-   WxnIjogInNoYS0yNTYifQ.FVXvDCP3jZjmEO5Z3rJtGPMjTFsuNoAazQKWzooqV7iepY
-   KIRPxTj7n7EcZQ0JS-Zc1fvIZSc9a8bjus1t9UjA~
+   WxnIjogInNoYS0yNTYifQ.j8HQZRULhn5VoNdPzLzOGkqCtQrO2xU29bfxH9N7gX2cFp
+   6ija4PujxFT84od_Pi8pVpkFd11oLXDZFRM76RQg~
 
 6.3.  Verification and Processing
 
@@ -866,7 +866,7 @@ Appendix B.  Acknowledgements
 
    We would like to thank Alen Horvat, Andres Uribe, Brian Campbell,
    Christian Bormann, Giuseppe De Marco, Michael Jones, Mike Prorock,
-   Orie Steele, Paul Bastian, Torsten Lodderstedt, Tobias Looker and
+   Orie Steele, Paul Bastian, Torsten Lodderstedt, Tobias Looker, and
    Kristina Yasuda for their contributions (some of which substantial)
    to this draft and to the initial set of implementations.
 
