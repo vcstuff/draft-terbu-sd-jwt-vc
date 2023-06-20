@@ -16,7 +16,7 @@ Abstract
 
    This specification describes data formats as well as validation and
    processing rules to express Verifiable Credentials based on the
-   Selective Disclosure for JWT (SD-JWT)
+   Selective Disclosure for JWTs (SD-JWT)
    [I-D.ietf-oauth-selective-disclosure-jwt] format.  It can be used
    when there are no selective disclosable claims, too.
 
@@ -506,8 +506,8 @@ Table of Contents
    VZ1bHdRUWxoRmxNXzNKbHpNYVNGemdsaFFHMERwZmF5UXdMVUs0Il0sICJpc3MiOiAia
    HR0cHM6Ly9leGFtcGxlLmNvbS9pc3N1ZXIiLCAiaWF0IjogMTY4MzAwMDAwMCwgImV4c
    CI6IDE4ODMwMDAwMDAsICJ0eXBlIjogIklkZW50aXR5Q3JlZGVudGlhbCIsICJfc2RfY
-   WxnIjogInNoYS0yNTYifQ.XefiZKGvalCmOU-I8d8RireyjiSI9oSyzsQlgLwRp2rhKo
-   DleyGZnzyCd9gpSIgeOQ1uU6HJ4OT9WNLrsSibrw~WyIyR0xDNDJzS1F2ZUNmR2ZyeU5
+   WxnIjogInNoYS0yNTYifQ.Wcr6IObUZcV7Yhwc0NfNLbsS6ztpHUy-stvDDCAVch8czv
+   Nh6Wq0w2Uet1Lb5EM-NYXQQMOMyC82m8v_ucXRZw~WyIyR0xDNDJzS1F2ZUNmR2ZyeU5
    STjl3IiwgImdpdmVuX25hbWUiLCAiSm9obiJd~WyJlbHVWNU9nM2dTTklJOEVZbnN4QV
    9BIiwgImZhbWlseV9uYW1lIiwgIkRvZSJd~WyI2SWo3dE0tYTVpVlBHYm9TNXRtdlZBI
    iwgImVtYWlsIiwgImpvaG5kb2VAZXhhbXBsZS5jb20iXQ~WyJlSThaV205UW5LUHBOUG
@@ -725,8 +725,8 @@ Table of Contents
    VZ1bHdRUWxoRmxNXzNKbHpNYVNGemdsaFFHMERwZmF5UXdMVUs0Il0sICJpc3MiOiAia
    HR0cHM6Ly9leGFtcGxlLmNvbS9pc3N1ZXIiLCAiaWF0IjogMTY4MzAwMDAwMCwgImV4c
    CI6IDE4ODMwMDAwMDAsICJ0eXBlIjogIklkZW50aXR5Q3JlZGVudGlhbCIsICJfc2RfY
-   WxnIjogInNoYS0yNTYifQ.XefiZKGvalCmOU-I8d8RireyjiSI9oSyzsQlgLwRp2rhKo
-   DleyGZnzyCd9gpSIgeOQ1uU6HJ4OT9WNLrsSibrw~
+   WxnIjogInNoYS0yNTYifQ.Wcr6IObUZcV7Yhwc0NfNLbsS6ztpHUy-stvDDCAVch8czv
+   Nh6Wq0w2Uet1Lb5EM-NYXQQMOMyC82m8v_ucXRZw~
 
    In this presentation, the Holder provides only the Disclosure for the
    claim address.  Other claims are not disclosed to the Verifier.
@@ -745,8 +745,8 @@ Table of Contents
    VZ1bHdRUWxoRmxNXzNKbHpNYVNGemdsaFFHMERwZmF5UXdMVUs0Il0sICJpc3MiOiAia
    HR0cHM6Ly9leGFtcGxlLmNvbS9pc3N1ZXIiLCAiaWF0IjogMTY4MzAwMDAwMCwgImV4c
    CI6IDE4ODMwMDAwMDAsICJ0eXBlIjogIklkZW50aXR5Q3JlZGVudGlhbCIsICJfc2RfY
-   WxnIjogInNoYS0yNTYifQ.uHy0_QWkOFGJYh-R5OUCgh4wf-AD1x8UdAcyiPklIIMhgx
-   Co3Gwv22hoII4eVCzIUcvJ8TD8no-hKs2RP5Qn2A~
+   WxnIjogInNoYS0yNTYifQ.1i1chAn162bXben8osP0jnO5kiDRwXjv_witvQ5Q6G4v75
+   Lmcy2htThIHA4SwV835EtRfEKyGkf5AITuCEYCGg~
 
 6.3.  Verification and Processing
 
