@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-06-18T01:59:13.117410+00:00",
+  "timestamp": "2023-06-20T01:40:51.710560+00:00",
   "repo": "vcstuff/draft-terbu-sd-jwt-vc",
   "labels": [
     {
@@ -2560,7 +2560,7 @@
       "labels": [],
       "body": "Data model in this document resembles to the ID Token data model as defined in OIDC (with the addition of cnf).\r\n\r\nOn the other hand, the data model is trying to follow the W3C VC data model.\r\nWhat is the benefit of this data model over the W3C VC data model (except that the claim names are different and iss can be a URI, and not an object and that JSON-LD is not supported by the data model, which basically excludes some significant use cases such as Europass that are leveraging JSON-LD for internationalization, for example)?",
       "createdAt": "2023-06-13T19:39:17Z",
-      "updatedAt": "2023-06-16T18:37:02Z",
+      "updatedAt": "2023-06-18T14:18:15Z",
       "closedAt": null,
       "comments": [
         {
@@ -2667,6 +2667,20 @@
           "body": "@paulbastian , I missed one point.\r\n> I agree that securing JSON-LD as payload with SD-JWT is important work that should be considered and investigated. I don't agree that it is a good idea to take VCDM claims and use all of those to secure JWTs, because there are existing claims from JWT claims registry and existing implementations depend on those\r\n\r\nCan you please elaborate on \"take VCDM to secure JWT\"? \r\nIf my understanding is correct (sometimes is, sometimes isn't), it is JWS the one secures the payload (and it can be any JSON). JWT claims define contextual information: who, validity, about who, for whom. We should reflect on sigTst from JAdES.\r\n\r\nI'm personally not proposing to use VCDM to protect a JWT. VCDM and JWT are both protected by JWS.",
           "createdAt": "2023-06-16T18:37:02Z",
           "updatedAt": "2023-06-16T18:37:02Z"
+        },
+        {
+          "author": "paulbastian",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "As an example, iss and cnf are registered claim names for JWTs that are used to secure the VC. Existing RFCs are using those. Therefore it doesn't make sense to overwrite those by the w3c data model in my opinion",
+          "createdAt": "2023-06-18T13:33:04Z",
+          "updatedAt": "2023-06-18T13:33:04Z"
+        },
+        {
+          "author": "alenhorvat",
+          "authorAssociation": "NONE",
+          "body": "Thank you @paulbastian. I understand your view. If VC claims were registered, what would be the benefit of the data model over VCDM? \r\n\r\nSince I\u2019m involved in projects that use VCDM (in JSON and JSON-LD) and also JWT I would really like to understand the objective benefits od the data model. ",
+          "createdAt": "2023-06-18T14:18:15Z",
+          "updatedAt": "2023-06-18T14:18:15Z"
         }
       ]
     },
@@ -6529,9 +6543,9 @@
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
-      "body": "Changes\r\n- renamed the draft \r\n    - kept the short name, might need to introduce a term like `JOSE-VC` to aggregate both \"JWT VC and SD-JWT VC\" but might work without it too)\r\n    - I must admit I fought the urge to call it JWS VC...\r\n- restructured so that there is a `common data format` section with headers and payload requirements\r\n    - followed by a section per jwt vc and sd-jwt vc that defines media type and non-disclosable claims (for sd-jwt vc)\r\n- verification and processing is a top level section now\r\n- no changes to the jwt issuer metadata section\r\n- presenting VC section is common to both\r\n    - introduced ho to present a JWT VC with a HB JWT. this is currently the only way to do HB with JWT VC when HB is necessary. \r\n- no example of JWT VC yet - can be another PR I think",
+      "body": "Changes\r\n- renamed the draft \r\n    - kept the short name, might need to introduce a term like `JOSE-VC` to aggregate both \"JWT VC and SD-JWT VC\" but might work without it too)\r\n    - I must admit I fought the urge to call it JWS VC...\r\n- restructured so that there is a `common data format` section with headers and payload requirements\r\n    - followed by a section per jwt vc and sd-jwt vc that defines media type and non-disclosable claims (for sd-jwt vc)\r\n- verification and processing is a top level section now\r\n- no changes to the jwt issuer metadata section\r\n- presenting VC section is common to both\r\n    - introduced ho to present a JWT VC with a HB JWT. this is currently the only way to do HB with JWT VC when HB is necessary. \r\n- no example of JWT VC yet - can be another PR I think\r\n\r\n[link to rendered preview](https://vcstuff.github.io/draft-terbu-sd-jwt-vc/jwt-vc/draft-terbu-oauth-jwt-vc.html\r\n)",
       "createdAt": "2023-06-09T08:20:25Z",
-      "updatedAt": "2023-06-17T17:10:55Z",
+      "updatedAt": "2023-06-19T18:47:23Z",
       "baseRepository": "vcstuff/draft-terbu-sd-jwt-vc",
       "baseRefName": "main",
       "baseRefOid": "588ea557ea5861784bbaf7051eddefdeb6d0751f",
@@ -7512,6 +7526,86 @@
               "updatedAt": "2023-06-16T03:15:33Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDOJbVClc5Yg2NW",
+          "commit": {
+            "abbreviatedOid": "be77533"
+          },
+          "author": "alenhorvat",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-06-18T08:05:52Z",
+          "updatedAt": "2023-06-18T08:05:53Z",
+          "comments": [
+            {
+              "originalPosition": 227,
+              "body": "Actually every VC (JSON or JSON-LD) can be protected with SD-JWT\r\nsame as every JSON or JSON-LD can be protected with JWS",
+              "createdAt": "2023-06-18T08:05:53Z",
+              "updatedAt": "2023-06-18T08:05:53Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJbVClc5Yg2jF",
+          "commit": {
+            "abbreviatedOid": "d852bcc"
+          },
+          "author": "alenhorvat",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-06-18T08:15:03Z",
+          "updatedAt": "2023-06-18T08:15:04Z",
+          "comments": [
+            {
+              "originalPosition": 62,
+              "body": "Note that JWT sets all claims as optional.",
+              "createdAt": "2023-06-18T08:15:03Z",
+              "updatedAt": "2023-06-18T08:15:04Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJbVClc5Yg2vZ",
+          "commit": {
+            "abbreviatedOid": "d852bcc"
+          },
+          "author": "alenhorvat",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-06-18T08:17:57Z",
+          "updatedAt": "2023-06-18T08:17:57Z",
+          "comments": [
+            {
+              "originalPosition": 65,
+              "body": "Should this be improved:\r\n\r\nThis specification defines how Verifiable Credentials can be expressed using JWT claim set and protected with JWS or SD-JWT?\r\n\r\n(\r\nnote that if convergence between JWS and SD-JWT is achieved it could be even something like:\r\n\r\nThis specification defines how Verifiable Credentials can be expressed using JWT claim set and protected using JWS. The specification also defines how Selective Disclosure (SD-JWT) can be applied.\r\n)",
+              "createdAt": "2023-06-18T08:17:57Z",
+              "updatedAt": "2023-06-18T08:17:57Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJbVClc5Yg3Rh",
+          "commit": {
+            "abbreviatedOid": "d852bcc"
+          },
+          "author": "alenhorvat",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-06-18T08:27:49Z",
+          "updatedAt": "2023-06-18T08:27:50Z",
+          "comments": [
+            {
+              "originalPosition": 76,
+              "body": "Should we acknowledge that JWT limits the JWS to compact serialised and that SD-JWT supports both serialisations?",
+              "createdAt": "2023-06-18T08:27:49Z",
+              "updatedAt": "2023-06-18T08:27:50Z"
+            }
+          ]
         }
       ]
     },
@@ -7527,7 +7621,7 @@
       "labels": [],
       "body": "Status Provider should be either 4th party or issuer (not verifier).",
       "createdAt": "2023-06-13T11:43:35Z",
-      "updatedAt": "2023-06-17T03:59:31Z",
+      "updatedAt": "2023-06-19T17:13:15Z",
       "baseRepository": "vcstuff/draft-terbu-sd-jwt-vc",
       "baseRefName": "main",
       "baseRefOid": "588ea557ea5861784bbaf7051eddefdeb6d0751f",
@@ -7603,6 +7697,19 @@
           "body": "",
           "createdAt": "2023-06-17T03:59:31Z",
           "updatedAt": "2023-06-17T03:59:31Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOJbVClc5Ym7sJ",
+          "commit": {
+            "abbreviatedOid": "41a80cf"
+          },
+          "author": "danielfett",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-06-19T17:13:15Z",
+          "updatedAt": "2023-06-19T17:13:15Z",
           "comments": []
         }
       ]
@@ -7805,7 +7912,7 @@
       "labels": [],
       "body": "Holder Binding is now more appropriately called Key Binding in SD-JWT. This PR makes the necessary changes in this specification.",
       "createdAt": "2023-06-13T15:52:18Z",
-      "updatedAt": "2023-06-17T04:04:08Z",
+      "updatedAt": "2023-06-19T17:26:29Z",
       "baseRepository": "vcstuff/draft-terbu-sd-jwt-vc",
       "baseRefName": "main",
       "baseRefOid": "588ea557ea5861784bbaf7051eddefdeb6d0751f",
@@ -7871,6 +7978,19 @@
           "createdAt": "2023-06-17T04:04:07Z",
           "updatedAt": "2023-06-17T04:04:08Z",
           "comments": []
+        },
+        {
+          "id": "PRR_kwDOJbVClc5Ym-hV",
+          "commit": {
+            "abbreviatedOid": "b1f0b4a"
+          },
+          "author": "c2bo",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-06-19T17:26:29Z",
+          "updatedAt": "2023-06-19T17:26:29Z",
+          "comments": []
         }
       ]
     },
@@ -7884,15 +8004,15 @@
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
-      "body": "alternative to #120 based on @bc-pi 's comment \"I can't help but wonder if it'd make sense to have the spec be only about SD-JWT VCs and treat the plain JWT VC as just a special case of an SD-JWT with no selectively disclosable claims.\"\r\n\r\nno changes to the basic structure. simple clarifications what to do when there are no selectively disclosable claims ie no `_sd` claim and no Disclosures. Might need some more details but this is how it might look like.\r\n\r\n(cc @OR13, @mprorock)",
+      "body": "alternative to #120 based on @bc-pi 's comment \"I can't help but wonder if it'd make sense to have the spec be only about SD-JWT VCs and treat the plain JWT VC as just a special case of an SD-JWT with no selectively disclosable claims.\"\r\n\r\nno changes to the basic structure. simple clarifications what to do when there are no selectively disclosable claims ie no `_sd` claim and no Disclosures. Might need some more details but this is how it might look like.\r\n\r\n(cc @OR13, @mprorock)\r\n\r\n[linked to rendered preview](https://vcstuff.github.io/draft-terbu-sd-jwt-vc/jwt-vc-2/draft-terbu-sd-jwt-vc.html\r\n)",
       "createdAt": "2023-06-16T05:46:35Z",
-      "updatedAt": "2023-06-17T04:04:58Z",
+      "updatedAt": "2023-06-19T20:54:28Z",
       "baseRepository": "vcstuff/draft-terbu-sd-jwt-vc",
       "baseRefName": "main",
       "baseRefOid": "588ea557ea5861784bbaf7051eddefdeb6d0751f",
       "headRepository": "vcstuff/draft-terbu-sd-jwt-vc",
       "headRefName": "jwt-vc-2",
-      "headRefOid": "f3a04a75d2296542d3694b7641e53865067d0873",
+      "headRefOid": "9ceaabf74525a230ae377c9ac9fa022a609279af",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -7925,6 +8045,34 @@
           "body": "Yes. Will make a change once we have a decision whether PR #120 or this one is the way to go\u2026",
           "createdAt": "2023-06-16T19:24:49Z",
           "updatedAt": "2023-06-16T19:24:49Z"
+        },
+        {
+          "author": "alenhorvat",
+          "authorAssociation": "NONE",
+          "body": "What is the position of this specification?\r\nFrom my understanding\r\n- it defines a VC with JWT claims\r\n- it defines a profile for the JWT claims\r\n- it defines a profile for securing the VC\r\n\r\nThere's an open discussion between the sd-jwt and JWS protection. Relevant discussion has been started https://github.com/oauth-wg/oauth-selective-disclosure-jwt/issues/291 - sd-jwt introduces an encoding that becomes incompatible with JWS in the limit where selective disclosure is not used. In other words, it introduces a first-order phase transition. Let's see how this topic resolves.\r\n\r\nIMO, the data model and securing mechanisms should support both sd-jwt and JWS.",
+          "createdAt": "2023-06-18T08:00:14Z",
+          "updatedAt": "2023-06-18T08:00:14Z"
+        },
+        {
+          "author": "danielfett",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I do like this approach, but I am a bit concerned that even in the 'no disclosures' case, we'll have the trailing tilde in the issuance and presentation (when no KB is present). A JWT is *not* a special case of an SD-JWT for this reason.",
+          "createdAt": "2023-06-19T17:11:49Z",
+          "updatedAt": "2023-06-19T17:11:49Z"
+        },
+        {
+          "author": "alenhorvat",
+          "authorAssociation": "NONE",
+          "body": "> I do like this approach, but I am a bit concerned that even in the 'no disclosures' case, we'll have the trailing tilde in the issuance and presentation (when no KB is present). A JWT is _not_ a special case of an SD-JWT for this reason.\r\n\r\nI agree with the concern.",
+          "createdAt": "2023-06-19T17:23:08Z",
+          "updatedAt": "2023-06-19T17:23:08Z"
+        },
+        {
+          "author": "bc-pi",
+          "authorAssociation": "NONE",
+          "body": "> I do like this approach, but I am a bit concerned that even in the 'no disclosures' case, we'll have the trailing tilde in the issuance and presentation (when no KB is present). A JWT is _not_ a special case of an SD-JWT for this reason.\r\n\r\nIMHO keeping the trailing tilde is preferable as it keeps the model consistent. ",
+          "createdAt": "2023-06-19T18:56:08Z",
+          "updatedAt": "2023-06-19T18:56:08Z"
         }
       ],
       "reviews": [
@@ -8404,6 +8552,279 @@
           "createdAt": "2023-06-17T04:04:58Z",
           "updatedAt": "2023-06-17T04:04:58Z",
           "comments": []
+        },
+        {
+          "id": "PRR_kwDOJbVClc5Yg1By",
+          "commit": {
+            "abbreviatedOid": "2ac2b2f"
+          },
+          "author": "alenhorvat",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-06-18T07:52:02Z",
+          "updatedAt": "2023-06-18T07:52:02Z",
+          "comments": [
+            {
+              "originalPosition": 6,
+              "body": "I guess this should be aligned with: https://github.com/vcstuff/draft-terbu-sd-jwt-vc/pull/132",
+              "createdAt": "2023-06-18T07:52:02Z",
+              "updatedAt": "2023-06-18T07:52:02Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJbVClc5Yg17B",
+          "commit": {
+            "abbreviatedOid": "72d7a7e"
+          },
+          "author": "alenhorvat",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-06-18T08:02:40Z",
+          "updatedAt": "2023-06-18T08:02:40Z",
+          "comments": [
+            {
+              "originalPosition": 8,
+              "body": "I agree that the supported securing mechanisms should be explicit.\r\n\r\nShould the specification define which claims can be hidden and which not when SD is applied? e.g., iss, exp, nbf, cnf is probably conditional.",
+              "createdAt": "2023-06-18T08:02:40Z",
+              "updatedAt": "2023-06-18T08:02:40Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJbVClc5Yg-wJ",
+          "commit": {
+            "abbreviatedOid": "f3a04a7"
+          },
+          "author": "paulbastian",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-06-18T10:33:22Z",
+          "updatedAt": "2023-06-18T10:33:22Z",
+          "comments": [
+            {
+              "originalPosition": 8,
+              "body": "This is already the case.\n> If present, the following registered JWT claims MUST be included in the SD-JWT and MUST NOT be included in the Disclosures, i.e. cannot be selectively disclosed:",
+              "createdAt": "2023-06-18T10:33:22Z",
+              "updatedAt": "2023-06-18T10:33:22Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJbVClc5Ym452",
+          "commit": {
+            "abbreviatedOid": "f3a04a7"
+          },
+          "author": "danielfett",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-06-19T17:03:39Z",
+          "updatedAt": "2023-06-19T17:03:39Z",
+          "comments": [
+            {
+              "originalPosition": 88,
+              "body": "```suggestion\r\nAn SD-JWT VC MAY have no selectively disclosable claims.\r\n```",
+              "createdAt": "2023-06-19T17:03:39Z",
+              "updatedAt": "2023-06-19T17:03:46Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJbVClc5Ym5eB",
+          "commit": {
+            "abbreviatedOid": "f3a04a7"
+          },
+          "author": "danielfett",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-06-19T17:05:56Z",
+          "updatedAt": "2023-06-19T17:05:56Z",
+          "comments": [
+            {
+              "originalPosition": 125,
+              "body": "```suggestion\r\nWe would like to thank\r\nAlen Horvat,\r\nAndres Uribe,\r\nBrian Campbell,\r\nChristian Bormann,\r\nGiuseppe De Marco,\r\nMichael Jones,\r\nMike Prorock,\r\nOrie Steele,\r\nPaul Bastian,\r\nTorsten Lodderstedt,\r\nTobias Looker, and\r\nKristina Yasuda\r\nfor their contributions (some of which substantial) to this draft and to the initial set of implementations.\r\n```",
+              "createdAt": "2023-06-19T17:05:56Z",
+              "updatedAt": "2023-06-19T17:05:57Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJbVClc5Ym5x4",
+          "commit": {
+            "abbreviatedOid": "f3a04a7"
+          },
+          "author": "danielfett",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-06-19T17:07:13Z",
+          "updatedAt": "2023-06-19T17:07:13Z",
+          "comments": [
+            {
+              "originalPosition": 90,
+              "body": "```suggestion\r\nMUST NOT have any Disclosures. For issuance, the trailing `~` MUST BE omitted from the SD-JWT.\r\nFor presentation the trailing `~` MUST BE omitted unless a Key Binding JWT is present.\r\n```",
+              "createdAt": "2023-06-19T17:07:13Z",
+              "updatedAt": "2023-06-19T17:07:13Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJbVClc5Ym56v",
+          "commit": {
+            "abbreviatedOid": "f3a04a7"
+          },
+          "author": "danielfett",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-06-19T17:07:45Z",
+          "updatedAt": "2023-06-19T17:07:45Z",
+          "comments": [
+            {
+              "originalPosition": 86,
+              "body": "```suggestion\r\n#### SD-JWT VC without Selectively Disclosable Claims\r\n```",
+              "createdAt": "2023-06-19T17:07:45Z",
+              "updatedAt": "2023-06-19T17:07:45Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJbVClc5YnqBO",
+          "commit": {
+            "abbreviatedOid": "f3a04a7"
+          },
+          "author": "selfissued",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-06-19T19:29:20Z",
+          "updatedAt": "2023-06-19T19:29:21Z",
+          "comments": [
+            {
+              "originalPosition": 7,
+              "body": "I agree that the \"with JSON payloads\" wording is clunky and should go.  All JWTs have JSON payloads, so we don't need to say so in the title.",
+              "createdAt": "2023-06-19T19:29:21Z",
+              "updatedAt": "2023-06-19T19:29:21Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJbVClc5Ynt5K",
+          "commit": {
+            "abbreviatedOid": "f3a04a7"
+          },
+          "author": "selfissued",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-06-19T19:33:29Z",
+          "updatedAt": "2023-06-19T19:33:30Z",
+          "comments": [
+            {
+              "originalPosition": 7,
+              "body": "Also, see https://github.com/vcstuff/draft-terbu-sd-jwt-vc/pull/132, which requests a parallel change to the title.",
+              "createdAt": "2023-06-19T19:33:29Z",
+              "updatedAt": "2023-06-19T19:33:30Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJbVClc5Yn7aQ",
+          "commit": {
+            "abbreviatedOid": "f3a04a7"
+          },
+          "author": "selfissued",
+          "authorAssociation": "NONE",
+          "state": "APPROVED",
+          "body": "I prefer https://github.com/vcstuff/draft-terbu-sd-jwt-vc/pull/120 since I find its description of what we're achieving more natural / less surprising.  But I can live with this description as well, provided the distracting \"with JSON Claims\" language is removed.",
+          "createdAt": "2023-06-19T19:59:20Z",
+          "updatedAt": "2023-06-19T19:59:20Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOJbVClc5Yn8f3",
+          "commit": {
+            "abbreviatedOid": "72d7a7e"
+          },
+          "author": "Sakurann",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-06-19T20:04:34Z",
+          "updatedAt": "2023-06-19T20:04:34Z",
+          "comments": [
+            {
+              "originalPosition": 7,
+              "body": "#132 should be addressed after we have clarity on direction whether #120 or #131.\r\n\r\njfyi `Selective Disclosure for JWT and JWS with JSON payloads (SD-JWT)` is a new spec title for SD-JWT, and \"JWS with JSON payloads\" is meant to cater for JSON serialization which is not allowed in JWT.",
+              "createdAt": "2023-06-19T20:04:34Z",
+              "updatedAt": "2023-06-19T20:04:53Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJbVClc5Yn9VW",
+          "commit": {
+            "abbreviatedOid": "2ac2b2f"
+          },
+          "author": "Sakurann",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-06-19T20:09:00Z",
+          "updatedAt": "2023-06-19T20:09:00Z",
+          "comments": [
+            {
+              "originalPosition": 6,
+              "body": "let's bikeshed the title in this PR for what is in scope for this PR. and then see if it is aligned or not with #132.",
+              "createdAt": "2023-06-19T20:09:00Z",
+              "updatedAt": "2023-06-19T20:09:00Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJbVClc5YoE3z",
+          "commit": {
+            "abbreviatedOid": "9ceaabf"
+          },
+          "author": "bc-pi",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-06-19T20:39:31Z",
+          "updatedAt": "2023-06-19T20:39:32Z",
+          "comments": [
+            {
+              "originalPosition": 7,
+              "body": "The full (and admittedly clunky) title of SD-JWT doesn't need to be spelled out here though.  (and ugh we should have capitalized Payloads in that title)  \r\n```suggestion\r\nfor JWT (SD-JWT) [@!I-D.ietf-oauth-selective-disclosure-jwt] format.\r\n```",
+              "createdAt": "2023-06-19T20:39:32Z",
+              "updatedAt": "2023-06-19T20:39:32Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJbVClc5YoIB8",
+          "commit": {
+            "abbreviatedOid": "2ac2b2f"
+          },
+          "author": "alenhorvat",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-06-19T20:52:53Z",
+          "updatedAt": "2023-06-19T20:52:54Z",
+          "comments": [
+            {
+              "originalPosition": 6,
+              "body": "I believe it is important to clarify what the specification is trying to achieve.\r\nJWS: compact or JSON serialised JWS -> protection mechanism + serialisation\r\nSD-JWT: SD-JWT serialisation (JWS+disclosures+tilde) or JSON serialised JWS -> protection mechanism + serialisation --> note that this could be fixed if the SD authors agree to. Issue is still open, a viable proposal is on the table.\r\nJWT: compact serialised JWS -> claim set + protection\r\nid token -> JWT + rules for the claims -> claim set + verification rules + protection\r\n\r\nIf I understand correctly, this specification defines a profile for Verifiable Credentials with the JWT claims set. So\r\nvc+jwt -> claim set (VC + JWT claims), verification rules + protection (JWS or SD-JWT)\r\n\r\nIf my understanding is correct and if the specification is defining a new type, like in #132: vc+jwt, the specification can be defined as:\r\nVerifiable Credential with JWT claims and protected by JWS (any serialisation) and/or SD-JWT\r\n\r\nOr define a new brand:\r\n- Verifiable Web Tokens (I prefer this one)\r\n- JSON Verifiable Credentials\r\n- JSON Web Credentials\r\n- Verifiable Credential Tokens (don't like this one)\r\n\r\nI agree with @selfissued  that \"with JSON\" payloads is clumsy/confusing.\r\n\r\nNote: ID Tokens are not called JWT ID nor ID JWT ;)",
+              "createdAt": "2023-06-19T20:52:53Z",
+              "updatedAt": "2023-06-19T20:54:28Z"
+            }
+          ]
         }
       ]
     },
@@ -8419,7 +8840,7 @@
       "labels": [],
       "body": "",
       "createdAt": "2023-06-16T19:26:58Z",
-      "updatedAt": "2023-06-17T04:10:02Z",
+      "updatedAt": "2023-06-19T20:01:46Z",
       "baseRepository": "vcstuff/draft-terbu-sd-jwt-vc",
       "baseRefName": "main",
       "baseRefOid": "588ea557ea5861784bbaf7051eddefdeb6d0751f",
@@ -8430,7 +8851,15 @@
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
-      "comments": [],
+      "comments": [
+        {
+          "author": "Sakurann",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "> the \"with JSON payloads\" wording is clunky and redundant. All JWTs have JSON payloads.\r\n\r\nbut not all JWS, which can sign anything. this is a way to draw a line with a document in W3C which uses JWS to sign over JSON-LD.",
+          "createdAt": "2023-06-19T20:01:46Z",
+          "updatedAt": "2023-06-19T20:01:46Z"
+        }
+      ],
       "reviews": [
         {
           "id": "PRR_kwDOJbVClc5Ydy9Q",
@@ -8517,8 +8946,60 @@
           "createdAt": "2023-06-17T04:10:02Z",
           "updatedAt": "2023-06-17T04:10:02Z",
           "comments": []
+        },
+        {
+          "id": "PRR_kwDOJbVClc5YnszL",
+          "commit": {
+            "abbreviatedOid": "3a077c1"
+          },
+          "author": "selfissued",
+          "authorAssociation": "NONE",
+          "state": "APPROVED",
+          "body": "the \"with JSON payloads\" wording is clunky and redundant.  All JWTs have JSON payloads.",
+          "createdAt": "2023-06-19T19:32:41Z",
+          "updatedAt": "2023-06-19T19:32:41Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOJbVClc5Yn7ZE",
+          "commit": {
+            "abbreviatedOid": "3a077c1"
+          },
+          "author": "Sakurann",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "we need to make a decision whether to go #120 or #131 path. and I am personally more and more favorable towards #131. and this PR is more inline with #120 than #131.",
+          "createdAt": "2023-06-19T19:59:14Z",
+          "updatedAt": "2023-06-19T19:59:14Z",
+          "comments": []
         }
       ]
+    },
+    {
+      "number": 133,
+      "id": "PR_kwDOJbVClc5TXwHW",
+      "title": "Update names of included files for examples",
+      "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/pull/133",
+      "state": "OPEN",
+      "author": "bc-pi",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "Update names of included files for examples for when/if https://github.com/danielfett/sd-jwt/pull/11 gets merged into the reference implementation used to generate the examples",
+      "createdAt": "2023-06-19T19:26:57Z",
+      "updatedAt": "2023-06-19T19:26:57Z",
+      "baseRepository": "vcstuff/draft-terbu-sd-jwt-vc",
+      "baseRefName": "main",
+      "baseRefOid": "9119083958ea6f636927df22c9a5769400558f3f",
+      "headRepository": "bc-pi/draft-terbu-sd-jwt-vc",
+      "headRefName": "tilde-and-terms",
+      "headRefOid": "7fe048b09f12ef17399b8b5055c41eef36eef403",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
