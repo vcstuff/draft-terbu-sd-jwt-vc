@@ -9,8 +9,9 @@
 <meta content="Daniel Fett" name="author">
 <meta content="
        This specification describes data formats as well as validation and processing
-rules to express Verifiable Credentials with JSON payload based on the SD-JWT
-format  . 
+rules to express Verifiable Credentials with JSON payloads based on the Selective Disclosure
+for JWTs (SD-JWT)   format.
+It can be used when there are no selective disclosable claims, too. 
     " name="description">
 <meta content="xml2rfc 3.17.3" name="generator">
 <meta content="security" name="keyword">
@@ -19,10 +20,10 @@ format  .
 <meta content="draft-terbu-sd-jwt-vc-latest" name="ietf.draft">
 <!-- Generator version information:
   xml2rfc 3.17.3
-    Python 3.11.3
+    Python 3.11.4
     appdirs 1.4.4
     ConfigArgParse 1.5.3
-    google-i18n-address 3.0.0
+    google-i18n-address 3.1.0
     intervaltree 3.1.0
     Jinja2 3.1.2
     lxml 4.9.2
@@ -1056,7 +1057,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Terbu &amp; Fett</td>
-<td class="center">Expires 19 December 2023</td>
+<td class="center">Expires 23 December 2023</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1069,12 +1070,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-terbu-sd-jwt-vc-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2023-06-17" class="published">17 June 2023</time>
+<time datetime="2023-06-21" class="published">21 June 2023</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2023-12-19">19 December 2023</time></dd>
+<dd class="expires"><time datetime="2023-12-23">23 December 2023</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1092,8 +1093,9 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
 <p id="section-abstract-1">This specification describes data formats as well as validation and processing
-rules to express Verifiable Credentials with JSON payload based on the SD-JWT
-format <span>[<a href="#I-D.ietf-oauth-selective-disclosure-jwt" class="cite xref">I-D.ietf-oauth-selective-disclosure-jwt</a>]</span>.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+rules to express Verifiable Credentials with JSON payloads based on the Selective Disclosure
+for JWTs (SD-JWT) <span>[<a href="#I-D.ietf-oauth-selective-disclosure-jwt" class="cite xref">I-D.ietf-oauth-selective-disclosure-jwt</a>]</span> format.
+It can be used when there are no selective disclosable claims, too.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 </section>
 <div id="status-of-memo">
 <section id="section-boilerplate.1">
@@ -1114,7 +1116,7 @@ format <span>[<a href="#I-D.ietf-oauth-selective-disclosure-jwt" class="cite xre
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 19 December 2023.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 23 December 2023.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1322,7 +1324,7 @@ described in <span>[<a href="#I-D.ietf-oauth-selective-disclosure-jwt" class="ci
 involved, a Status Provider, who delivers revocation information to Verifiers.
 (The Verifier can also serve as the Status Provider.)<a href="#section-1.1-4" class="pilcrow">¶</a></p>
 <p id="section-1.1-5">This specification defines Verifiable Credentials based on the SD-JWT
-format with a JWT Claim Set.<a href="#section-1.1-5" class="pilcrow">¶</a></p>
+format with a JWT Claim Set. It can be used when there are no selective disclosable claims, too.<a href="#section-1.1-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="rationale">
@@ -1332,24 +1334,21 @@ format with a JWT Claim Set.<a href="#section-1.1-5" class="pilcrow">¶</a></p>
         </h3>
 <p id="section-1.2-1">JSON Web Tokens (JWTs) <span>[<a href="#RFC7519" class="cite xref">RFC7519</a>]</span> can in principle be used to express
 Verifiable Credentials in a way that is easy to understand and process as it
-builds upon established web primitives. While JWT-based credentials enable selective
-disclosure, i.e., the ability for a Holder to disclose only a subset of the contained
-claims, in an Identity Provider ecosystem by issuing new JWTs to the Verifier for
-every presentation, this approach does not work in the three-party-model.<a href="#section-1.2-1" class="pilcrow">¶</a></p>
+builds upon established web primitives.<a href="#section-1.2-1" class="pilcrow">¶</a></p>
 <p id="section-1.2-2">Selective Disclosure JWT (SD-JWT) <span>[<a href="#I-D.ietf-oauth-selective-disclosure-jwt" class="cite xref">I-D.ietf-oauth-selective-disclosure-jwt</a>]</span> is
 a specification that introduces conventions to support selective disclosure for
 JWTs: For an SD-JWT document, a Holder can decide which claims to release (within
-bounds defined by the Issuer). This format is therefore perfectly suited for
-Verifiable Credentials.<a href="#section-1.2-2" class="pilcrow">¶</a></p>
-<p id="section-1.2-3">SD-JWT itself does not define the claims that must be used within the payload or
-their semantics. This specification therefore defines how Verifiable Credentials
-can be expressed using SD-JWT.<a href="#section-1.2-3" class="pilcrow">¶</a></p>
-<p id="section-1.2-4">JWTs (and SD-JWTs) can contain claims that are registered in "JSON Web Token Claims"
+bounds defined by the Issuer).<a href="#section-1.2-2" class="pilcrow">¶</a></p>
+<p id="section-1.2-3">SD-JWT is a superset of JWT as it can also be used when there are no selectively
+disclosable claims and also supports JWS JSON serialization, which is useful for
+long term archiving and multi signatures. However, SD-JWT itself does not define
+the claims that must be used within the payload or their semantics.<a href="#section-1.2-3" class="pilcrow">¶</a></p>
+<p id="section-1.2-4">This specification therefore uses SD-JWT and the well-established JWT content rules and
+extensibility model as basis for representing Verifiable Credentials with JSON payload.
+Those Verifiable Credentials are called SD-JWT VCs.<a href="#section-1.2-4" class="pilcrow">¶</a></p>
+<p id="section-1.2-5">SD-JWTs VC can contain claims that are registered in "JSON Web Token Claims"
 registry as defined in <span>[<a href="#RFC7519" class="cite xref">RFC7519</a>]</span>, as well as public and
-private claims. This specification aims to express metadata of the properties of the
-Verifiable Credentials utilizing registered JWT claims, while allowing Issuers to use
-other registered, public, or private claims to make statements about the Subject of the
-Verifiable Credential.<a href="#section-1.2-4" class="pilcrow">¶</a></p>
+private claims.<a href="#section-1.2-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="requirements-notation-and-conventions">
@@ -1376,7 +1375,8 @@ document are to be interpreted as described in RFC 2119 <span>[<a href="#RFC2119
           <dd class="break"></dd>
 <dt id="section-1.4-2.3">SD-JWT-based Verifiable Credential (SD-JWT VC):</dt>
           <dd style="margin-left: 1.5em" id="section-1.4-2.4">A Verifiable Credential encoded using the Issuance format defined in
-<span>[<a href="#I-D.ietf-oauth-selective-disclosure-jwt" class="cite xref">I-D.ietf-oauth-selective-disclosure-jwt</a>]</span>.<a href="#section-1.4-2.4" class="pilcrow">¶</a>
+<span>[<a href="#I-D.ietf-oauth-selective-disclosure-jwt" class="cite xref">I-D.ietf-oauth-selective-disclosure-jwt</a>]</span>. It may or may not contain
+selectively disclosable claims.<a href="#section-1.4-2.4" class="pilcrow">¶</a>
 </dd>
           <dd class="break"></dd>
 <dt id="section-1.4-2.5">Unsecured payload of an SD-JWT VC:</dt>
@@ -1444,7 +1444,8 @@ compliance with FIPS<a href="#section-3-2" class="pilcrow">¶</a></p>
         </h3>
 <p id="section-4.2-1">SD-JWT VCs MUST be encoded using the SD-JWT Combined Format for Issuance as
 defined in Section 5.3. of <span>[<a href="#I-D.ietf-oauth-selective-disclosure-jwt" class="cite xref">I-D.ietf-oauth-selective-disclosure-jwt</a>]</span>.<a href="#section-4.2-1" class="pilcrow">¶</a></p>
-<p id="section-4.2-2">SD-JWT VCs MUST contain all Disclosures corresponding to their SD-JWT component
+<p id="section-4.2-2">When there are selectively disclosable claims, SD-JWT VCs MUST contain all
+Disclosures corresponding to their SD-JWT component
 except for Decoy Digests as per Section 5.1.1.3. of <span>[<a href="#I-D.ietf-oauth-selective-disclosure-jwt" class="cite xref">I-D.ietf-oauth-selective-disclosure-jwt</a>]</span>.<a href="#section-4.2-2" class="pilcrow">¶</a></p>
 <div id="header-parameters">
 <section id="section-4.2.1">
@@ -1583,6 +1584,16 @@ exist between <code>sub</code> and <code>cnf</code> claims.<a href="#section-4.2
             </h5>
 <p id="section-4.2.2.3-1">Additional public claims MAY be used in SD-JWT VCs depending on the
 application.<a href="#section-4.2.2.3-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="sd-jwt-vc-without-selectively-disclosable-claims">
+<section id="section-4.2.2.4">
+            <h5 id="name-sd-jwt-vc-without-selective">
+<a href="#section-4.2.2.4" class="section-number selfRef">4.2.2.4. </a><a href="#name-sd-jwt-vc-without-selective" class="section-name selfRef">SD-JWT VC without Selectively Disclosable Claims</a>
+            </h5>
+<p id="section-4.2.2.4-1">An SD-JWT VC MAY have no selectively disclosable claims.
+In that case, the SD-JWT VC MUST NOT contain the <code>_sd</code> claim in the JWT body. It also
+MUST NOT have any Disclosures.<a href="#section-4.2.2.4-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1768,8 +1779,8 @@ mRyVEU4WWNiWTRFaWZ1Z2loaUFlX0JQZWt4SlFaSUNlaVVRd1k5UXF4SSIsICJqc3U5e
 VZ1bHdRUWxoRmxNXzNKbHpNYVNGemdsaFFHMERwZmF5UXdMVUs0Il0sICJpc3MiOiAia
 HR0cHM6Ly9leGFtcGxlLmNvbS9pc3N1ZXIiLCAiaWF0IjogMTY4MzAwMDAwMCwgImV4c
 CI6IDE4ODMwMDAwMDAsICJ0eXBlIjogIklkZW50aXR5Q3JlZGVudGlhbCIsICJfc2RfY
-WxnIjogInNoYS0yNTYifQ.aGWabltjnlHV2JFJl18H35DbSDyso4ycy0d7P3z2NRMn0N
-mdAg8MQMv-czWA23a7aqgCXhRmkvKSnQOmzqO-rQ~WyIyR0xDNDJzS1F2ZUNmR2ZyeU5
+WxnIjogInNoYS0yNTYifQ.kg4hAMOC-J2Ipo4Wnpf7WsfAwxbdqIy-bQ50uubgh5I34H
+SxR7cuPh_U1XDUjQU1mctFZiM6ZSL6uO8gDz-AYQ~WyIyR0xDNDJzS1F2ZUNmR2ZyeU5
 STjl3IiwgImdpdmVuX25hbWUiLCAiSm9obiJd~WyJlbHVWNU9nM2dTTklJOEVZbnN4QV
 9BIiwgImZhbWlseV9uYW1lIiwgIkRvZSJd~WyI2SWo3dE0tYTVpVlBHYm9TNXRtdlZBI
 iwgImVtYWlsIiwgImpvaG5kb2VAZXhhbXBsZS5jb20iXQ~WyJlSThaV205UW5LUHBOUG
@@ -1798,7 +1809,9 @@ Section 6. of <span>[<a href="#I-D.ietf-oauth-selective-disclosure-jwt" class="c
 verification, the <code>iss</code> claim in the SD-JWT MAY be used to retrieve the public
 key from the JWT Issuer Metadata configuration (as defined in
 <a href="#jwt-issuer-metadata" class="auto internal xref">Section 5</a>) of the SD-JWT VC issuer. A Verifier MAY use alternative
-methods to obtain the public key to verify the signature of the SD-JWT.<a href="#section-4.4-2.1" class="pilcrow">¶</a>
+methods to obtain the public key to verify the signature of the SD-JWT.
+If there are no selectively disclosable claims, there is no need to process the
+<code>_sd</code> claim nor any Disclosures.<a href="#section-4.4-2.1" class="pilcrow">¶</a>
 </li>
           <li id="section-4.4-2.2">OPTIONAL. If <code>status</code> is present in the verified payload of the SD-JWT,
 the status SHOULD be checked. It depends on the Verifier policy to reject or
@@ -1960,6 +1973,8 @@ Format for Presentation as defined in Section 5.4. of
 <span>[<a href="#I-D.ietf-oauth-selective-disclosure-jwt" class="cite xref">I-D.ietf-oauth-selective-disclosure-jwt</a>]</span>.<a href="#section-6.1-1" class="pilcrow">¶</a></p>
 <p id="section-6.1-2">A presentation of an SD-JWT VC MAY contain a Holder Binding JWT as described in
 Section 5.4.1. of <span>[<a href="#I-D.ietf-oauth-selective-disclosure-jwt" class="cite xref">I-D.ietf-oauth-selective-disclosure-jwt</a>]</span>.<a href="#section-6.1-2" class="pilcrow">¶</a></p>
+<p id="section-6.1-3">When there are no selectively disclosable claims, a presentation of SD-JWT VC
+does not contain any Disclosures.<a href="#section-6.1-3" class="pilcrow">¶</a></p>
 <div id="holder-binding-jwt">
 <section id="section-6.1.1">
           <h4 id="name-holder-binding-jwt">
@@ -2030,8 +2045,8 @@ mRyVEU4WWNiWTRFaWZ1Z2loaUFlX0JQZWt4SlFaSUNlaVVRd1k5UXF4SSIsICJqc3U5e
 VZ1bHdRUWxoRmxNXzNKbHpNYVNGemdsaFFHMERwZmF5UXdMVUs0Il0sICJpc3MiOiAia
 HR0cHM6Ly9leGFtcGxlLmNvbS9pc3N1ZXIiLCAiaWF0IjogMTY4MzAwMDAwMCwgImV4c
 CI6IDE4ODMwMDAwMDAsICJ0eXBlIjogIklkZW50aXR5Q3JlZGVudGlhbCIsICJfc2RfY
-WxnIjogInNoYS0yNTYifQ.aGWabltjnlHV2JFJl18H35DbSDyso4ycy0d7P3z2NRMn0N
-mdAg8MQMv-czWA23a7aqgCXhRmkvKSnQOmzqO-rQ~
+WxnIjogInNoYS0yNTYifQ.kg4hAMOC-J2Ipo4Wnpf7WsfAwxbdqIy-bQ50uubgh5I34H
+SxR7cuPh_U1XDUjQU1mctFZiM6ZSL6uO8gDz-AYQ~
 </pre><a href="#section-6.2-2" class="pilcrow">¶</a>
 </div>
 <p id="section-6.2-3">In this presentation, the Holder provides only the Disclosure for the claim
@@ -2050,8 +2065,8 @@ mRyVEU4WWNiWTRFaWZ1Z2loaUFlX0JQZWt4SlFaSUNlaVVRd1k5UXF4SSIsICJqc3U5e
 VZ1bHdRUWxoRmxNXzNKbHpNYVNGemdsaFFHMERwZmF5UXdMVUs0Il0sICJpc3MiOiAia
 HR0cHM6Ly9leGFtcGxlLmNvbS9pc3N1ZXIiLCAiaWF0IjogMTY4MzAwMDAwMCwgImV4c
 CI6IDE4ODMwMDAwMDAsICJ0eXBlIjogIklkZW50aXR5Q3JlZGVudGlhbCIsICJfc2RfY
-WxnIjogInNoYS0yNTYifQ.YuVtUI_9RiEa_GwzcE6FDO-OF-4oeb9mxMPT76y6ZQI8pe
-1eqS69NAKnxmFRlcoPrDOg_gc1a9EucJegDSIElg~
+WxnIjogInNoYS0yNTYifQ.AB4HOfUPWtsiy2yWJ9LRp3BNWIiFQrIRfuBwg1OuzfENJf
+dpjzzxCXUVuMCH5h4F17Fs04a8tJGKbiTGlFQD1A~
 </pre><a href="#section-6.2-5" class="pilcrow">¶</a>
 </div>
 </section>
@@ -2218,10 +2233,20 @@ verify verifiable credentials and presentations.<a href="#appendix-A.2.1-9.2" cl
       <h2 id="name-acknowledgements">
 <a href="#appendix-B" class="section-number selfRef">Appendix B. </a><a href="#name-acknowledgements" class="section-name selfRef">Acknowledgements</a>
       </h2>
-<p id="appendix-B-1">We would like to thank Alen Horvat, Andres Uribe, Christian Bormann,
-Giuseppe De Marco, Paul Bastian, Torsten Lodderstedt, Tobias Looker
-and Kristina Yasuda for their contributions (some of which substantial) to this
-draft and to the initial set of implementations.<a href="#appendix-B-1" class="pilcrow">¶</a></p>
+<p id="appendix-B-1">We would like to thank
+Alen Horvat,
+Andres Uribe,
+Brian Campbell,
+Christian Bormann,
+Giuseppe De Marco,
+Michael Jones,
+Mike Prorock,
+Orie Steele,
+Paul Bastian,
+Torsten Lodderstedt,
+Tobias Looker, and
+Kristina Yasuda
+for their contributions (some of which substantial) to this draft and to the initial set of implementations.<a href="#appendix-B-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="document-history">
@@ -2229,21 +2254,26 @@ draft and to the initial set of implementations.<a href="#appendix-B-1" class="p
       <h2 id="name-document-history">
 <a href="#appendix-C" class="section-number selfRef">Appendix C. </a><a href="#name-document-history" class="section-name selfRef">Document History</a>
       </h2>
-<p id="appendix-C-1">-02<a href="#appendix-C-1" class="pilcrow">¶</a></p>
+<p id="appendix-C-1">-03<a href="#appendix-C-1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="appendix-C-2.1">Adjusted terminology based on feedback<a href="#appendix-C-2.1" class="pilcrow">¶</a>
+<li class="normal" id="appendix-C-2.1">added non-selectively disclosable JWT VC<a href="#appendix-C-2.1" class="pilcrow">¶</a>
 </li>
       </ul>
-<p id="appendix-C-3">-01<a href="#appendix-C-3" class="pilcrow">¶</a></p>
+<p id="appendix-C-3">-02<a href="#appendix-C-3" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="appendix-C-4.1">Removed W3C VCDM transformation algorithm<a href="#appendix-C-4.1" class="pilcrow">¶</a>
-</li>
-        <li class="normal" id="appendix-C-4.2">Various editorial changes based on feedback<a href="#appendix-C-4.2" class="pilcrow">¶</a>
+<li class="normal" id="appendix-C-4.1">Adjusted terminology based on feedback<a href="#appendix-C-4.1" class="pilcrow">¶</a>
 </li>
       </ul>
-<p id="appendix-C-5">-00<a href="#appendix-C-5" class="pilcrow">¶</a></p>
+<p id="appendix-C-5">-01<a href="#appendix-C-5" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="appendix-C-6.1">Initial Version<a href="#appendix-C-6.1" class="pilcrow">¶</a>
+<li class="normal" id="appendix-C-6.1">Removed W3C VCDM transformation algorithm<a href="#appendix-C-6.1" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="appendix-C-6.2">Various editorial changes based on feedback<a href="#appendix-C-6.2" class="pilcrow">¶</a>
+</li>
+      </ul>
+<p id="appendix-C-7">-00<a href="#appendix-C-7" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="appendix-C-8.1">Initial Version<a href="#appendix-C-8.1" class="pilcrow">¶</a>
 </li>
       </ul>
 </section>
