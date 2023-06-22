@@ -9,7 +9,7 @@ Expires: 24 December 2023                                  Authlete Inc.
                                                             22 June 2023
 
 
-   SD-JWT-based Verifiable Credentials with JSON payloads (SD-JWT VC)
+            SD-JWT-based Verifiable Credentials (SD-JWT VC)
                    draft-terbu-oauth-sd-jwt-vc-latest
 
 Abstract
@@ -516,8 +516,8 @@ Table of Contents
    WxnIjogInNoYS0yNTYiLCAiY25mIjogeyJqd2siOiB7Imt0eSI6ICJFQyIsICJjcnYiO
    iAiUC0yNTYiLCAieCI6ICJUQ0FFUjE5WnZ1M09IRjRqNFc0dmZTVm9ISVAxSUxpbERsc
    zd2Q2VHZW1jIiwgInkiOiAiWnhqaVdXYlpNUUdIVldLVlE0aGJTSWlyc1ZmdWVjQ0U2d
-   DRqVDlGMkhaUSJ9fX0.V5nu9yPOQ7KBBw7JOTC3VwnQSqvnXSJybax6xkKlY371QM7FD
-   5zjSpzxsua8CmNC5eTuDCf_QGKMaVLn6pt32g~WyIyR0xDNDJzS1F2ZUNmR2ZyeU5STj
+   DRqVDlGMkhaUSJ9fX0.ozmvxiQVEBzq0rLoUKi2h-XDWv-3cbUh1VSiGKPBH2JLSSGXH
+   rfjzwuIH1n3cww0Ik7PpaPq4mFK8WGUBuc2qw~WyIyR0xDNDJzS1F2ZUNmR2ZyeU5STj
    l3IiwgImdpdmVuX25hbWUiLCAiSm9obiJd~WyJlbHVWNU9nM2dTTklJOEVZbnN4QV9BI
    iwgImZhbWlseV9uYW1lIiwgIkRvZSJd~WyI2SWo3dE0tYTVpVlBHYm9TNXRtdlZBIiwg
    ImVtYWlsIiwgImpvaG5kb2VAZXhhbXBsZS5jb20iXQ~WyJlSThaV205UW5LUHBOUGVOZ
@@ -737,14 +737,14 @@ Table of Contents
    WxnIjogInNoYS0yNTYiLCAiY25mIjogeyJqd2siOiB7Imt0eSI6ICJFQyIsICJjcnYiO
    iAiUC0yNTYiLCAieCI6ICJUQ0FFUjE5WnZ1M09IRjRqNFc0dmZTVm9ISVAxSUxpbERsc
    zd2Q2VHZW1jIiwgInkiOiAiWnhqaVdXYlpNUUdIVldLVlE0aGJTSWlyc1ZmdWVjQ0U2d
-   DRqVDlGMkhaUSJ9fX0.V5nu9yPOQ7KBBw7JOTC3VwnQSqvnXSJybax6xkKlY371QM7FD
-   5zjSpzxsua8CmNC5eTuDCf_QGKMaVLn6pt32g~WyJRZ19PNjR6cUF4ZTQxMmExMDhpcm
+   DRqVDlGMkhaUSJ9fX0.ozmvxiQVEBzq0rLoUKi2h-XDWv-3cbUh1VSiGKPBH2JLSSGXH
+   rfjzwuIH1n3cww0Ik7PpaPq4mFK8WGUBuc2qw~WyJRZ19PNjR6cUF4ZTQxMmExMDhpcm
    9BIiwgImFkZHJlc3MiLCB7InN0cmVldF9hZGRyZXNzIjogIjEyMyBNYWluIFN0IiwgIm
    xvY2FsaXR5IjogIkFueXRvd24iLCAicmVnaW9uIjogIkFueXN0YXRlIiwgImNvdW50cn
    kiOiAiVVMifV0~eyJhbGciOiAiRVMyNTYiLCAidHlwIjogImtiK2p3dCJ9.eyJub25jZ
    SI6ICIxMjM0NTY3ODkwIiwgImF1ZCI6ICJodHRwczovL2V4YW1wbGUuY29tL3Zlcmlma
-   WVyIiwgImlhdCI6IDE2ODc0MjY1MDZ9.P9mytjf9F31fzl_ILk_2_0dJEMEtjj28EnbN
-   _e1dpYOVs8X7N_hfNd5jHJtGC6qIsDnq_iE6j1v80Zpq_8prQw
+   WVyIiwgImlhdCI6IDE2ODc0MjY2MTd9.9-5M9RpbtcHmJubyWAJkiOf_KjhD8slAjd1i
+   zRgNPN-MHuVxFRiztMYQflFFXz7jTAawdRQsgeQOjhj3gA8KFw
 
    In this presentation, the Holder provides only the Disclosure for the
    claim address.  Other claims are not disclosed to the Verifier.
@@ -763,8 +763,8 @@ Table of Contents
    VZ1bHdRUWxoRmxNXzNKbHpNYVNGemdsaFFHMERwZmF5UXdMVUs0Il0sICJpc3MiOiAia
    HR0cHM6Ly9leGFtcGxlLmNvbS9pc3N1ZXIiLCAiaWF0IjogMTY4MzAwMDAwMCwgImV4c
    CI6IDE4ODMwMDAwMDAsICJ0eXBlIjogIklkZW50aXR5Q3JlZGVudGlhbCIsICJfc2RfY
-   WxnIjogInNoYS0yNTYifQ.2CQ70x8DxELAbM2ej3jJer28azh8-BKA4CG_WDkIWZQSGd
-   ZNBZOcZTEG8xzoD4EfGQg6kYmTsGXz8Nba03UGYg~WyJRZ19PNjR6cUF4ZTQxMmExMDh
+   WxnIjogInNoYS0yNTYifQ.pwjv86I06pnZwMP5kqy9tK6qtxzVNuUBDWS9vfqfcOaFfk
+   BPgI0hJWJmrdOuJwetn3BN_SvewbxD5Y2Gkyau1w~WyJRZ19PNjR6cUF4ZTQxMmExMDh
    pcm9BIiwgImFkZHJlc3MiLCB7InN0cmVldF9hZGRyZXNzIjogIjEyMyBNYWluIFN0Iiw
    gImxvY2FsaXR5IjogIkFueXRvd24iLCAicmVnaW9uIjogIkFueXN0YXRlIiwgImNvdW5
    0cnkiOiAiVVMifV0~
