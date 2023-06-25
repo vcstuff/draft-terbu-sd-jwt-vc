@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-06-22T01:46:43.174863+00:00",
+  "timestamp": "2023-06-25T02:08:36.490669+00:00",
   "repo": "vcstuff/draft-terbu-sd-jwt-vc",
   "labels": [
     {
@@ -331,11 +331,12 @@
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [
+        "NEEDS PR",
         "individual-??"
       ],
       "body": "Currently, `type` is not one of the selectively disclosable claims. This might be ok but it might have some privacy implications if a VC has multiple types. Let's assume the following:\r\n\r\nA VC with the types: driver's-license, age-over-18.\r\n\r\nIf the holder discloses only the age, then based on the current specification, the verifier would also know that the age was disclosed from a DL which is probably unnecessary context info since all the verifier needs is to trust the issuer of the VC. Note, the issuer itself might also leak some contextual info as well, so the issue might not need to be mitigated or it might not be entirely possible anyways.\r\n\r\nShould we make `type` selectively disclosable per array entry? Is this even supported by SD-JWT?\r\n\r\n",
       "createdAt": "2023-05-05T17:31:04Z",
-      "updatedAt": "2023-05-26T09:02:10Z",
+      "updatedAt": "2023-06-22T09:46:29Z",
       "closedAt": null,
       "comments": [
         {
@@ -421,6 +422,13 @@
           "body": "The `iss` field is always disclosed, hence not revealing the `type` only offers privacy if the same issuer with the same key offers multiple VCs that share the same claim name that is being requested. It seems like an unrealistic scenario that this is a privacy benefit. It seems to me the usecase would be merely a fillout help, where the verifier does not care about the origin of claims and handles those as self-attested",
           "createdAt": "2023-05-25T19:04:00Z",
           "updatedAt": "2023-05-25T19:04:00Z"
+        },
+        {
+          "author": "awoie",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Let's create a PR and see how the spec will change and continue the discussion there.",
+          "createdAt": "2023-06-22T09:46:23Z",
+          "updatedAt": "2023-06-22T09:46:23Z"
         }
       ]
     },
@@ -653,11 +661,11 @@
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [
-        "individual-02"
+        "individual-03"
       ],
       "body": "",
       "createdAt": "2023-05-10T16:42:54Z",
-      "updatedAt": "2023-06-21T14:01:40Z",
+      "updatedAt": "2023-06-22T11:12:54Z",
       "closedAt": null,
       "comments": []
     },
@@ -1205,11 +1213,12 @@
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [
-        "individual-??"
+        "NEEDS PR",
+        "individual-03"
       ],
       "body": "",
       "createdAt": "2023-05-16T08:49:21Z",
-      "updatedAt": "2023-06-21T14:02:38Z",
+      "updatedAt": "2023-06-22T10:12:33Z",
       "closedAt": null,
       "comments": [
         {
@@ -1371,17 +1380,18 @@
       "id": "I_kwDOJbVClc5mWOEx",
       "title": "Add additional claims for validFrom / validUntil",
       "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/issues/60",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "awoie",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [
-        "individual-02"
+        "pending close",
+        "individual-??"
       ],
       "body": "Discuss whether this is needed.",
       "createdAt": "2023-05-19T11:31:57Z",
-      "updatedAt": "2023-06-21T14:01:41Z",
-      "closedAt": null,
+      "updatedAt": "2023-06-22T09:50:38Z",
+      "closedAt": "2023-06-22T09:50:38Z",
       "comments": [
         {
           "author": "peppelinux",
@@ -1403,6 +1413,13 @@
           "body": "Depending on the outcome of the W3C VCWG Miami resolution, we might actually just get rid of the translation algorithm. And then we will need to define `exp`, `iat` and `nbf` relating only to the signature (or proof) of the verifiable credential. Implementer's will then be able to use their own claims, e.g., issue_date, expiry_date (see mDL), to express the validity period of the underlying document.",
           "createdAt": "2023-05-25T08:33:51Z",
           "updatedAt": "2023-05-25T08:33:51Z"
+        },
+        {
+          "author": "awoie",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Closing this issue if no further discussion. Direction is that exp, iat, nbf are proof-specific claims. Document-specific claims may be introduced based on the type and is out of scope of this spec. ",
+          "createdAt": "2023-06-22T09:50:38Z",
+          "updatedAt": "2023-06-22T09:50:38Z"
         }
       ]
     },
@@ -1749,7 +1766,7 @@
       "id": "I_kwDOJbVClc5m4T03",
       "title": "Introduction description on Status Provider",
       "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/issues/93",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "paulbastian",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
@@ -1758,8 +1775,8 @@
       ],
       "body": "The spec says:\r\n\r\n> To support revocation of Verifiable Credentials, an optional fourth party can be involved, a Status Provider, who delivers revocation information to Verifiers. (The Verifier can also serve as the Status Provider.)\r\n\r\nI think this is not optimal, as\r\n1. revocation is just an example of status\r\n2. Status Providers do not need to be a fourth party\r\n3. Verifiers are usually not the status provider but the issuer?\r\n\r\nI would suggest:\r\n\"To make status information of a Verifiable Credential after its issuance available, an optional Status Provider can provide status data, e.g. revocation. The role of the Status Provider can be assigned to the Issuer or an optional fourth party.\"",
       "createdAt": "2023-05-25T15:22:33Z",
-      "updatedAt": "2023-06-21T16:22:57Z",
-      "closedAt": null,
+      "updatedAt": "2023-06-22T09:50:58Z",
+      "closedAt": "2023-06-22T09:50:58Z",
       "comments": [
         {
           "author": "awoie",
@@ -1774,6 +1791,13 @@
           "body": "Yes",
           "createdAt": "2023-06-21T16:22:57Z",
           "updatedAt": "2023-06-21T16:22:57Z"
+        },
+        {
+          "author": "awoie",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Closing since #122 got merged.",
+          "createdAt": "2023-06-22T09:50:58Z",
+          "updatedAt": "2023-06-22T09:50:58Z"
         }
       ]
     },
@@ -1829,7 +1853,7 @@
     {
       "number": 96,
       "id": "I_kwDOJbVClc5m4lTY",
-      "title": "Minor issues on Data Format",
+      "title": "Editorial change of headers/text regarding Data Format",
       "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/issues/96",
       "state": "OPEN",
       "author": "paulbastian",
@@ -1841,7 +1865,7 @@
       ],
       "body": "I found several minor issues here:\r\n\r\nThe spec has the following headlines:\r\n\r\n>  4.2.1. Header Parameters\r\n    4.2.2 Claims\r\n\r\nComparing this to RFC7519 JWT these should be:\r\n4.2.1 JOSE Header\r\n4.2.2 JWT Claims Set\r\n\r\nAlso, in 4.2.2.1 type claim `StringOrURI` is never explained. This should be added to the Terminology. Its also missing a link to the Annex A.1.",
       "createdAt": "2023-05-25T16:07:36Z",
-      "updatedAt": "2023-06-21T14:04:35Z",
+      "updatedAt": "2023-06-22T09:52:14Z",
       "closedAt": null,
       "comments": [
         {
@@ -1863,11 +1887,12 @@
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [
-        "discuss"
+        "NEEDS PR",
+        "individual-03"
       ],
       "body": "The spec says:\r\n\r\n> cnf\r\nREQUIRED when Cryptographic Holder Binding is to be supported. Contains the confirmation method as defined in [[RFC7800](https://vcstuff.github.io/draft-terbu-sd-jwt-vc/draft-terbu-sd-jwt-vc.html#RFC7800)]. It SHOULD contain a JWK as defined in Section 3.2 of [[RFC7800](https://vcstuff.github.io/draft-terbu-sd-jwt-vc/draft-terbu-sd-jwt-vc.html#RFC7800)] and in this case, the kid (Key ID) member MUST be present in the JWK. For Cryptographic Holder Binding, the Holder Binding JWT in the Combined Format for Presentation MUST be signed by the key identified in this claim.\r\n\r\nI don't see why `kid` is a MUST.\r\nMoreover, the example in 4.3 does not include the `kid`, so either the text or the exampel is wrong.",
       "createdAt": "2023-05-25T16:19:05Z",
-      "updatedAt": "2023-06-21T19:21:27Z",
+      "updatedAt": "2023-06-23T21:51:00Z",
       "closedAt": null,
       "comments": [
         {
@@ -1897,6 +1922,27 @@
           "body": "@awoie I don't understand your concerns. Can you provide examples?",
           "createdAt": "2023-06-21T19:17:49Z",
           "updatedAt": "2023-06-21T19:17:49Z"
+        },
+        {
+          "author": "awoie",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I think we are good here and we should remove the `kid` requirement as @bc-pi suggested. \r\n\r\nEspecially because we have the following requirement...\r\n\r\n> Holder Binding, the Holder Binding JWT in the Combined Format for Presentation MUST be signed by the key identified in this claim.\r\n\r\nMy concern was that technically the following is possible as well:\r\n\r\n```\r\n\"cnf\": {\r\n  \"kid\": \"some-kid-1\",\r\n  \"jwk\": {\r\n    \"kid\": \"another-kid-2\",\r\n    ....\r\n  }\r\n}\r\n```\r\n\r\nThat could lead to ambiguities and the verifier might need to test both confirmation method to verify the key binding JWT. If this is not possible by another requirement in either RFC7800 or the SD-JWT draft, then I might have overlooked that.",
+          "createdAt": "2023-06-22T08:47:00Z",
+          "updatedAt": "2023-06-22T08:47:00Z"
+        },
+        {
+          "author": "awoie",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Needs PR to remove requirements on `kid` in `cnf`.",
+          "createdAt": "2023-06-22T09:54:50Z",
+          "updatedAt": "2023-06-22T09:54:50Z"
+        },
+        {
+          "author": "bc-pi",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "PR #141 removes requirements to have kid in jwk in cnf\r\n\r\n@awoie I think you are right that RFC7800 doesn't strictly prohibit something like that but it seems generally understood and I've never encountered a cnf claim with more than one member in it  \r\n",
+          "createdAt": "2023-06-23T21:51:00Z",
+          "updatedAt": "2023-06-23T21:51:00Z"
         }
       ]
     },
@@ -1905,7 +1951,7 @@
       "id": "I_kwDOJbVClc5m4s-p",
       "title": "Are we missing a chapter on creation?",
       "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/issues/98",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "paulbastian",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
@@ -1914,8 +1960,8 @@
       ],
       "body": "While RFC7519 on JWTs has a chapter on Creation of JWTs, the SD-JWT and this spec jump right to Examples on continue with guideline for presentation/verification. Do you see any need for such a Creation chapter/section?",
       "createdAt": "2023-05-25T16:30:24Z",
-      "updatedAt": "2023-06-21T14:28:04Z",
-      "closedAt": null,
+      "updatedAt": "2023-06-22T09:56:24Z",
+      "closedAt": "2023-06-22T09:56:24Z",
       "comments": [
         {
           "author": "awoie",
@@ -1923,6 +1969,13 @@
           "body": "IMO, it is not needed. \r\n\r\nWe have the following language already:\r\n> SD-JWT VCs MUST be encoded using the SD-JWT Combined Format for Issuance as defined in Section 5.3. of [I-D.ietf-oauth-selective-disclosure-jwt].\r\n\r\n> A presentation of an SD-JWT VC MUST be encoded using the SD-JWT Combined Format for Presentation as defined in Section 5.4. of [I-D.ietf-oauth-selective-disclosure-jwt].\r\n\r\nAdding that section is not adding anything valuable in my mind, it would really just be something like \"create an SD-JWT according to I-D.ietf-oauth-selective-disclosure-jwt, which is already implicitly contained in the statements above. If other people really feel strongly about requiring that extra guidance, I'm happy to add those sections, otherwise, I'd say it is not needed.",
           "createdAt": "2023-06-21T14:27:55Z",
           "updatedAt": "2023-06-21T14:27:55Z"
+        },
+        {
+          "author": "danielfett",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "How SD-JWTs are created is well defined in the SD-JWT spec. There is no need to have a section on creating SD-jWTs here.",
+          "createdAt": "2023-06-22T09:56:24Z",
+          "updatedAt": "2023-06-22T09:56:24Z"
         }
       ]
     },
@@ -1982,7 +2035,7 @@
       ],
       "body": "Every entity in the OAuth/OpenID is potentially a JWT issuer, then I found the name of this endpoint misleading.\r\n\r\nConsidering that this brand new specification defines a profile for SD JWT verifiable credentials, I'd propose to change the pathname to\r\n\r\n.well-known/vc-jwt-issuer\r\n ",
       "createdAt": "2023-05-25T22:30:38Z",
-      "updatedAt": "2023-06-21T14:38:23Z",
+      "updatedAt": "2023-06-22T09:18:45Z",
       "closedAt": null,
       "comments": [
         {
@@ -2103,6 +2156,13 @@
           "body": "Potentially fixed by #118 ",
           "createdAt": "2023-06-21T14:38:23Z",
           "updatedAt": "2023-06-21T14:38:23Z"
+        },
+        {
+          "author": "danielfett",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "@TakahikoKawasaki raises an important question that we need to address, at least by giving guidance. I don't have a good answer to that at the moment.\r\n\r\nBesides that, I don't see a need to rename to `jwt-vc-issuer`.",
+          "createdAt": "2023-06-22T09:18:45Z",
+          "updatedAt": "2023-06-22T09:18:45Z"
         }
       ]
     },
@@ -2267,7 +2327,7 @@
       "id": "I_kwDOJbVClc5nAp_y",
       "title": "make HB JWT mandatory",
       "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/issues/110",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "Sakurann",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
@@ -2277,8 +2337,8 @@
       ],
       "body": "I thought we have previously agreed to make HB JWT mandatory ([current text reads MAY](https://vcstuff.github.io/draft-terbu-sd-jwt-vc/draft-terbu-sd-jwt-vc.html#section-6.1-2)). I think it is critical for the interoperability to mandate HB JWT. \r\n\r\nand with [PR 262](https://github.com/oauth-wg/oauth-selective-disclosure-jwt/pull/262) in sd-jwt being merged, SD-JWT will normatively define the structure of HB-JWT so section 6.1.1 in sd-jwt vc should also be removed.",
       "createdAt": "2023-05-26T20:46:09Z",
-      "updatedAt": "2023-06-21T14:49:48Z",
-      "closedAt": null,
+      "updatedAt": "2023-06-22T10:00:08Z",
+      "closedAt": "2023-06-22T10:00:08Z",
       "comments": [
         {
           "author": "paulbastian",
@@ -2307,6 +2367,13 @@
           "body": "@Sakurann I agree with @tlodderstedt that key binding should stay optional in this specification. More specific profiles may or may not make it mandatory. \r\n\r\nI'm marking as pending close and will close after 1 week of no activity. ",
           "createdAt": "2023-06-21T14:49:48Z",
           "updatedAt": "2023-06-21T14:49:48Z"
+        },
+        {
+          "author": "danielfett",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "We just discussed this again and agree that this should be closed.",
+          "createdAt": "2023-06-22T10:00:08Z",
+          "updatedAt": "2023-06-22T10:00:08Z"
         }
       ]
     },
@@ -2315,7 +2382,7 @@
       "id": "I_kwDOJbVClc5nAzkR",
       "title": "don't use \"Three-Party-Model\"",
       "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/issues/111",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "bc-pi",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
@@ -2325,8 +2392,8 @@
       ],
       "body": "There are lots of things that could be described as a three-party model (including classic OAuth where this work is aspiring for adoption). The use of \"Three-Party-Model\" in this document strikes me as somewhat presumptuous and potentially misleading or confusing. Could we instead use \"Issuer-Holder-Verifier Model\"? \r\n\r\n\r\n",
       "createdAt": "2023-05-26T21:28:05Z",
-      "updatedAt": "2023-06-21T19:51:06Z",
-      "closedAt": null,
+      "updatedAt": "2023-06-22T09:34:38Z",
+      "closedAt": "2023-06-22T09:34:38Z",
       "comments": [
         {
           "author": "peppelinux",
@@ -2390,10 +2457,13 @@
       "assignees": [
         "tlodderstedt"
       ],
-      "labels": [],
+      "labels": [
+        "NEEDS PR",
+        "individual-03"
+      ],
       "body": "Mechanisms to go from `iss` -> cryptographic public key that can be used for signature verification seem to be out of scope for this document. Why is it included? ",
       "createdAt": "2023-05-26T21:37:48Z",
-      "updatedAt": "2023-06-21T14:53:25Z",
+      "updatedAt": "2023-06-22T10:02:34Z",
       "closedAt": null,
       "comments": [
         {
@@ -2423,6 +2493,13 @@
           "body": "> The proposed model works under assumption that there is a relationship between all the participants since only key is resolved. \r\n\r\nThe concept works very well for open systems: The key distribution with `jwt-issuer` allows the verifier to authenticate the issuer URL. The assumption of the model is that additional data can be provided using suitable mechanisms on top of the (authenticated) issuer URL as identifier. For example, a trusted registry could list the issuers trusted for a certain purpose.\r\n\r\n> The model assumes .well-known endpoint which makes it compatible only with did:web. \r\n\r\n.well-known is a mechanism widely used by a number of standards. Thus `.well-known/jwt-issuer` is compatible with a large number of other well-known locations, including `openid-credential-issuer`, `oauth-authorization-server` and `openid-federation` (even `openid-configuration`). So implementations can share role specific meta and configuration data based on a single service identifier in a modular fashion. Additionally, `openid-federation` can be used to anchor the issuer within a trust graph, which allows to establish trust and share policies in a quite flexible manner (which adds to your first point).\r\n\r\nA credential issuer could, for example, host metadata in all those locations and clients can access whatever is needed for their respective use case. \r\n```\r\n<issuer URL>/.well-known\r\n                  jwt-issuer (verifier perspective, mainly keys)\r\n                  openid-credential-issuer (wallet perspective, available credential types, endpoints)\r\n                  oauth-authorization-server (OAuth endpoints and capabilities)\r\n                  openid-federation (trust anchors, ...)\r\n```\r\n                   \r\ndid:web, in contrast, tries to bundle all kinds of metadata in a single location, i.e. it does not embrace the modular concept of .well-known. ",
           "createdAt": "2023-06-14T09:39:47Z",
           "updatedAt": "2023-06-14T09:40:13Z"
+        },
+        {
+          "author": "danielfett",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "@tlodderstedt This question came up a couple of times already. Can you please provide a PR with some considerations along the lines of what you said above for inclusion in the spec?",
+          "createdAt": "2023-06-22T10:02:33Z",
+          "updatedAt": "2023-06-22T10:02:33Z"
         }
       ]
     },
@@ -2435,10 +2512,12 @@
       "author": "andresuribe87",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
-      "labels": [],
+      "labels": [
+        "question"
+      ],
       "body": "I'm assuming that this is for VCDM 1.1, but there aren't any reference (normative or informative) in the current draft. ",
       "createdAt": "2023-05-26T21:38:34Z",
-      "updatedAt": "2023-05-26T21:38:34Z",
+      "updatedAt": "2023-06-22T10:04:29Z",
       "closedAt": null,
       "comments": []
     },
@@ -2483,10 +2562,13 @@
       "author": "awoie",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
-      "labels": [],
+      "labels": [
+        "NEEDS PR",
+        "individual-??"
+      ],
       "body": "If SD-JWT holder binding is focusing on key (device/wallet) binding in terms of cloning/replay protection, we will need some mechanism to define how we want to communicate how the holder was authenticated if certain claims are presented to verifiers. To verifiers it will be also interesting to understand the confidence (ISO 23220-5) / assurance levels (eIDAS) especially if credentials and wallets support multiple levels. This information could be conveyed by another claim, or it could be just some annotations in form of new members of the specific `cnf` method.\r\n\r\nFor example:\r\n\r\n```\r\n\"cnf\": {\r\n  \"jwk\": {\r\n     ... JWK members ...,\r\n     \"trust_framework\": \"some-ecosystem\",\r\n     \"profile\": \"some-configuration-type\"\r\n  }\r\n}\r\n```\r\n\r\nVS something like the following ...\r\n\r\n```\r\n\"cnf\": {\r\n  \"jwk\": {\r\n     ... JWK members ...\r\n  }\r\n},\r\n\"holder_authentication\": {\r\n  \"trust_framework\": \"some-ecosystem\",\r\n  \"profile\": \"some-configuration-type\"\r\n}\r\n\r\n```\r\n\r\nIMO, it makes no sense to provide the authenticator assertion directly to the verifier. ",
       "createdAt": "2023-06-07T17:37:11Z",
-      "updatedAt": "2023-06-21T15:16:58Z",
+      "updatedAt": "2023-06-22T10:09:58Z",
       "closedAt": null,
       "comments": [
         {
@@ -2516,6 +2598,13 @@
           "body": "@awoie, what you're describing is \"key attestation\" or x509 cert today without the holder information. In terms of eIDAS, it is the signature \"assurance level\" - only 'qualified' is expressed.\r\n\r\nHow to get the qualified tag is defined within the framework. So question boils down to: How to express the key attestation?\r\nIMO it should be a separate credential.\r\n\r\nInformation like authentication/identification/documents presented can be implicit. Vocabulary needs to be defined by the trust framework anyway.\r\n",
           "createdAt": "2023-06-21T15:16:58Z",
           "updatedAt": "2023-06-21T15:16:58Z"
+        },
+        {
+          "author": "awoie",
+          "authorAssociation": "COLLABORATOR",
+          "body": "As discussed on the editor's call on June 22, we won't define any normative requirements but we will add some language to some considerations section.",
+          "createdAt": "2023-06-22T10:09:46Z",
+          "updatedAt": "2023-06-22T10:09:46Z"
         }
       ]
     },
@@ -2711,10 +2800,13 @@
       "author": "alenhorvat",
       "authorAssociation": "NONE",
       "assignees": [],
-      "labels": [],
+      "labels": [
+        "NEEDS PR",
+        "individual-03"
+      ],
       "body": "Data model in this document resembles to the ID Token data model as defined in OIDC (with the addition of cnf).\r\n\r\nOn the other hand, the data model is trying to follow the W3C VC data model.\r\nWhat is the benefit of this data model over the W3C VC data model (except that the claim names are different and iss can be a URI, and not an object and that JSON-LD is not supported by the data model, which basically excludes some significant use cases such as Europass that are leveraging JSON-LD for internationalization, for example)?",
       "createdAt": "2023-06-13T19:39:17Z",
-      "updatedAt": "2023-06-18T14:18:15Z",
+      "updatedAt": "2023-06-23T09:28:54Z",
       "closedAt": null,
       "comments": [
         {
@@ -2835,6 +2927,20 @@
           "body": "Thank you @paulbastian. I understand your view. If VC claims were registered, what would be the benefit of the data model over VCDM? \r\n\r\nSince I\u2019m involved in projects that use VCDM (in JSON and JSON-LD) and also JWT I would really like to understand the objective benefits od the data model. ",
           "createdAt": "2023-06-18T14:18:15Z",
           "updatedAt": "2023-06-18T14:18:15Z"
+        },
+        {
+          "author": "awoie",
+          "authorAssociation": "COLLABORATOR",
+          "body": "To resolve this issue, we will add a section on relationship to other documents and include a chapter on \"VCDM\".",
+          "createdAt": "2023-06-23T09:28:08Z",
+          "updatedAt": "2023-06-23T09:28:08Z"
+        },
+        {
+          "author": "awoie",
+          "authorAssociation": "COLLABORATOR",
+          "body": "This issue is ready for a PR.",
+          "createdAt": "2023-06-23T09:28:23Z",
+          "updatedAt": "2023-06-23T09:28:23Z"
         }
       ]
     },
@@ -2843,7 +2949,7 @@
       "id": "I_kwDOJbVClc5oy0QP",
       "title": "Same typ for JWT and SD-JWT?",
       "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/issues/129",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "tlodderstedt",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
@@ -2853,8 +2959,8 @@
       ],
       "body": "Should we consider to use the same `typ` header value for both variants, JWT and SD-JWT? I came across this when I was thinking about the OID4VC credential format profile for JWT-based VCs. A single `typ` would also result in a single format identifier in the presentation request, which might everyone's live easier. The only reason to distinguish would be that a dedicated format identifier for sd-jwt would allow the processor to directly decide whether selective disclosure is allowed in the presentation definition.\r\n\r\n_Originally posted by @tlodderstedt in https://github.com/vcstuff/draft-terbu-sd-jwt-vc/pull/120#discussion_r1229300126_\r\n            ",
       "createdAt": "2023-06-15T06:46:26Z",
-      "updatedAt": "2023-06-21T15:27:39Z",
-      "closedAt": null,
+      "updatedAt": "2023-06-23T09:29:40Z",
+      "closedAt": "2023-06-23T09:29:40Z",
       "comments": [
         {
           "author": "bc-pi",
@@ -2869,6 +2975,13 @@
           "body": "I guess after we merged PR #131 it seems we have decided to go with a single value for JWT VCs and SD-JWT VCs. Can we close this issue @tlodderstedt ?",
           "createdAt": "2023-06-21T15:22:51Z",
           "updatedAt": "2023-06-21T15:22:51Z"
+        },
+        {
+          "author": "awoie",
+          "authorAssociation": "COLLABORATOR",
+          "body": "As per editor's call from June 23rd, closing this since it was addressed by #131.",
+          "createdAt": "2023-06-23T09:29:40Z",
+          "updatedAt": "2023-06-23T09:29:40Z"
         }
       ]
     },
@@ -2886,7 +2999,7 @@
       ],
       "body": "I think we should use short JWT-style names for the type and status list claims in order to show that these claims are at the core of the JWT (just like `exp`, `iss`, etc.). I therefore propose that we use `scm` (for \"scheme\", since the short form of \"type\" is already taken) and `stu` (for status list URI).",
       "createdAt": "2023-06-15T12:50:33Z",
-      "updatedAt": "2023-06-21T20:32:23Z",
+      "updatedAt": "2023-06-23T09:37:34Z",
       "closedAt": null,
       "comments": [
         {
@@ -2937,6 +3050,34 @@
           "body": "> the short form of \"type\" is already taken\r\n\r\nFWIW it's not actually taken. \"typ\" is a registered JOSE header https://www.iana.org/assignments/jose/jose.xhtml#web-signature-encryption-header-parameters but not a registered JWT claim https://www.iana.org/assignments/jwt/jwt.xhtml#claims \r\n\r\n\"type\" is already pretty short and JWT-style though.  No need to change that one. ",
           "createdAt": "2023-06-21T20:32:22Z",
           "updatedAt": "2023-06-21T20:32:22Z"
+        },
+        {
+          "author": "paulbastian",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I started the very similar discussion here: https://github.com/vcstuff/draft-looker-oauth-jwt-cwt-status-list/issues/21\n@alenhorvat please take a look at the first draft of jwt status list",
+          "createdAt": "2023-06-22T21:43:55Z",
+          "updatedAt": "2023-06-22T21:43:55Z"
+        },
+        {
+          "author": "alenhorvat",
+          "authorAssociation": "NONE",
+          "body": "@paulbastian thank you for pointing out the issue and the status list documentation.\r\n\r\nIndeed, the two are related. Here, the overall design decision should be addressed a) or b). Depending on that the JWT status list it will be clear how to bind it to this data model; via type or via claim name. \r\nDoes this make sense?",
+          "createdAt": "2023-06-23T06:33:13Z",
+          "updatedAt": "2023-06-23T06:33:13Z"
+        },
+        {
+          "author": "danielfett",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I would be fine with an external definition of the status list claim as its definition and contents may depend on the mechanim used.\r\n\r\nI still think that a three-letter JWT-style claim instead of `type` would be good (but `typ` would be confusing).",
+          "createdAt": "2023-06-23T09:35:15Z",
+          "updatedAt": "2023-06-23T09:35:15Z"
+        },
+        {
+          "author": "awoie",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I agree that `typ` is confusing for the credential type. What about `dty` which is short for Document Type?",
+          "createdAt": "2023-06-23T09:37:34Z",
+          "updatedAt": "2023-06-23T09:37:34Z"
         }
       ]
     },
@@ -2954,7 +3095,7 @@
       ],
       "body": "Hi.\r\n\r\nDIDs, allow key rotation. Use case: legal entities/organisations/companies\r\n\r\nhttps://www.rfc-editor.org/rfc/rfc7800\r\n\r\nsays:\r\n\r\n>  By including a \"cnf\" (confirmation) claim in a JWT, the issuer of the\r\n>    JWT declares that the presenter possesses a particular key and that\r\n>    the recipient can cryptographically confirm that the presenter has\r\n>    possession of that key.  The value of the \"cnf\" claim is a JSON\r\n>    object and the members of that object identify the proof-of-\r\n>    possession key.\r\n\r\nkid can be a DID, which is legal according to the rfc7800 (The content of the \"kid\" value is application specific.)\r\n\r\n> issuer of the JWT declares that the presenter possesses a particular key\r\n\r\nCan the holder (legal entity) present the credential with a different key from the one defined in the cnf? E.g., legal entity is rotating keys every year.",
       "createdAt": "2023-06-21T08:41:28Z",
-      "updatedAt": "2023-06-21T15:19:32Z",
+      "updatedAt": "2023-06-23T10:10:22Z",
       "closedAt": null,
       "comments": [
         {
@@ -2970,6 +3111,20 @@
           "body": "Yes, but this essentially blocks key rotation. For Natural Persons that's not an issue, but it becomes an issue for Legal Entities.\r\n\r\nIf \"SHOULD\" -> \"MAY\" would be better since we don't want that capabilities are limited by the data model.",
           "createdAt": "2023-06-21T15:19:31Z",
           "updatedAt": "2023-06-21T15:19:31Z"
+        },
+        {
+          "author": "awoie",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Would you be ok to change \"SHOULD\" to \"RECOMMEND\". We only want that JWK is the default mechanism. We don't want to prevent other mechanisms. We will add a informative sentence that describes that other cnf methods are also allowed. Would you be ok with that?",
+          "createdAt": "2023-06-23T09:45:36Z",
+          "updatedAt": "2023-06-23T09:45:36Z"
+        },
+        {
+          "author": "alenhorvat",
+          "authorAssociation": "NONE",
+          "body": "Hi @awoie . Yes.\r\n\r\nYou plan to keep the requirement for the endpoint (.well-known) or (.well-known) is default you recommend, but other endpoints are possible?",
+          "createdAt": "2023-06-23T10:10:22Z",
+          "updatedAt": "2023-06-23T10:10:22Z"
         }
       ]
     },
@@ -2987,7 +3142,7 @@
       ],
       "body": "If the SD-JWT VC contains no `_sd` claims and therefore can be represented as a plain JWT, no trailing tilde should be necessary for presentations.",
       "createdAt": "2023-06-21T13:15:42Z",
-      "updatedAt": "2023-06-21T19:21:53Z",
+      "updatedAt": "2023-06-22T08:49:07Z",
       "closedAt": null,
       "comments": [
         {
@@ -3010,6 +3165,13 @@
           "body": "My points towards the current approach solving everything with SD-JWT and keeping the tilde:\n- the specification is much cleaner\r\n- I expect implementations to be much cleaner\r\n- I don't see confusion with trailing tilde, because typ is not jwt but sd-jwt\r\n- most interop profiles will require SD support anyway",
           "createdAt": "2023-06-21T19:21:53Z",
           "updatedAt": "2023-06-21T19:21:53Z"
+        },
+        {
+          "author": "awoie",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@paulbastian you don't see a problem with developers not being able to use standard JWT libs for creating and verifying plain JWT VCs?",
+          "createdAt": "2023-06-22T08:49:07Z",
+          "updatedAt": "2023-06-22T08:49:07Z"
         }
       ]
     },
@@ -3018,7 +3180,7 @@
       "id": "I_kwDOJbVClc5pWz9x",
       "title": "Fix presentation examples",
       "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/issues/136",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "awoie",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
@@ -3028,8 +3190,8 @@
       ],
       "body": "The examples in Section 6.2 don't contain any Disclosures which is required for the combined format for presentations.",
       "createdAt": "2023-06-21T13:17:37Z",
-      "updatedAt": "2023-06-21T14:54:52Z",
-      "closedAt": null,
+      "updatedAt": "2023-06-22T09:40:38Z",
+      "closedAt": "2023-06-22T09:40:38Z",
       "comments": [
         {
           "author": "awoie",
@@ -6682,7 +6844,7 @@
       "id": "PR_kwDOJbVClc5Sdgbd",
       "title": "copy MikeP draft",
       "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/pull/117",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "Sakurann",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
@@ -6691,14 +6853,14 @@
       ],
       "body": "",
       "createdAt": "2023-06-07T22:37:12Z",
-      "updatedAt": "2023-06-21T13:49:40Z",
+      "updatedAt": "2023-06-22T09:13:34Z",
       "baseRepository": "vcstuff/draft-terbu-sd-jwt-vc",
       "baseRefName": "sakuran-nbf",
       "baseRefOid": "38e84d744a0f4825fc09d1f8d5acd52f18caf165",
       "headRepository": "vcstuff/draft-terbu-sd-jwt-vc",
       "headRefName": "diff-vc-jwt",
       "headRefOid": "0fb898c231155aab2fd62c6a9b3dc1bd5b2b075d",
-      "closedAt": null,
+      "closedAt": "2023-06-22T09:13:33Z",
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
@@ -6709,6 +6871,13 @@
           "body": "@Sakurann Can you close this since we merged #131 ?",
           "createdAt": "2023-06-21T13:48:33Z",
           "updatedAt": "2023-06-21T13:48:33Z"
+        },
+        {
+          "author": "awoie",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Closing this PR since PR #131 was merged.",
+          "createdAt": "2023-06-22T09:13:33Z",
+          "updatedAt": "2023-06-22T09:13:33Z"
         }
       ],
       "reviews": [
@@ -6791,10 +6960,13 @@
       "author": "peppelinux",
       "authorAssociation": "NONE",
       "assignees": [],
-      "labels": [],
+      "labels": [
+        "discuss",
+        "DO NOT MERGE"
+      ],
       "body": "~this PR resolves~ https://github.com/vcstuff/draft-terbu-sd-jwt-vc/issues/101\r\n\r\nmore discussion is needed",
       "createdAt": "2023-06-08T16:19:23Z",
-      "updatedAt": "2023-06-21T14:38:51Z",
+      "updatedAt": "2023-06-22T09:31:55Z",
       "baseRepository": "vcstuff/draft-terbu-sd-jwt-vc",
       "baseRefName": "main",
       "baseRefOid": "588ea557ea5861784bbaf7051eddefdeb6d0751f",
@@ -6819,6 +6991,20 @@
           "body": "Potentially fixes #101 ",
           "createdAt": "2023-06-21T14:38:51Z",
           "updatedAt": "2023-06-21T14:38:51Z"
+        },
+        {
+          "author": "danielfett",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I propose that we wait to resolve the discussion in #101 before merging this.",
+          "createdAt": "2023-06-22T09:19:28Z",
+          "updatedAt": "2023-06-22T09:19:28Z"
+        },
+        {
+          "author": "awoie",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Marked as DO NOT MERGE since we have to wait for the discussion in #101 to resolve first.",
+          "createdAt": "2023-06-22T09:19:37Z",
+          "updatedAt": "2023-06-22T09:19:37Z"
         }
       ],
       "reviews": [
@@ -8215,24 +8401,26 @@
       "id": "PR_kwDOJbVClc5S4MFq",
       "title": "aligned draft name with IETF rules",
       "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/pull/124",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "tlodderstedt",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2023-06-13T11:59:08Z",
-      "updatedAt": "2023-06-21T15:39:49Z",
+      "updatedAt": "2023-06-22T09:22:06Z",
       "baseRepository": "vcstuff/draft-terbu-sd-jwt-vc",
       "baseRefName": "main",
-      "baseRefOid": "588ea557ea5861784bbaf7051eddefdeb6d0751f",
+      "baseRefOid": "85d396fe5e5a690da72fe8b3109af58b56399d43",
       "headRepository": "vcstuff/draft-terbu-sd-jwt-vc",
       "headRefName": "draft-name",
-      "headRefOid": "9cb4eede1c1a2574d9a7acaaf3c06bc8dd6385c8",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "4114bf665dd8a36b5eeef73655d8c820ebec06f5",
+      "closedAt": "2023-06-22T09:22:05Z",
+      "mergedAt": "2023-06-22T09:22:05Z",
+      "mergedBy": "danielfett",
+      "mergeCommit": {
+        "oid": "5a00d34f8694a9be39f84793bb0e02919080462b"
+      },
       "comments": [
         {
           "author": "awoie",
@@ -8247,6 +8435,13 @@
           "body": "@tlodderstedt can you pls resolve merge conflicts, then we can merge this PR.",
           "createdAt": "2023-06-21T15:39:49Z",
           "updatedAt": "2023-06-21T15:39:49Z"
+        },
+        {
+          "author": "awoie",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Merging PR since a lot of approvals.",
+          "createdAt": "2023-06-22T09:22:05Z",
+          "updatedAt": "2023-06-22T09:22:05Z"
         }
       ],
       "reviews": [
@@ -8335,24 +8530,26 @@
       "id": "PR_kwDOJbVClc5S54Ji",
       "title": "Change Holder Binding to Key Binding, adapt examples",
       "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/pull/126",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "danielfett",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "Holder Binding is now more appropriately called Key Binding in SD-JWT. This PR makes the necessary changes in this specification.",
       "createdAt": "2023-06-13T15:52:18Z",
-      "updatedAt": "2023-06-21T13:57:36Z",
+      "updatedAt": "2023-06-22T09:24:45Z",
       "baseRepository": "vcstuff/draft-terbu-sd-jwt-vc",
       "baseRefName": "main",
-      "baseRefOid": "588ea557ea5861784bbaf7051eddefdeb6d0751f",
+      "baseRefOid": "5a00d34f8694a9be39f84793bb0e02919080462b",
       "headRepository": "vcstuff/draft-terbu-sd-jwt-vc",
       "headRefName": "danielfett/fix-examples",
-      "headRefOid": "b1f0b4a82d19b4c56e9a4569a19523dedd624a82",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "06e7a0b6793463c5c24244ab99e47f61bf168d81",
+      "closedAt": "2023-06-22T09:24:44Z",
+      "mergedAt": "2023-06-22T09:24:44Z",
+      "mergedBy": "danielfett",
+      "mergeCommit": {
+        "oid": "80ba41ef10e659ffd84bf06f6a3edbf023ce1dc0"
+      },
       "comments": [
         {
           "author": "paulbastian",
@@ -9541,10 +9738,13 @@
       "author": "OR13",
       "authorAssociation": "NONE",
       "assignees": [],
-      "labels": [],
+      "labels": [
+        "discuss",
+        "DO NOT MERGE"
+      ],
       "body": "",
       "createdAt": "2023-06-16T19:26:58Z",
-      "updatedAt": "2023-06-19T20:01:46Z",
+      "updatedAt": "2023-06-22T09:25:44Z",
       "baseRepository": "vcstuff/draft-terbu-sd-jwt-vc",
       "baseRefName": "main",
       "baseRefOid": "588ea557ea5861784bbaf7051eddefdeb6d0751f",
@@ -9684,24 +9884,26 @@
       "id": "PR_kwDOJbVClc5TXwHW",
       "title": "Update names of included files for examples",
       "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/pull/133",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "bc-pi",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "Update names of included files for examples for when/if https://github.com/danielfett/sd-jwt/pull/11 gets merged into the reference implementation used to generate the examples",
       "createdAt": "2023-06-19T19:26:57Z",
-      "updatedAt": "2023-06-20T14:39:27Z",
+      "updatedAt": "2023-06-22T09:29:37Z",
       "baseRepository": "vcstuff/draft-terbu-sd-jwt-vc",
       "baseRefName": "main",
       "baseRefOid": "9119083958ea6f636927df22c9a5769400558f3f",
       "headRepository": "bc-pi/draft-terbu-sd-jwt-vc",
       "headRefName": "tilde-and-terms",
       "headRefOid": "7fe048b09f12ef17399b8b5055c41eef36eef403",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2023-06-22T09:29:36Z",
+      "mergedAt": "2023-06-22T09:29:36Z",
+      "mergedBy": "danielfett",
+      "mergeCommit": {
+        "oid": "f077f9b30ce88b0bda2c301134ba932d58c68f21"
+      },
       "comments": [
         {
           "author": "danielfett",
@@ -9724,6 +9926,19 @@
           "createdAt": "2023-06-20T14:37:57Z",
           "updatedAt": "2023-06-20T14:37:57Z",
           "comments": []
+        },
+        {
+          "id": "PRR_kwDOJbVClc5Y-epN",
+          "commit": {
+            "abbreviatedOid": "7fe048b"
+          },
+          "author": "awoie",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "lgtm",
+          "createdAt": "2023-06-22T09:26:33Z",
+          "updatedAt": "2023-06-22T09:26:33Z",
+          "comments": []
         }
       ]
     },
@@ -9732,52 +9947,192 @@
       "id": "PR_kwDOJbVClc5Tlgze",
       "title": "Replace \"Three-Party-Model\" with \"Issuer-Holder-Verifier Model\"",
       "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/pull/138",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "bc-pi",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "<!-- If this pull request closes an issue, please mention the issue number below -->\r\nCloses #111\r\n\r\n## \ud83d\udcd1 Description\r\nReplace \"Three-Party-Model\" with \"Issuer-Holder-Verifier Model\"\r\n",
       "createdAt": "2023-06-21T19:48:17Z",
-      "updatedAt": "2023-06-21T19:49:16Z",
+      "updatedAt": "2023-06-22T09:34:37Z",
       "baseRepository": "vcstuff/draft-terbu-sd-jwt-vc",
       "baseRefName": "main",
       "baseRefOid": "85d396fe5e5a690da72fe8b3109af58b56399d43",
       "headRepository": "bc-pi/draft-terbu-sd-jwt-vc",
       "headRefName": "3s-company",
       "headRefOid": "ce827c423e9a4b3dc0597e2e12aa61f3d0f500cd",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2023-06-22T09:34:37Z",
+      "mergedAt": "2023-06-22T09:34:37Z",
+      "mergedBy": "danielfett",
+      "mergeCommit": {
+        "oid": "0e66e74f7fbdbea787ec15016af8960843dd2096"
+      },
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOJbVClc5Y-WxG",
+          "commit": {
+            "abbreviatedOid": "ce827c4"
+          },
+          "author": "awoie",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "thanks, lgtm",
+          "createdAt": "2023-06-22T09:08:20Z",
+          "updatedAt": "2023-06-22T09:08:20Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOJbVClc5Y-htj",
+          "commit": {
+            "abbreviatedOid": "ce827c4"
+          },
+          "author": "danielfett",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-06-22T09:33:45Z",
+          "updatedAt": "2023-06-22T09:33:45Z",
+          "comments": []
+        }
+      ]
     },
     {
       "number": 139,
       "id": "PR_kwDOJbVClc5TlnBU",
       "title": "Make the title shorter, simpler and less clunky",
       "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/pull/139",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "bc-pi",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "As @selfissued has aptly pointed out, 'the \"with JSON payloads\" wording is clunky and redundant.'",
       "createdAt": "2023-06-21T20:05:42Z",
-      "updatedAt": "2023-06-21T20:05:43Z",
+      "updatedAt": "2023-06-22T09:36:29Z",
       "baseRepository": "vcstuff/draft-terbu-sd-jwt-vc",
       "baseRefName": "main",
       "baseRefOid": "85d396fe5e5a690da72fe8b3109af58b56399d43",
       "headRepository": "bc-pi/draft-terbu-sd-jwt-vc",
       "headRefName": "less-is-more",
       "headRefOid": "ca4662566a54a0bb9495eba10e69f45e74bfcc44",
+      "closedAt": "2023-06-22T09:36:28Z",
+      "mergedAt": "2023-06-22T09:36:28Z",
+      "mergedBy": "danielfett",
+      "mergeCommit": {
+        "oid": "46194ce95221f2a852c062a33ba9c2324a942a9f"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJbVClc5Y-ik0",
+          "commit": {
+            "abbreviatedOid": "ca46625"
+          },
+          "author": "danielfett",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "I see no reason to have the \"with JSON payloads\" in the title",
+          "createdAt": "2023-06-22T09:35:48Z",
+          "updatedAt": "2023-06-22T09:35:48Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOJbVClc5Y-ipf",
+          "commit": {
+            "abbreviatedOid": "ca46625"
+          },
+          "author": "awoie",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "lgtm",
+          "createdAt": "2023-06-22T09:35:58Z",
+          "updatedAt": "2023-06-22T09:35:58Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 140,
+      "id": "PR_kwDOJbVClc5Tuvjf",
+      "title": "Update CODEOWNERS",
+      "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/pull/140",
+      "state": "MERGED",
+      "author": "awoie",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "<!-- If this pull request closes an issue, please mention the issue number below -->\r\nCloses # <!-- Issue # here -->\r\n\r\n## \ud83d\udcd1 Description\r\n<!-- Add a brief description of the pr -->\r\n\r\n<!-- You can also choose to add a list of changes and if they have been completed or not by using the markdown to-do list syntax\r\n- [ ] Not Completed\r\n- [x] Completed\r\n-->\r\n\r\n## Preview Link\r\n\r\n<!-- Update the link below to provide reviewers with a convenient link to view a rendered version of the PR-->\r\n<!-- In general the link should be of the form https://github.com/<repo-name>/<branch-name>/<draft-name>.html-->\r\n\r\n[click here for rendered preview of PR](https://github.com/<repo-name>/<branch-name>/<draft-name>.html)",
+      "createdAt": "2023-06-23T09:22:22Z",
+      "updatedAt": "2023-06-23T09:24:38Z",
+      "baseRepository": "vcstuff/draft-terbu-sd-jwt-vc",
+      "baseRefName": "main",
+      "baseRefOid": "8e6fcf5ffcc760f14bc0629f479f5b1f18aa7b8a",
+      "headRepository": "vcstuff/draft-terbu-sd-jwt-vc",
+      "headRefName": "awoie-patch-1",
+      "headRefOid": "c6448270c1a17e10736fe643628ca4d450037fb9",
+      "closedAt": "2023-06-23T09:24:37Z",
+      "mergedAt": "2023-06-23T09:24:37Z",
+      "mergedBy": "awoie",
+      "mergeCommit": {
+        "oid": "cfaed1134f80b3aa73d878c5bddafa72cdcfb647"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJbVClc5ZGKwR",
+          "commit": {
+            "abbreviatedOid": "c644827"
+          },
+          "author": "danielfett",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-06-23T09:22:56Z",
+          "updatedAt": "2023-06-23T09:22:56Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 141,
+      "id": "PR_kwDOJbVClc5TyYpo",
+      "title": "remove requirement to have kid in cnf",
+      "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/pull/141",
+      "state": "OPEN",
+      "author": "bc-pi",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "<!-- If this pull request closes an issue, please mention the issue number below -->\r\nCloses #97\r\n\r\n## \ud83d\udcd1 Description\r\nremove requirement to have kid in cnf\r\n",
+      "createdAt": "2023-06-23T21:46:30Z",
+      "updatedAt": "2023-06-23T21:58:52Z",
+      "baseRepository": "vcstuff/draft-terbu-sd-jwt-vc",
+      "baseRefName": "main",
+      "baseRefOid": "cfaed1134f80b3aa73d878c5bddafa72cdcfb647",
+      "headRepository": "bc-pi/draft-terbu-sd-jwt-vc",
+      "headRefName": "no-kid-in-cnf-jwk",
+      "headRefOid": "b1f4d16cfde9c4312a5cacbd9ec41c0c3c3695ed",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOJbVClc5ZLKSS",
+          "commit": {
+            "abbreviatedOid": "b1f4d16"
+          },
+          "author": "paulbastian",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-06-23T21:58:51Z",
+          "updatedAt": "2023-06-23T21:58:52Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
