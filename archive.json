@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-06-25T02:08:36.490669+00:00",
+  "timestamp": "2023-06-27T01:59:23.978662+00:00",
   "repo": "vcstuff/draft-terbu-sd-jwt-vc",
   "labels": [
     {
@@ -6966,7 +6966,7 @@
       ],
       "body": "~this PR resolves~ https://github.com/vcstuff/draft-terbu-sd-jwt-vc/issues/101\r\n\r\nmore discussion is needed",
       "createdAt": "2023-06-08T16:19:23Z",
-      "updatedAt": "2023-06-22T09:31:55Z",
+      "updatedAt": "2023-06-26T15:28:48Z",
       "baseRepository": "vcstuff/draft-terbu-sd-jwt-vc",
       "baseRefName": "main",
       "baseRefOid": "588ea557ea5861784bbaf7051eddefdeb6d0751f",
@@ -7005,6 +7005,13 @@
           "body": "Marked as DO NOT MERGE since we have to wait for the discussion in #101 to resolve first.",
           "createdAt": "2023-06-22T09:19:37Z",
           "updatedAt": "2023-06-22T09:19:37Z"
+        },
+        {
+          "author": "OR13",
+          "authorAssociation": "NONE",
+          "body": "I added a related PR here: https://github.com/w3c/vc-jwt/pull/111",
+          "createdAt": "2023-06-26T15:28:48Z",
+          "updatedAt": "2023-06-26T15:28:48Z"
         }
       ],
       "reviews": [
@@ -7072,6 +7079,59 @@
           "body": "lgtm",
           "createdAt": "2023-06-21T13:51:03Z",
           "updatedAt": "2023-06-21T13:51:03Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOJbVClc5ZUtNv",
+          "commit": {
+            "abbreviatedOid": "cafdb7f"
+          },
+          "author": "OR13",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-06-26T13:55:56Z",
+          "updatedAt": "2023-06-26T13:55:56Z",
+          "comments": [
+            {
+              "originalPosition": 29,
+              "body": "why are we intentionally breaking compatibility with oidc?",
+              "createdAt": "2023-06-26T13:55:56Z",
+              "updatedAt": "2023-06-26T13:55:56Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJbVClc5ZUuez",
+          "commit": {
+            "abbreviatedOid": "cafdb7f"
+          },
+          "author": "OR13",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-06-26T13:57:24Z",
+          "updatedAt": "2023-06-26T13:57:25Z",
+          "comments": [
+            {
+              "originalPosition": 98,
+              "body": "provide a full example of the dereferenced resource.... something like:\r\n\r\n```json\r\n{\r\n  \"keys\": [\r\n  {\r\n     \"kid\": \"...\"\r\n  }\r\n   ]\r\n}\r\n```",
+              "createdAt": "2023-06-26T13:57:24Z",
+              "updatedAt": "2023-06-26T13:57:25Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJbVClc5ZUvHR",
+          "commit": {
+            "abbreviatedOid": "cafdb7f"
+          },
+          "author": "OR13",
+          "authorAssociation": "NONE",
+          "state": "CHANGES_REQUESTED",
+          "body": "This seems to break compatibility with both DIDs and OIDC.",
+          "createdAt": "2023-06-26T13:58:11Z",
+          "updatedAt": "2023-06-26T13:58:11Z",
           "comments": []
         }
       ]
@@ -9734,7 +9794,7 @@
       "id": "PR_kwDOJbVClc5TOLig",
       "title": "Update draft-terbu-sd-jwt-vc.md",
       "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/pull/132",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "OR13",
       "authorAssociation": "NONE",
       "assignees": [],
@@ -9744,14 +9804,14 @@
       ],
       "body": "",
       "createdAt": "2023-06-16T19:26:58Z",
-      "updatedAt": "2023-06-22T09:25:44Z",
+      "updatedAt": "2023-06-26T13:54:23Z",
       "baseRepository": "vcstuff/draft-terbu-sd-jwt-vc",
       "baseRefName": "main",
       "baseRefOid": "588ea557ea5861784bbaf7051eddefdeb6d0751f",
       "headRepository": "OR13/draft-terbu-sd-jwt-vc",
       "headRefName": "patch-1",
       "headRefOid": "3a077c11d9a07780b54e6f64cb673e10c814523b",
-      "closedAt": null,
+      "closedAt": "2023-06-26T13:54:22Z",
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
@@ -9762,6 +9822,13 @@
           "body": "> the \"with JSON payloads\" wording is clunky and redundant. All JWTs have JSON payloads.\r\n\r\nbut not all JWS, which can sign anything. this is a way to draw a line with a document in W3C which uses JWS to sign over JSON-LD.",
           "createdAt": "2023-06-19T20:01:46Z",
           "updatedAt": "2023-06-19T20:01:46Z"
+        },
+        {
+          "author": "OR13",
+          "authorAssociation": "NONE",
+          "body": "Closing this PR, we will try again later.... this document should be titled vc-jwt, since it does not describe securing other content types.",
+          "createdAt": "2023-06-26T13:54:22Z",
+          "updatedAt": "2023-06-26T13:54:22Z"
         }
       ],
       "reviews": [
@@ -10106,7 +10173,7 @@
       "labels": [],
       "body": "<!-- If this pull request closes an issue, please mention the issue number below -->\r\nCloses #97\r\n\r\n## \ud83d\udcd1 Description\r\nremove requirement to have kid in cnf\r\n",
       "createdAt": "2023-06-23T21:46:30Z",
-      "updatedAt": "2023-06-23T21:58:52Z",
+      "updatedAt": "2023-06-26T15:28:26Z",
       "baseRepository": "vcstuff/draft-terbu-sd-jwt-vc",
       "baseRefName": "main",
       "baseRefOid": "cfaed1134f80b3aa73d878c5bddafa72cdcfb647",
@@ -10117,7 +10184,22 @@
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
-      "comments": [],
+      "comments": [
+        {
+          "author": "awoie",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> I think more text can be removed here...\r\n> \r\n> Are we trying to prevent users from doing this:\r\n\r\nWe are not trying to prevent that in this spec. The default should be the `jwk` cnf method but this is not what the PR changed or added. This PR just removes the requirement that the `kid` has to be in the `jwk` claim. This PR does not talk about the `kid` cnf method which is still an option. ",
+          "createdAt": "2023-06-26T14:53:10Z",
+          "updatedAt": "2023-06-26T14:53:10Z"
+        },
+        {
+          "author": "OR13",
+          "authorAssociation": "NONE",
+          "body": "btw, I added a related comment here: https://github.com/w3c/vc-jwt/pull/111",
+          "createdAt": "2023-06-26T15:28:25Z",
+          "updatedAt": "2023-06-26T15:28:25Z"
+        }
+      ],
       "reviews": [
         {
           "id": "PRR_kwDOJbVClc5ZLKSS",
@@ -10130,6 +10212,45 @@
           "body": "",
           "createdAt": "2023-06-23T21:58:51Z",
           "updatedAt": "2023-06-23T21:58:52Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOJbVClc5ZUzHX",
+          "commit": {
+            "abbreviatedOid": "b1f4d16"
+          },
+          "author": "OR13",
+          "authorAssociation": "NONE",
+          "state": "CHANGES_REQUESTED",
+          "body": "I think more text can be removed here...\r\n\r\nAre we trying to prevent users from doing this: \r\n\r\n```json\r\n{\r\n      \"iss\": \"https://server.example.com\",\r\n      \"aud\": \"https://client.example.org\",\r\n      \"exp\": 1361398824,\r\n      \"cnf\":{\r\n        \"kid\": \"dfd1aa97-6d8d-4575-a0fe-34b96de2bfad\"\r\n       }\r\n     }\r\n```\r\n\r\n```json\r\n{\r\n      \"iss\": \"did:example:123\",\r\n      \"aud\": \"https://client.example.org\",\r\n      \"exp\": 1361398824,\r\n      \"cnf\":{\r\n        \"kid\": \"did:example:123#key-42\"\r\n       }\r\n     }\r\n```\r\n\r\nSeems like it should just say support RFC7800.\r\n\r\nAnd make no recommendations on `jwk` vs `kid`",
+          "createdAt": "2023-06-26T14:01:48Z",
+          "updatedAt": "2023-06-26T14:01:48Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOJbVClc5ZVRH-",
+          "commit": {
+            "abbreviatedOid": "b1f4d16"
+          },
+          "author": "awoie",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "lgtm",
+          "createdAt": "2023-06-26T14:53:40Z",
+          "updatedAt": "2023-06-26T14:53:40Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOJbVClc5ZViID",
+          "commit": {
+            "abbreviatedOid": "b1f4d16"
+          },
+          "author": "OR13",
+          "authorAssociation": "NONE",
+          "state": "APPROVED",
+          "body": "Approving based on @awoie ",
+          "createdAt": "2023-06-26T15:26:34Z",
+          "updatedAt": "2023-06-26T15:26:34Z",
           "comments": []
         }
       ]
