@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-06-27T01:59:23.978662+00:00",
+  "timestamp": "2023-06-29T01:54:06.434880+00:00",
   "repo": "vcstuff/draft-terbu-sd-jwt-vc",
   "labels": [
     {
@@ -1892,7 +1892,7 @@
       ],
       "body": "The spec says:\r\n\r\n> cnf\r\nREQUIRED when Cryptographic Holder Binding is to be supported. Contains the confirmation method as defined in [[RFC7800](https://vcstuff.github.io/draft-terbu-sd-jwt-vc/draft-terbu-sd-jwt-vc.html#RFC7800)]. It SHOULD contain a JWK as defined in Section 3.2 of [[RFC7800](https://vcstuff.github.io/draft-terbu-sd-jwt-vc/draft-terbu-sd-jwt-vc.html#RFC7800)] and in this case, the kid (Key ID) member MUST be present in the JWK. For Cryptographic Holder Binding, the Holder Binding JWT in the Combined Format for Presentation MUST be signed by the key identified in this claim.\r\n\r\nI don't see why `kid` is a MUST.\r\nMoreover, the example in 4.3 does not include the `kid`, so either the text or the exampel is wrong.",
       "createdAt": "2023-05-25T16:19:05Z",
-      "updatedAt": "2023-06-23T21:51:00Z",
+      "updatedAt": "2023-06-28T18:02:23Z",
       "closedAt": null,
       "comments": [
         {
@@ -1943,6 +1943,13 @@
           "body": "PR #141 removes requirements to have kid in jwk in cnf\r\n\r\n@awoie I think you are right that RFC7800 doesn't strictly prohibit something like that but it seems generally understood and I've never encountered a cnf claim with more than one member in it  \r\n",
           "createdAt": "2023-06-23T21:51:00Z",
           "updatedAt": "2023-06-23T21:51:00Z"
+        },
+        {
+          "author": "Sakurann",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I don't think RFC7800 allows for multiple JWKs in one `cnf` claim: https://www.rfc-editor.org/rfc/rfc7800#section-3.2\r\n\r\nand I think it indirectly prohibits the following example Oliver is concerned with because section 3.2 limits cnf claim with only jwk member and only mentions that that jwk member may contain a `kid`:\r\n```\r\n\"cnf\": {\r\n  \"kid\": \"some-kid-1\",\r\n  \"jwk\": {\r\n    \"kid\": \"another-kid-2\",\r\n    ....\r\n  }\r\n}\r\n```\r\n\r\nso all good removing kid requirement with jwk member in cnf claim",
+          "createdAt": "2023-06-28T18:02:23Z",
+          "updatedAt": "2023-06-28T18:02:23Z"
         }
       ]
     },
@@ -2031,11 +2038,12 @@
       "assignees": [],
       "labels": [
         "HAS PR",
-        "individual-03"
+        "discuss",
+        "individual-??"
       ],
       "body": "Every entity in the OAuth/OpenID is potentially a JWT issuer, then I found the name of this endpoint misleading.\r\n\r\nConsidering that this brand new specification defines a profile for SD JWT verifiable credentials, I'd propose to change the pathname to\r\n\r\n.well-known/vc-jwt-issuer\r\n ",
       "createdAt": "2023-05-25T22:30:38Z",
-      "updatedAt": "2023-06-22T09:18:45Z",
+      "updatedAt": "2023-06-28T17:54:18Z",
       "closedAt": null,
       "comments": [
         {
@@ -2163,6 +2171,55 @@
           "body": "@TakahikoKawasaki raises an important question that we need to address, at least by giving guidance. I don't have a good answer to that at the moment.\r\n\r\nBesides that, I don't see a need to rename to `jwt-vc-issuer`.",
           "createdAt": "2023-06-22T09:18:45Z",
           "updatedAt": "2023-06-22T09:18:45Z"
+        },
+        {
+          "author": "tlodderstedt",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "@TakahikoKawasaki correct me if I'm wrong. I understand you prefer `vc-jwt-issuer` over `jwt-issuer`, right? And whether the key data will be added to the `openid-credential-issuer` is a different topic (that's how I read your last statement). \r\nPlease conform. ",
+          "createdAt": "2023-06-27T13:39:47Z",
+          "updatedAt": "2023-06-27T13:39:47Z"
+        },
+        {
+          "author": "awoie",
+          "authorAssociation": "COLLABORATOR",
+          "body": "We will need more discussions on that topic. Potentially at IETF 117. This means, we won't be able to resolve this issue for our individual draft 03.",
+          "createdAt": "2023-06-27T20:03:24Z",
+          "updatedAt": "2023-06-27T20:03:24Z"
+        },
+        {
+          "author": "c2bo",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "> @TakahikoKawasaki raises an important question that we need to address, at least by giving guidance. I don't have a good answer to that at the moment.\r\n> \r\n> Besides that, I don't see a need to rename to `jwt-vc-issuer`.\r\n\r\nWe had a small discussion on this and I created a new issue #143 so we can separate between the 2 discussions overlapping here (name of the endpoint and intended usage). ",
+          "createdAt": "2023-06-27T20:37:59Z",
+          "updatedAt": "2023-06-27T20:37:59Z"
+        },
+        {
+          "author": "TakahikoKawasaki",
+          "authorAssociation": "NONE",
+          "body": "Regarding the `/.well-known/jwt-issuer` path, I have been losing confidence in my own opinion. As an implementer who has implemented numerous OAuth/OIDC specifications and been leading development of Authlete that holds the most OpenID certifications in the world, my intuition told me _\"The `/.well-known/jwt-issuer` path should be avoided due to possible conflicts with other specifications.\"_ However, I haven't received as much support for my opinion as I expected. For now, I will implement my OID4VCI implementation using the `/.well-known/jwt-issuer` path. Please let me withdraw my opinion.",
+          "createdAt": "2023-06-27T20:40:17Z",
+          "updatedAt": "2023-06-27T20:40:17Z"
+        },
+        {
+          "author": "peppelinux",
+          "authorAssociation": "NONE",
+          "body": "I agree the position of @TakahikoKawasaki, while in the italian solution we're implementing **openid-credential-issuer** as metadata within the .well-known/openid-federation endpoint, according to OpenID Federation 1.0.\r\n\r\nThis doesn't prevent to include also a jwt-issuer metadata type but there's the decision by our side to wait and the same time give evidence of our implementation to help the consolidation of the vc-jwt-issuer specs",
+          "createdAt": "2023-06-28T13:26:10Z",
+          "updatedAt": "2023-06-28T13:27:16Z"
+        },
+        {
+          "author": "TakahikoKawasaki",
+          "authorAssociation": "NONE",
+          "body": "@peppelinux\r\nAn off-topic question out of curiosity. If an authorization server / OpenID provider and a credential issuer are hosted on the same server, the payload of the entity configuration published at `/.well-known/openid-configuration` of the server contains the following, right?\r\n\r\n```json\r\n\"metadata\": {\r\n  \"openid_provider\": { \"...\":\"...\" },\r\n  \"openid-credential-issuer\": { \"...\":\"...\" }\r\n}\r\n```",
+          "createdAt": "2023-06-28T14:42:52Z",
+          "updatedAt": "2023-06-28T14:42:52Z"
+        },
+        {
+          "author": "peppelinux",
+          "authorAssociation": "NONE",
+          "body": "Hey @TakahikoKawasaki, I'm sure that you meant `openid-federation`\r\n\r\nThe answer Is yes, even if we have used a snake case like `openid_credential_issuer` here\r\n\r\nhttps://italia.github.io/eidas-it-wallet-docs/en/pid-issuing.html\r\n\r\nIt's still an initial draft without an official release, several editorials and implementation compromises needs to be resolved but the most of the work Is there, feelfree to open issue for discussion here\r\n\r\nhttps://github.com/italia/eidas-it-wallet-docs",
+          "createdAt": "2023-06-28T17:54:18Z",
+          "updatedAt": "2023-06-28T17:54:18Z"
         }
       ]
     },
@@ -2182,7 +2239,7 @@
       ],
       "body": "Ideally, we have one spec for SD-JWT VC and JWT VC. This issue is about adding support for vanilla JWTs.",
       "createdAt": "2023-05-26T09:23:57Z",
-      "updatedAt": "2023-06-21T14:43:46Z",
+      "updatedAt": "2023-06-27T16:06:47Z",
       "closedAt": null,
       "comments": [
         {
@@ -2212,6 +2269,13 @@
           "body": "Thanks @mprorock @OR13 for helping with this. We have merged #131. @mprorock @OR13 Can you confirm that after merging #131, the spec achieves now the same goal as https://github.com/mesur-io/ietf-misc/blob/main/draft-prorock-oauth-jwt-vcs.md and there is no need to maintain two different specs? In that case, I'll close this issue.",
           "createdAt": "2023-06-21T14:42:56Z",
           "updatedAt": "2023-06-21T14:43:24Z"
+        },
+        {
+          "author": "OR13",
+          "authorAssociation": "NONE",
+          "body": "Seems like this was merged / should be closed.... We should address the spec title next (in an other issue)",
+          "createdAt": "2023-06-27T16:06:47Z",
+          "updatedAt": "2023-06-27T16:06:47Z"
         }
       ]
     },
@@ -2517,9 +2581,17 @@
       ],
       "body": "I'm assuming that this is for VCDM 1.1, but there aren't any reference (normative or informative) in the current draft. ",
       "createdAt": "2023-05-26T21:38:34Z",
-      "updatedAt": "2023-06-22T10:04:29Z",
+      "updatedAt": "2023-06-27T20:01:03Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "Sakurann",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "This is not for VCDM.",
+          "createdAt": "2023-06-27T20:01:03Z",
+          "updatedAt": "2023-06-27T20:01:03Z"
+        }
+      ]
     },
     {
       "number": 114,
@@ -3218,6 +3290,72 @@
       "body": "Currently, we have a section about public claims. This should be either removed or it should be generalized to something like \"Additional Claims\" where it mentions additional private and public claims MAY be added.",
       "createdAt": "2023-06-21T14:47:10Z",
       "updatedAt": "2023-06-21T14:47:26Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 142,
+      "id": "I_kwDOJbVClc5p9DVU",
+      "title": "Update status list reference",
+      "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/issues/142",
+      "state": "OPEN",
+      "author": "awoie",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [
+        "individual-03"
+      ],
+      "body": "Since the status list draft was published, the spec can update the references accordingly.",
+      "createdAt": "2023-06-27T19:19:50Z",
+      "updatedAt": "2023-06-27T19:20:01Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 143,
+      "id": "I_kwDOJbVClc5p9bYZ",
+      "title": "Clarification on metadata endpoint",
+      "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/issues/143",
+      "state": "OPEN",
+      "author": "c2bo",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "There was an on-going discussion in #101 on the new metadata endpoint, but the discussion should have it's own issue (separated from the naming issue).\r\n\r\nImho, we should add a section that adds more clarity on the intended use of the endpoint introduced in this spec during verification (e.g., by making the resolution of the key using this endpoint mandatory during verification if the JWS header indicates web-based key resolution).\r\nPerhaps adding a small part to the \"Verification and Processing\" section makes sense?\r\n\r\nPrior discussion was here: https://github.com/vcstuff/draft-terbu-sd-jwt-vc/issues/101#issuecomment-1595828680",
+      "createdAt": "2023-06-27T20:35:00Z",
+      "updatedAt": "2023-06-27T20:35:00Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 144,
+      "id": "I_kwDOJbVClc5qD_W2",
+      "title": "examples for ARF.",
+      "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/issues/144",
+      "state": "OPEN",
+      "author": "Sakurann",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "moving @tlodderstedt's and my work on adding examples how to represent PID/EAA/mDLs as SD-JWT VC to this repo from the sd-jwt repo.\r\nEAA: https://github.com/oauth-wg/oauth-selective-disclosure-jwt/pull/211\r\nmDL: https://github.com/oauth-wg/oauth-selective-disclosure-jwt/issues/144 and https://github.com/oauth-wg/oauth-selective-disclosure-jwt/pull/233\r\nPID as a reference point: https://github.com/oauth-wg/oauth-selective-disclosure-jwt/pull/304- ",
+      "createdAt": "2023-06-28T17:54:26Z",
+      "updatedAt": "2023-06-28T18:34:34Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 145,
+      "id": "I_kwDOJbVClc5qEpxU",
+      "title": "how cnf claim can be used with any other types of \"binding\"",
+      "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/issues/145",
+      "state": "OPEN",
+      "author": "Sakurann",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "like biometrics-based binding\r\n\r\nTorsten started with this example in [this PR in sd-jwt repo](https://github.com/oauth-wg/oauth-selective-disclosure-jwt/pull/210/files) but i do not think it's viable anymore: \r\n\r\n```\r\n    \"binding\":\r\n      [\r\n        {\r\n          \"type\": \"CryptographicBinding2022\",\r\n          \"cnf\":\r\n            {\r\n              \"jwk\":\r\n                {\r\n                  \"kty\": \"RSA\",\r\n                  \"n\": \"0vx7agoebGcQSuuPiLJXZptN9nndrQmbXEps2aiAFbWhM78LhWx4cbbf\r\n                    AAtVT86zwu1RK7aPFFxuhDR1L6tSoc_BJECPebWKRXjBZCiFV4n3oknjhMst\r\n                    n64tZ_2W-5JsGY4Hc5n9yBXArwl93lqt7_RN5w6Cf0h4QyQ5v-65YGjQR0_F\r\n                    DW2QvzqY368QQMicAtaSqzs8KJZgnYb9c7d0zgdAZHzu6qMQvRL5hajrn1n9\r\n                    1CbOpbISD08qNLyrdkt-bFTWhAI4vMQFh6WeZu0fM4lFd2NcRwr3XPksINHa\r\n                    Q-G_xBniIqbw0Ls1jF44-csFCur-kEgU8awapJzKnqDKgw\",\r\n                  \"e\": \"AQAB\",\r\n                },\r\n            },\r\n        },\r\n        { \"type\": \"BiometricBinding2022\", \"template\": \"...\" },\r\n      ]\r\n```",
+      "createdAt": "2023-06-28T19:25:10Z",
+      "updatedAt": "2023-06-28T19:25:10Z",
       "closedAt": null,
       "comments": []
     }
