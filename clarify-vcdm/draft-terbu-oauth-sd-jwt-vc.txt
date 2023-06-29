@@ -140,25 +140,20 @@ Table of Contents
    or by the Issuer.
 
    This specification defines Verifiable Credentials based on the SD-JWT
-   format with a JWT Claim Set.
+   format with a JWT Claim Set. It can be used when there are no
+   selective disclosable claims, too.
 
 1.2.  Rationale
 
    JSON Web Tokens (JWTs) [RFC7519] can in principle be used to express
    Verifiable Credentials in a way that is easy to understand and
-   process as it builds upon established web primitives.  While JWT-
-   based credentials enable selective disclosure, i.e., the ability for
-   a Holder to disclose only a subset of the contained claims, in an
-   Identity Provider ecosystem by issuing new JWTs to the Verifier for
-   every presentation, this approach does not work in the three-party-
-   model.
+   process as it builds upon established web primitives.
 
    Selective Disclosure JWT (SD-JWT)
    [I-D.ietf-oauth-selective-disclosure-jwt] is a specification that
    introduces conventions to support selective disclosure for JWTs: For
    an SD-JWT document, a Holder can decide which claims to release
-   (within bounds defined by the Issuer).  This format is therefore
-   perfectly suited for Verifiable Credentials.
+   (within bounds defined by the Issuer).
 
    SD-JWT is a superset of JWT as it can also be used when there are no
    selectively disclosable claims and also supports JWS JSON
@@ -194,7 +189,8 @@ Table of Contents
 
    SD-JWT-based Verifiable Credential (SD-JWT VC):  A Verifiable
       Credential encoded using the Issuance format defined in
-      [I-D.ietf-oauth-selective-disclosure-jwt].
+      [I-D.ietf-oauth-selective-disclosure-jwt].  It may or may not
+      contain selectively disclosable claims.
 
    Unsecured payload of an SD-JWT VC:  A JSON object containing all
       selectively disclosable and non-selectively disclosable claims of
@@ -236,8 +232,9 @@ Table of Contents
    Issuance as defined in Section 5.3. of
    [I-D.ietf-oauth-selective-disclosure-jwt].
 
-   SD-JWT VCs MUST contain all Disclosures corresponding to their SD-JWT
-   component except for Decoy Digests as per Section 5.1.1.3. of
+   When there are selectively disclosable claims, SD-JWT VCs MUST
+   contain all Disclosures corresponding to their SD-JWT component
+   except for Decoy Digests as per Section 5.1.1.3. of
    [I-D.ietf-oauth-selective-disclosure-jwt].
 
 4.2.1.  Header Parameters
@@ -521,8 +518,8 @@ Table of Contents
    WxnIjogInNoYS0yNTYiLCAiY25mIjogeyJqd2siOiB7Imt0eSI6ICJFQyIsICJjcnYiO
    iAiUC0yNTYiLCAieCI6ICJUQ0FFUjE5WnZ1M09IRjRqNFc0dmZTVm9ISVAxSUxpbERsc
    zd2Q2VHZW1jIiwgInkiOiAiWnhqaVdXYlpNUUdIVldLVlE0aGJTSWlyc1ZmdWVjQ0U2d
-   DRqVDlGMkhaUSJ9fX0.tuA3mul8_yn2FymraZPcIOjnJxRJPOeq19q94eUPAQNd14xh1
-   -45WhSdCnzMulz1gzmxMjo9wmHjJCt_It2kzw~WyIyR0xDNDJzS1F2ZUNmR2ZyeU5STj
+   DRqVDlGMkhaUSJ9fX0.u7YIufYVX5TC1G7Vq1cYUnPA33lwRJkJa6ivCLSDt41u1dGGU
+   3X0oeNaxNryX154W-PAxapPqIW7Tt0cFRnnAA~WyIyR0xDNDJzS1F2ZUNmR2ZyeU5STj
    l3IiwgImdpdmVuX25hbWUiLCAiSm9obiJd~WyJlbHVWNU9nM2dTTklJOEVZbnN4QV9BI
    iwgImZhbWlseV9uYW1lIiwgIkRvZSJd~WyI2SWo3dE0tYTVpVlBHYm9TNXRtdlZBIiwg
    ImVtYWlsIiwgImpvaG5kb2VAZXhhbXBsZS5jb20iXQ~WyJlSThaV205UW5LUHBOUGVOZ
@@ -742,14 +739,14 @@ Table of Contents
    WxnIjogInNoYS0yNTYiLCAiY25mIjogeyJqd2siOiB7Imt0eSI6ICJFQyIsICJjcnYiO
    iAiUC0yNTYiLCAieCI6ICJUQ0FFUjE5WnZ1M09IRjRqNFc0dmZTVm9ISVAxSUxpbERsc
    zd2Q2VHZW1jIiwgInkiOiAiWnhqaVdXYlpNUUdIVldLVlE0aGJTSWlyc1ZmdWVjQ0U2d
-   DRqVDlGMkhaUSJ9fX0.tuA3mul8_yn2FymraZPcIOjnJxRJPOeq19q94eUPAQNd14xh1
-   -45WhSdCnzMulz1gzmxMjo9wmHjJCt_It2kzw~WyJRZ19PNjR6cUF4ZTQxMmExMDhpcm
+   DRqVDlGMkhaUSJ9fX0.u7YIufYVX5TC1G7Vq1cYUnPA33lwRJkJa6ivCLSDt41u1dGGU
+   3X0oeNaxNryX154W-PAxapPqIW7Tt0cFRnnAA~WyJRZ19PNjR6cUF4ZTQxMmExMDhpcm
    9BIiwgImFkZHJlc3MiLCB7InN0cmVldF9hZGRyZXNzIjogIjEyMyBNYWluIFN0IiwgIm
    xvY2FsaXR5IjogIkFueXRvd24iLCAicmVnaW9uIjogIkFueXN0YXRlIiwgImNvdW50cn
    kiOiAiVVMifV0~eyJhbGciOiAiRVMyNTYiLCAidHlwIjogImtiK2p3dCJ9.eyJub25jZ
    SI6ICIxMjM0NTY3ODkwIiwgImF1ZCI6ICJodHRwczovL2V4YW1wbGUuY29tL3Zlcmlma
-   WVyIiwgImlhdCI6IDE2ODgwNjM1MDJ9.icnT8OZPraiLOmSgEZspseOHwVoXe_snBb7t
-   1GJOJqPGLyYxcaKdsKsTVckltUaokRMQuATAfUeS0LNXhVF7cA
+   WVyIiwgImlhdCI6IDE2ODgwNjM3MTV9.IOx7nX68zm1TvzIaYICsQtOcBXcZiCiyGoo_
+   k8yCJk9UlDD2prbeuAtEwcmBzzSyEmKQKMkGbkD3w17oHvANwA
 
    In this presentation, the Holder provides only the Disclosure for the
    claim address.  Other claims are not disclosed to the Verifier.
@@ -768,8 +765,8 @@ Table of Contents
    VZ1bHdRUWxoRmxNXzNKbHpNYVNGemdsaFFHMERwZmF5UXdMVUs0Il0sICJpc3MiOiAia
    HR0cHM6Ly9leGFtcGxlLmNvbS9pc3N1ZXIiLCAiaWF0IjogMTY4MzAwMDAwMCwgImV4c
    CI6IDE4ODMwMDAwMDAsICJ0eXBlIjogIklkZW50aXR5Q3JlZGVudGlhbCIsICJfc2RfY
-   WxnIjogInNoYS0yNTYifQ.c_2Bc5lvLlsBUxMiRmJLx47XEYfBsisKtZIGDa5cyEp1p3
-   yH1YY17gduyU-lyAQs2ht7y5gWEzfOJgBpKRxZ7Q~WyJRZ19PNjR6cUF4ZTQxMmExMDh
+   WxnIjogInNoYS0yNTYifQ.q2jNUc8AfZ9lj5p8n7v5yPumsr0zK-oG3AHKGX9nVxsZBU
+   TJEZllA3EQTUCp0TxPh6cHh4m_rEh_Q9lK4rpjMA~WyJRZ19PNjR6cUF4ZTQxMmExMDh
    pcm9BIiwgImFkZHJlc3MiLCB7InN0cmVldF9hZGRyZXNzIjogIjEyMyBNYWluIFN0Iiw
    gImxvY2FsaXR5IjogIkFueXRvd24iLCAicmVnaW9uIjogIkFueXN0YXRlIiwgImNvdW5
    0cnkiOiAiVVMifV0~
@@ -901,6 +898,12 @@ Appendix B.  Acknowledgements
    to this draft and to the initial set of implementations.
 
 Appendix C.  Document History
+
+   -03
+
+   *  added non-selectively disclosable JWT VC
+
+   *  added a noe that this is not w3c vcdm.
 
    -02
 

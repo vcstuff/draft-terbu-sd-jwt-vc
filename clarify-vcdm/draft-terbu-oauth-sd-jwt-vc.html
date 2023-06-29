@@ -1324,7 +1324,7 @@ described in <span>[<a href="#I-D.ietf-oauth-selective-disclosure-jwt" class="ci
 optionally be retrieved from a Status Provider. The role of a Status Provider
 can be fulfilled by either a fourth party or by the Issuer.<a href="#section-1.1-4" class="pilcrow">¶</a></p>
 <p id="section-1.1-5">This specification defines Verifiable Credentials based on the SD-JWT
-format with a JWT Claim Set.<a href="#section-1.1-5" class="pilcrow">¶</a></p>
+format with a JWT Claim Set. It can be used when there are no selective disclosable claims, too.<a href="#section-1.1-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="rationale">
@@ -1334,15 +1334,11 @@ format with a JWT Claim Set.<a href="#section-1.1-5" class="pilcrow">¶</a></p>
         </h3>
 <p id="section-1.2-1">JSON Web Tokens (JWTs) <span>[<a href="#RFC7519" class="cite xref">RFC7519</a>]</span> can in principle be used to express
 Verifiable Credentials in a way that is easy to understand and process as it
-builds upon established web primitives. While JWT-based credentials enable selective
-disclosure, i.e., the ability for a Holder to disclose only a subset of the contained
-claims, in an Identity Provider ecosystem by issuing new JWTs to the Verifier for
-every presentation, this approach does not work in the three-party-model.<a href="#section-1.2-1" class="pilcrow">¶</a></p>
+builds upon established web primitives.<a href="#section-1.2-1" class="pilcrow">¶</a></p>
 <p id="section-1.2-2">Selective Disclosure JWT (SD-JWT) <span>[<a href="#I-D.ietf-oauth-selective-disclosure-jwt" class="cite xref">I-D.ietf-oauth-selective-disclosure-jwt</a>]</span> is
 a specification that introduces conventions to support selective disclosure for
 JWTs: For an SD-JWT document, a Holder can decide which claims to release (within
-bounds defined by the Issuer). This format is therefore perfectly suited for
-Verifiable Credentials.<a href="#section-1.2-2" class="pilcrow">¶</a></p>
+bounds defined by the Issuer).<a href="#section-1.2-2" class="pilcrow">¶</a></p>
 <p id="section-1.2-3">SD-JWT is a superset of JWT as it can also be used when there are no selectively
 disclosable claims and also supports JWS JSON serialization, which is useful for
 long term archiving and multi signatures. However, SD-JWT itself does not define
@@ -1380,7 +1376,8 @@ document are to be interpreted as described in RFC 2119 <span>[<a href="#RFC2119
           <dd class="break"></dd>
 <dt id="section-1.4-2.3">SD-JWT-based Verifiable Credential (SD-JWT VC):</dt>
           <dd style="margin-left: 1.5em" id="section-1.4-2.4">A Verifiable Credential encoded using the Issuance format defined in
-<span>[<a href="#I-D.ietf-oauth-selective-disclosure-jwt" class="cite xref">I-D.ietf-oauth-selective-disclosure-jwt</a>]</span>.<a href="#section-1.4-2.4" class="pilcrow">¶</a>
+<span>[<a href="#I-D.ietf-oauth-selective-disclosure-jwt" class="cite xref">I-D.ietf-oauth-selective-disclosure-jwt</a>]</span>. It may or may not contain
+selectively disclosable claims.<a href="#section-1.4-2.4" class="pilcrow">¶</a>
 </dd>
           <dd class="break"></dd>
 <dt id="section-1.4-2.5">Unsecured payload of an SD-JWT VC:</dt>
@@ -1448,7 +1445,8 @@ compliance with FIPS<a href="#section-3-2" class="pilcrow">¶</a></p>
         </h3>
 <p id="section-4.2-1">SD-JWT VCs MUST be encoded using the SD-JWT Combined Format for Issuance as
 defined in Section 5.3. of <span>[<a href="#I-D.ietf-oauth-selective-disclosure-jwt" class="cite xref">I-D.ietf-oauth-selective-disclosure-jwt</a>]</span>.<a href="#section-4.2-1" class="pilcrow">¶</a></p>
-<p id="section-4.2-2">SD-JWT VCs MUST contain all Disclosures corresponding to their SD-JWT component
+<p id="section-4.2-2">When there are selectively disclosable claims, SD-JWT VCs MUST contain all
+Disclosures corresponding to their SD-JWT component
 except for Decoy Digests as per Section 5.1.1.3. of <span>[<a href="#I-D.ietf-oauth-selective-disclosure-jwt" class="cite xref">I-D.ietf-oauth-selective-disclosure-jwt</a>]</span>.<a href="#section-4.2-2" class="pilcrow">¶</a></p>
 <div id="header-parameters">
 <section id="section-4.2.1">
@@ -1793,8 +1791,8 @@ CI6IDE4ODMwMDAwMDAsICJ0eXBlIjogIklkZW50aXR5Q3JlZGVudGlhbCIsICJfc2RfY
 WxnIjogInNoYS0yNTYiLCAiY25mIjogeyJqd2siOiB7Imt0eSI6ICJFQyIsICJjcnYiO
 iAiUC0yNTYiLCAieCI6ICJUQ0FFUjE5WnZ1M09IRjRqNFc0dmZTVm9ISVAxSUxpbERsc
 zd2Q2VHZW1jIiwgInkiOiAiWnhqaVdXYlpNUUdIVldLVlE0aGJTSWlyc1ZmdWVjQ0U2d
-DRqVDlGMkhaUSJ9fX0.tuA3mul8_yn2FymraZPcIOjnJxRJPOeq19q94eUPAQNd14xh1
--45WhSdCnzMulz1gzmxMjo9wmHjJCt_It2kzw~WyIyR0xDNDJzS1F2ZUNmR2ZyeU5STj
+DRqVDlGMkhaUSJ9fX0.u7YIufYVX5TC1G7Vq1cYUnPA33lwRJkJa6ivCLSDt41u1dGGU
+3X0oeNaxNryX154W-PAxapPqIW7Tt0cFRnnAA~WyIyR0xDNDJzS1F2ZUNmR2ZyeU5STj
 l3IiwgImdpdmVuX25hbWUiLCAiSm9obiJd~WyJlbHVWNU9nM2dTTklJOEVZbnN4QV9BI
 iwgImZhbWlseV9uYW1lIiwgIkRvZSJd~WyI2SWo3dE0tYTVpVlBHYm9TNXRtdlZBIiwg
 ImVtYWlsIiwgImpvaG5kb2VAZXhhbXBsZS5jb20iXQ~WyJlSThaV205UW5LUHBOUGVOZ
@@ -2062,14 +2060,14 @@ CI6IDE4ODMwMDAwMDAsICJ0eXBlIjogIklkZW50aXR5Q3JlZGVudGlhbCIsICJfc2RfY
 WxnIjogInNoYS0yNTYiLCAiY25mIjogeyJqd2siOiB7Imt0eSI6ICJFQyIsICJjcnYiO
 iAiUC0yNTYiLCAieCI6ICJUQ0FFUjE5WnZ1M09IRjRqNFc0dmZTVm9ISVAxSUxpbERsc
 zd2Q2VHZW1jIiwgInkiOiAiWnhqaVdXYlpNUUdIVldLVlE0aGJTSWlyc1ZmdWVjQ0U2d
-DRqVDlGMkhaUSJ9fX0.tuA3mul8_yn2FymraZPcIOjnJxRJPOeq19q94eUPAQNd14xh1
--45WhSdCnzMulz1gzmxMjo9wmHjJCt_It2kzw~WyJRZ19PNjR6cUF4ZTQxMmExMDhpcm
+DRqVDlGMkhaUSJ9fX0.u7YIufYVX5TC1G7Vq1cYUnPA33lwRJkJa6ivCLSDt41u1dGGU
+3X0oeNaxNryX154W-PAxapPqIW7Tt0cFRnnAA~WyJRZ19PNjR6cUF4ZTQxMmExMDhpcm
 9BIiwgImFkZHJlc3MiLCB7InN0cmVldF9hZGRyZXNzIjogIjEyMyBNYWluIFN0IiwgIm
 xvY2FsaXR5IjogIkFueXRvd24iLCAicmVnaW9uIjogIkFueXN0YXRlIiwgImNvdW50cn
 kiOiAiVVMifV0~eyJhbGciOiAiRVMyNTYiLCAidHlwIjogImtiK2p3dCJ9.eyJub25jZ
 SI6ICIxMjM0NTY3ODkwIiwgImF1ZCI6ICJodHRwczovL2V4YW1wbGUuY29tL3Zlcmlma
-WVyIiwgImlhdCI6IDE2ODgwNjM1MDJ9.icnT8OZPraiLOmSgEZspseOHwVoXe_snBb7t
-1GJOJqPGLyYxcaKdsKsTVckltUaokRMQuATAfUeS0LNXhVF7cA
+WVyIiwgImlhdCI6IDE2ODgwNjM3MTV9.IOx7nX68zm1TvzIaYICsQtOcBXcZiCiyGoo_
+k8yCJk9UlDD2prbeuAtEwcmBzzSyEmKQKMkGbkD3w17oHvANwA
 </pre><a href="#section-6.2-2" class="pilcrow">¶</a>
 </div>
 <p id="section-6.2-3">In this presentation, the Holder provides only the Disclosure for the claim
@@ -2088,8 +2086,8 @@ mRyVEU4WWNiWTRFaWZ1Z2loaUFlX0JQZWt4SlFaSUNlaVVRd1k5UXF4SSIsICJqc3U5e
 VZ1bHdRUWxoRmxNXzNKbHpNYVNGemdsaFFHMERwZmF5UXdMVUs0Il0sICJpc3MiOiAia
 HR0cHM6Ly9leGFtcGxlLmNvbS9pc3N1ZXIiLCAiaWF0IjogMTY4MzAwMDAwMCwgImV4c
 CI6IDE4ODMwMDAwMDAsICJ0eXBlIjogIklkZW50aXR5Q3JlZGVudGlhbCIsICJfc2RfY
-WxnIjogInNoYS0yNTYifQ.c_2Bc5lvLlsBUxMiRmJLx47XEYfBsisKtZIGDa5cyEp1p3
-yH1YY17gduyU-lyAQs2ht7y5gWEzfOJgBpKRxZ7Q~WyJRZ19PNjR6cUF4ZTQxMmExMDh
+WxnIjogInNoYS0yNTYifQ.q2jNUc8AfZ9lj5p8n7v5yPumsr0zK-oG3AHKGX9nVxsZBU
+TJEZllA3EQTUCp0TxPh6cHh4m_rEh_Q9lK4rpjMA~WyJRZ19PNjR6cUF4ZTQxMmExMDh
 pcm9BIiwgImFkZHJlc3MiLCB7InN0cmVldF9hZGRyZXNzIjogIjEyMyBNYWluIFN0Iiw
 gImxvY2FsaXR5IjogIkFueXRvd24iLCAicmVnaW9uIjogIkFueXN0YXRlIiwgImNvdW5
 0cnkiOiAiVVMifV0~
@@ -2284,21 +2282,28 @@ for their contributions (some of which substantial) to this draft and to the ini
       <h2 id="name-document-history">
 <a href="#appendix-C" class="section-number selfRef">Appendix C. </a><a href="#name-document-history" class="section-name selfRef">Document History</a>
       </h2>
-<p id="appendix-C-1">-02<a href="#appendix-C-1" class="pilcrow">¶</a></p>
+<p id="appendix-C-1">-03<a href="#appendix-C-1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="appendix-C-2.1">Adjusted terminology based on feedback<a href="#appendix-C-2.1" class="pilcrow">¶</a>
+<li class="normal" id="appendix-C-2.1">added non-selectively disclosable JWT VC<a href="#appendix-C-2.1" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="appendix-C-2.2">added a noe that this is not w3c vcdm.<a href="#appendix-C-2.2" class="pilcrow">¶</a>
 </li>
       </ul>
-<p id="appendix-C-3">-01<a href="#appendix-C-3" class="pilcrow">¶</a></p>
+<p id="appendix-C-3">-02<a href="#appendix-C-3" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="appendix-C-4.1">Removed W3C VCDM transformation algorithm<a href="#appendix-C-4.1" class="pilcrow">¶</a>
-</li>
-        <li class="normal" id="appendix-C-4.2">Various editorial changes based on feedback<a href="#appendix-C-4.2" class="pilcrow">¶</a>
+<li class="normal" id="appendix-C-4.1">Adjusted terminology based on feedback<a href="#appendix-C-4.1" class="pilcrow">¶</a>
 </li>
       </ul>
-<p id="appendix-C-5">-00<a href="#appendix-C-5" class="pilcrow">¶</a></p>
+<p id="appendix-C-5">-01<a href="#appendix-C-5" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="appendix-C-6.1">Initial Version<a href="#appendix-C-6.1" class="pilcrow">¶</a>
+<li class="normal" id="appendix-C-6.1">Removed W3C VCDM transformation algorithm<a href="#appendix-C-6.1" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="appendix-C-6.2">Various editorial changes based on feedback<a href="#appendix-C-6.2" class="pilcrow">¶</a>
+</li>
+      </ul>
+<p id="appendix-C-7">-00<a href="#appendix-C-7" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="appendix-C-8.1">Initial Version<a href="#appendix-C-8.1" class="pilcrow">¶</a>
 </li>
       </ul>
 </section>
