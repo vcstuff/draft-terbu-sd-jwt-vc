@@ -13,20 +13,20 @@ rules to express Verifiable Credentials with JSON payloads based on the Selectiv
 for JWTs (SD-JWT)   format.
 It can be used when there are no selective disclosable claims, too. 
     " name="description">
-<meta content="xml2rfc 3.17.3" name="generator">
+<meta content="xml2rfc 3.17.4" name="generator">
 <meta content="security" name="keyword">
 <meta content="openid" name="keyword">
 <meta content="sd-jwt" name="keyword">
 <meta content="draft-terbu-oauth-sd-jwt-vc-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.17.3
+  xml2rfc 3.17.4
     Python 3.11.4
-    appdirs 1.4.4
     ConfigArgParse 1.5.3
     google-i18n-address 3.1.0
     intervaltree 3.1.0
     Jinja2 3.1.2
     lxml 4.9.2
+    platformdirs 3.8.0
     pycountry 22.3.5
     PyYAML 6.0
     requests 2.31.0
@@ -1053,11 +1053,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">SD-JWT VC</td>
-<td class="right">June 2023</td>
+<td class="right">July 2023</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Terbu &amp; Fett</td>
-<td class="center">Expires 25 December 2023</td>
+<td class="center">Expires 4 January 2024</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1070,12 +1070,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-terbu-oauth-sd-jwt-vc-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2023-06-23" class="published">23 June 2023</time>
+<time datetime="2023-07-03" class="published">3 July 2023</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2023-12-25">25 December 2023</time></dd>
+<dd class="expires"><time datetime="2024-01-04">4 January 2024</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1116,7 +1116,7 @@ It can be used when there are no selective disclosable claims, too.<a href="#sec
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 25 December 2023.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 4 January 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1349,6 +1349,7 @@ Those Verifiable Credentials are called SD-JWT VCs.<a href="#section-1.2-4" clas
 <p id="section-1.2-5">SD-JWTs VC can contain claims that are registered in "JSON Web Token Claims"
 registry as defined in <span>[<a href="#RFC7519" class="cite xref">RFC7519</a>]</span>, as well as public and
 private claims.<a href="#section-1.2-5" class="pilcrow">¶</a></p>
+<p id="section-1.2-6">Note: This specification does not utilize the W3C's Verifiable Credentials Data Model v1.0, v1.1, or v2.0.<a href="#section-1.2-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="requirements-notation-and-conventions">
@@ -1790,8 +1791,8 @@ CI6IDE4ODMwMDAwMDAsICJ0eXBlIjogIklkZW50aXR5Q3JlZGVudGlhbCIsICJfc2RfY
 WxnIjogInNoYS0yNTYiLCAiY25mIjogeyJqd2siOiB7Imt0eSI6ICJFQyIsICJjcnYiO
 iAiUC0yNTYiLCAieCI6ICJUQ0FFUjE5WnZ1M09IRjRqNFc0dmZTVm9ISVAxSUxpbERsc
 zd2Q2VHZW1jIiwgInkiOiAiWnhqaVdXYlpNUUdIVldLVlE0aGJTSWlyc1ZmdWVjQ0U2d
-DRqVDlGMkhaUSJ9fX0.H8OpNZndTJUawzoHXlpO-kjn_0KU4FmDzdIziRfCSYJyuBVMl
-A4FjkIcIovKVlCFXvvFvVnUgDpXx-k_pWqVFQ~WyIyR0xDNDJzS1F2ZUNmR2ZyeU5STj
+DRqVDlGMkhaUSJ9fX0.h3JusN5VGSfYxmlXq2NDWt_DFrIbkXruq2GBjCR6VdxpG3v73
+-6OUCfEKQ2DltL5cGctKMfpS7YNtAnxjldr_g~WyIyR0xDNDJzS1F2ZUNmR2ZyeU5STj
 l3IiwgImdpdmVuX25hbWUiLCAiSm9obiJd~WyJlbHVWNU9nM2dTTklJOEVZbnN4QV9BI
 iwgImZhbWlseV9uYW1lIiwgIkRvZSJd~WyI2SWo3dE0tYTVpVlBHYm9TNXRtdlZBIiwg
 ImVtYWlsIiwgImpvaG5kb2VAZXhhbXBsZS5jb20iXQ~WyJlSThaV205UW5LUHBOUGVOZ
@@ -2059,14 +2060,14 @@ CI6IDE4ODMwMDAwMDAsICJ0eXBlIjogIklkZW50aXR5Q3JlZGVudGlhbCIsICJfc2RfY
 WxnIjogInNoYS0yNTYiLCAiY25mIjogeyJqd2siOiB7Imt0eSI6ICJFQyIsICJjcnYiO
 iAiUC0yNTYiLCAieCI6ICJUQ0FFUjE5WnZ1M09IRjRqNFc0dmZTVm9ISVAxSUxpbERsc
 zd2Q2VHZW1jIiwgInkiOiAiWnhqaVdXYlpNUUdIVldLVlE0aGJTSWlyc1ZmdWVjQ0U2d
-DRqVDlGMkhaUSJ9fX0.H8OpNZndTJUawzoHXlpO-kjn_0KU4FmDzdIziRfCSYJyuBVMl
-A4FjkIcIovKVlCFXvvFvVnUgDpXx-k_pWqVFQ~WyJRZ19PNjR6cUF4ZTQxMmExMDhpcm
+DRqVDlGMkhaUSJ9fX0.h3JusN5VGSfYxmlXq2NDWt_DFrIbkXruq2GBjCR6VdxpG3v73
+-6OUCfEKQ2DltL5cGctKMfpS7YNtAnxjldr_g~WyJRZ19PNjR6cUF4ZTQxMmExMDhpcm
 9BIiwgImFkZHJlc3MiLCB7InN0cmVldF9hZGRyZXNzIjogIjEyMyBNYWluIFN0IiwgIm
 xvY2FsaXR5IjogIkFueXRvd24iLCAicmVnaW9uIjogIkFueXN0YXRlIiwgImNvdW50cn
 kiOiAiVVMifV0~eyJhbGciOiAiRVMyNTYiLCAidHlwIjogImtiK2p3dCJ9.eyJub25jZ
 SI6ICIxMjM0NTY3ODkwIiwgImF1ZCI6ICJodHRwczovL2V4YW1wbGUuY29tL3Zlcmlma
-WVyIiwgImlhdCI6IDE2ODc1MTIzMDZ9.q1QKfrDwImgTV73CushWkpn3fl7X2L9VOvXy
-PPjVbGqwy8FlmAmSJi0tECI6JdEJJqBa7nDmmSAa30yTz-mjEg
+WVyIiwgImlhdCI6IDE2ODgzOTU2MzV9.AkAa8je9CQY4shm_SqZVM8QlaYV5PsM2A6wD
+yB0EEmxYLcel2o5PDsE2sMB2gfJOLaJnS62qAPUaiJvdldW1KA
 </pre><a href="#section-6.2-2" class="pilcrow">¶</a>
 </div>
 <p id="section-6.2-3">In this presentation, the Holder provides only the Disclosure for the claim
@@ -2085,8 +2086,8 @@ mRyVEU4WWNiWTRFaWZ1Z2loaUFlX0JQZWt4SlFaSUNlaVVRd1k5UXF4SSIsICJqc3U5e
 VZ1bHdRUWxoRmxNXzNKbHpNYVNGemdsaFFHMERwZmF5UXdMVUs0Il0sICJpc3MiOiAia
 HR0cHM6Ly9leGFtcGxlLmNvbS9pc3N1ZXIiLCAiaWF0IjogMTY4MzAwMDAwMCwgImV4c
 CI6IDE4ODMwMDAwMDAsICJ0eXBlIjogIklkZW50aXR5Q3JlZGVudGlhbCIsICJfc2RfY
-WxnIjogInNoYS0yNTYifQ.N6R2Trjgo4a0IR9-hUKCrSDCeZQAwbXQXkQDDIE9C38fpg
--uQlp4yNPaK5Nu0eLkhsM2wOQpVr0T3e-8JYUJfA~WyJRZ19PNjR6cUF4ZTQxMmExMDh
+WxnIjogInNoYS0yNTYifQ.ZWr8TK4S9uLHdjKnAKviCKBeU4pbwl-e-8JbUmj4rfMRF3
+ei3yowoL1RAkchaEwE9x9XHED-d_fiwej1QLwQsQ~WyJRZ19PNjR6cUF4ZTQxMmExMDh
 pcm9BIiwgImFkZHJlc3MiLCB7InN0cmVldF9hZGRyZXNzIjogIjEyMyBNYWluIFN0Iiw
 gImxvY2FsaXR5IjogIkFueXRvd24iLCAicmVnaW9uIjogIkFueXN0YXRlIiwgImNvdW5
 0cnkiOiAiVVMifV0~
@@ -2145,7 +2146,7 @@ To verify the Key Binding JWT, the <code>cnf</code> claim of the SD-JWT MUST be 
 <dl class="references">
 <dt id="I-D.ietf-oauth-selective-disclosure-jwt">[I-D.ietf-oauth-selective-disclosure-jwt]</dt>
       <dd>
-<span class="refAuthor">Fett, D.</span>, <span class="refAuthor">Yasuda, K.</span>, and <span class="refAuthor">B. Campbell</span>, <span class="refTitle">"Selective Disclosure for JWTs (SD-JWT)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-oauth-selective-disclosure-jwt-04</span>, <time datetime="2023-04-11" class="refDate">11 April 2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-oauth-selective-disclosure-jwt-04">https://datatracker.ietf.org/doc/html/draft-ietf-oauth-selective-disclosure-jwt-04</a>&gt;</span>. </dd>
+<span class="refAuthor">Fett, D.</span>, <span class="refAuthor">Yasuda, K.</span>, and <span class="refAuthor">B. Campbell</span>, <span class="refTitle">"Selective Disclosure for JWTs (SD-JWT)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-oauth-selective-disclosure-jwt-05</span>, <time datetime="2023-06-30" class="refDate">30 June 2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-oauth-selective-disclosure-jwt-05">https://datatracker.ietf.org/doc/html/draft-ietf-oauth-selective-disclosure-jwt-05</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC2119">[RFC2119]</dt>
       <dd>
@@ -2280,6 +2281,8 @@ for their contributions (some of which substantial) to this draft and to the ini
 <p id="appendix-C-1">-03<a href="#appendix-C-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-C-2.1">added non-selectively disclosable JWT VC<a href="#appendix-C-2.1" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="appendix-C-2.2">added a note that this is not w3c vcdm.<a href="#appendix-C-2.2" class="pilcrow">¶</a>
 </li>
       </ul>
 <p id="appendix-C-3">-02<a href="#appendix-C-3" class="pilcrow">¶</a></p>
