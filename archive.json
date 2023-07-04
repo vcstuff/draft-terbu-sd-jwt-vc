@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-07-02T02:04:14.092622+00:00",
+  "timestamp": "2023-07-04T01:58:34.659919+00:00",
   "repo": "vcstuff/draft-terbu-sd-jwt-vc",
   "labels": [
     {
@@ -1882,7 +1882,7 @@
       "id": "I_kwDOJbVClc5m4pfO",
       "title": "Why is kid mandatory for cnf claims?",
       "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/issues/97",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "paulbastian",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
@@ -1892,8 +1892,8 @@
       ],
       "body": "The spec says:\r\n\r\n> cnf\r\nREQUIRED when Cryptographic Holder Binding is to be supported. Contains the confirmation method as defined in [[RFC7800](https://vcstuff.github.io/draft-terbu-sd-jwt-vc/draft-terbu-sd-jwt-vc.html#RFC7800)]. It SHOULD contain a JWK as defined in Section 3.2 of [[RFC7800](https://vcstuff.github.io/draft-terbu-sd-jwt-vc/draft-terbu-sd-jwt-vc.html#RFC7800)] and in this case, the kid (Key ID) member MUST be present in the JWK. For Cryptographic Holder Binding, the Holder Binding JWT in the Combined Format for Presentation MUST be signed by the key identified in this claim.\r\n\r\nI don't see why `kid` is a MUST.\r\nMoreover, the example in 4.3 does not include the `kid`, so either the text or the exampel is wrong.",
       "createdAt": "2023-05-25T16:19:05Z",
-      "updatedAt": "2023-06-28T18:02:23Z",
-      "closedAt": null,
+      "updatedAt": "2023-07-03T14:48:33Z",
+      "closedAt": "2023-07-03T14:48:33Z",
       "comments": [
         {
           "author": "bc-pi",
@@ -3393,9 +3393,17 @@
       "labels": [],
       "body": "Before https://github.com/w3c/vc-jwt/pull/88 can be closed, this draft must request registration for `vc+jwt`.\r\n\r\nExample text:\r\n\r\n```\r\n### application/vc+jwt {#application-vc-jwt}\r\n\r\nThe Internet media type for a JWT VC is `application/vc+jwt`.\r\n\r\nType name: : `application`\r\n\r\nSubtype name: : `vc+jwt`\r\n\r\nRequired parameters: : n/a\r\n\r\nOptional parameters: : n/a\r\n\r\nEncoding considerations: : binary; A VC JWT is a JWT; JWT values are encoded as a series of base64url-encoded values (some of which may be the empty string) separated by period ('.') characters.\r\n\r\nSecurity considerations: : See Security Considerations in (#security-considerations).\r\n\r\nInteroperability considerations: : n/a\r\n\r\n- Published specification: : RFC TODO\r\n- Applications that use this media type: : Applications that issue, present,\r\n  verify verifiable credentials and presentations.\r\n- Additional information:\r\n  - Magic number(s): n/a\r\n  - File extension(s): n/a\r\n  - Macintosh file type code(s): n/a\r\n  - Person & email address to contact for further information: TBD\r\n  - Intended usage: COMMON\r\n  - Restrictions on usage: none\r\n  - Author: Oliver Terbu <oliver.terbu@spruceid.com>\r\n  - Change controller: IETF\r\n```",
       "createdAt": "2023-06-30T22:46:13Z",
-      "updatedAt": "2023-06-30T22:46:58Z",
+      "updatedAt": "2023-07-03T08:19:16Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "awoie",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Can you give an example of how this media type is used in the spec? Ideally, you could provide an example of the header+payload.",
+          "createdAt": "2023-07-03T08:19:16Z",
+          "updatedAt": "2023-07-03T08:19:16Z"
+        }
+      ]
     }
   ],
   "pulls": [
@@ -10450,24 +10458,26 @@
       "id": "PR_kwDOJbVClc5TyYpo",
       "title": "remove requirement to have kid in cnf",
       "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/pull/141",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "bc-pi",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "<!-- If this pull request closes an issue, please mention the issue number below -->\r\nCloses #97\r\n\r\n## \ud83d\udcd1 Description\r\nremove requirement to have kid in cnf\r\n",
       "createdAt": "2023-06-23T21:46:30Z",
-      "updatedAt": "2023-06-29T19:51:42Z",
+      "updatedAt": "2023-07-03T14:48:32Z",
       "baseRepository": "vcstuff/draft-terbu-sd-jwt-vc",
       "baseRefName": "main",
       "baseRefOid": "cfaed1134f80b3aa73d878c5bddafa72cdcfb647",
       "headRepository": "bc-pi/draft-terbu-sd-jwt-vc",
       "headRefName": "no-kid-in-cnf-jwk",
       "headRefOid": "b1f4d16cfde9c4312a5cacbd9ec41c0c3c3695ed",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2023-07-03T14:48:31Z",
+      "mergedAt": "2023-07-03T14:48:31Z",
+      "mergedBy": "danielfett",
+      "mergeCommit": {
+        "oid": "2dcd80d978ced2f7fc6b1fc96d4fcdafd2745cf6"
+      },
       "comments": [
         {
           "author": "awoie",
@@ -10562,6 +10572,19 @@
           "createdAt": "2023-06-29T19:51:42Z",
           "updatedAt": "2023-06-29T19:51:42Z",
           "comments": []
+        },
+        {
+          "id": "PRR_kwDOJbVClc5aFUHK",
+          "commit": {
+            "abbreviatedOid": "b1f4d16"
+          },
+          "author": "danielfett",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-07-03T14:48:10Z",
+          "updatedAt": "2023-07-03T14:48:10Z",
+          "comments": []
         }
       ]
     },
@@ -10570,24 +10593,26 @@
       "id": "PR_kwDOJbVClc5UREkK",
       "title": "Clarify vcdm",
       "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/pull/146",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "Sakurann",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "adding a note that sd-jwt vc is not w3c vcdm.\r\nwe can decide to remove this note before final, but sounds like it is beneficial for clarify rn",
       "createdAt": "2023-06-29T18:32:40Z",
-      "updatedAt": "2023-06-29T20:53:00Z",
+      "updatedAt": "2023-07-03T14:46:46Z",
       "baseRepository": "vcstuff/draft-terbu-sd-jwt-vc",
       "baseRefName": "main",
       "baseRefOid": "cfaed1134f80b3aa73d878c5bddafa72cdcfb647",
       "headRepository": "vcstuff/draft-terbu-sd-jwt-vc",
       "headRefName": "clarify-vcdm",
       "headRefOid": "480f67df473541cb17123580c9396622ef204b97",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2023-07-03T14:46:45Z",
+      "mergedAt": "2023-07-03T14:46:45Z",
+      "mergedBy": "danielfett",
+      "mergeCommit": {
+        "oid": "b7719a18f9aa26f31ad982f540883087aa7c8fc8"
+      },
       "comments": [],
       "reviews": [
         {
@@ -10648,7 +10673,7 @@
             "abbreviatedOid": "fe02e0a"
           },
           "author": "peppelinux",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "CHANGES_REQUESTED",
           "body": "",
           "createdAt": "2023-06-29T19:20:04Z",
@@ -10701,7 +10726,7 @@
             "abbreviatedOid": "480f67d"
           },
           "author": "peppelinux",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "APPROVED",
           "body": "",
           "createdAt": "2023-06-29T20:33:00Z",
@@ -10719,6 +10744,19 @@
           "body": "",
           "createdAt": "2023-06-29T20:53:00Z",
           "updatedAt": "2023-06-29T20:53:00Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOJbVClc5aDQui",
+          "commit": {
+            "abbreviatedOid": "480f67d"
+          },
+          "author": "awoie",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "lgtm. thank you.",
+          "createdAt": "2023-07-03T09:44:31Z",
+          "updatedAt": "2023-07-03T09:44:31Z",
           "comments": []
         }
       ]
