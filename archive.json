@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-07-04T01:58:34.659919+00:00",
+  "timestamp": "2023-07-06T01:59:56.573713+00:00",
   "repo": "vcstuff/draft-terbu-sd-jwt-vc",
   "labels": [
     {
@@ -3071,7 +3071,7 @@
       ],
       "body": "I think we should use short JWT-style names for the type and status list claims in order to show that these claims are at the core of the JWT (just like `exp`, `iss`, etc.). I therefore propose that we use `scm` (for \"scheme\", since the short form of \"type\" is already taken) and `stu` (for status list URI).",
       "createdAt": "2023-06-15T12:50:33Z",
-      "updatedAt": "2023-06-23T09:37:34Z",
+      "updatedAt": "2023-07-05T16:03:37Z",
       "closedAt": null,
       "comments": [
         {
@@ -3119,9 +3119,9 @@
         {
           "author": "bc-pi",
           "authorAssociation": "CONTRIBUTOR",
-          "body": "> the short form of \"type\" is already taken\r\n\r\nFWIW it's not actually taken. \"typ\" is a registered JOSE header https://www.iana.org/assignments/jose/jose.xhtml#web-signature-encryption-header-parameters but not a registered JWT claim https://www.iana.org/assignments/jwt/jwt.xhtml#claims \r\n\r\n\"type\" is already pretty short and JWT-style though.  No need to change that one. ",
+          "body": "> the short form of \"type\" is already taken\r\n\r\nFWIW it's not actually taken. \"typ\" is a registered JOSE header https://www.iana.org/assignments/jose/jose.xhtml#web-signature-encryption-header-parameters but not a registered JWT claim https://www.iana.org/assignments/jwt/jwt.xhtml#claims \r\n\r\n\"type\" is already pretty short and JWT-style though.  Don't necessarily need to change that one. ",
           "createdAt": "2023-06-21T20:32:22Z",
-          "updatedAt": "2023-06-21T20:32:22Z"
+          "updatedAt": "2023-07-05T16:03:37Z"
         },
         {
           "author": "paulbastian",
@@ -3289,9 +3289,17 @@
       ],
       "body": "Currently, we have a section about public claims. This should be either removed or it should be generalized to something like \"Additional Claims\" where it mentions additional private and public claims MAY be added.",
       "createdAt": "2023-06-21T14:47:10Z",
-      "updatedAt": "2023-06-21T14:47:26Z",
+      "updatedAt": "2023-07-05T12:49:07Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "tlodderstedt",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I think this issue was already resolved. The current text is \"SD-JWTs VC can contain claims that are registered in \"JSON Web Token Claims\" registry as defined in [RFC7519], as well as public and private claims.\"",
+          "createdAt": "2023-07-05T12:49:07Z",
+          "updatedAt": "2023-07-05T12:49:07Z"
+        }
+      ]
     },
     {
       "number": 142,
@@ -3402,6 +3410,30 @@
           "body": "Can you give an example of how this media type is used in the spec? Ideally, you could provide an example of the header+payload.",
           "createdAt": "2023-07-03T08:19:16Z",
           "updatedAt": "2023-07-03T08:19:16Z"
+        }
+      ]
+    },
+    {
+      "number": 149,
+      "id": "I_kwDOJbVClc5qtqBe",
+      "title": "\"type\" claim seems underspecified ",
+      "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/issues/149",
+      "state": "OPEN",
+      "author": "bc-pi",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Looking at -02 with kinda fresh eyes and the `type` claim seems like it needs something more. The places it shows up in the draft are linked and quoted below but basically say that the type is the type and give one meaningless example (`{\"type\": \"SomeType\"}` is not helpful) and \"e.g., IdentityCredential\" that seems like it should be meaningful but isn't defined or explained anywhere that I could find. I realize this issue may seem pedantic or even silly but specs need to be specific about things like this or explain why they aren't specific and what the implications are. \r\n\r\nhttps://www.ietf.org/archive/id/draft-terbu-sd-jwt-vc-02.html#section-4.2.2.1\r\n\r\n> This specification defines the JWT claim type. The type claim is used to express the type of the JSON object that is secured by the JWT. The type value MUST be a case-sensitive StringOrURI value.\r\n> The following is a non-normative example of how type is used to express a type:\r\n>`{\"type\": \"SomeType\"}`\r\n\r\n\r\nhttps://www.ietf.org/archive/id/draft-terbu-sd-jwt-vc-02.html#section-4.2.2.2-3.6.1\r\n\r\n>type\r\n> REQUIRED. The type of the Verifiable Credential, e.g., IdentityCredential, as defined in [Section 4.2.2.1](https://www.ietf.org/archive/id/draft-terbu-sd-jwt-vc-02.html#type-claim).\r\n",
+      "createdAt": "2023-07-05T21:22:27Z",
+      "updatedAt": "2023-07-05T21:29:15Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "bc-pi",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Over [here](https://github.com/vcstuff/draft-terbu-sd-jwt-vc/issues/11#issuecomment-1562901265) Torsten suggests he sees it as \"as identifier for a pre-defined bundle of claims associated with certain policies for enrollment and issuance\" which may or may not be what it is intended. But is a lot more than the text in the draft says. And further suggests (to me anyway) that there's a gap between what is stated in the draft and what some think is defined. ",
+          "createdAt": "2023-07-05T21:29:15Z",
+          "updatedAt": "2023-07-05T21:29:15Z"
         }
       ]
     }
