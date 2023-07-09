@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-07-06T01:59:56.573713+00:00",
+  "timestamp": "2023-07-09T02:07:04.782726+00:00",
   "repo": "vcstuff/draft-terbu-sd-jwt-vc",
   "labels": [
     {
@@ -3401,7 +3401,7 @@
       "labels": [],
       "body": "Before https://github.com/w3c/vc-jwt/pull/88 can be closed, this draft must request registration for `vc+jwt`.\r\n\r\nExample text:\r\n\r\n```\r\n### application/vc+jwt {#application-vc-jwt}\r\n\r\nThe Internet media type for a JWT VC is `application/vc+jwt`.\r\n\r\nType name: : `application`\r\n\r\nSubtype name: : `vc+jwt`\r\n\r\nRequired parameters: : n/a\r\n\r\nOptional parameters: : n/a\r\n\r\nEncoding considerations: : binary; A VC JWT is a JWT; JWT values are encoded as a series of base64url-encoded values (some of which may be the empty string) separated by period ('.') characters.\r\n\r\nSecurity considerations: : See Security Considerations in (#security-considerations).\r\n\r\nInteroperability considerations: : n/a\r\n\r\n- Published specification: : RFC TODO\r\n- Applications that use this media type: : Applications that issue, present,\r\n  verify verifiable credentials and presentations.\r\n- Additional information:\r\n  - Magic number(s): n/a\r\n  - File extension(s): n/a\r\n  - Macintosh file type code(s): n/a\r\n  - Person & email address to contact for further information: TBD\r\n  - Intended usage: COMMON\r\n  - Restrictions on usage: none\r\n  - Author: Oliver Terbu <oliver.terbu@spruceid.com>\r\n  - Change controller: IETF\r\n```",
       "createdAt": "2023-06-30T22:46:13Z",
-      "updatedAt": "2023-07-03T08:19:16Z",
+      "updatedAt": "2023-07-06T19:17:04Z",
       "closedAt": null,
       "comments": [
         {
@@ -3410,6 +3410,13 @@
           "body": "Can you give an example of how this media type is used in the spec? Ideally, you could provide an example of the header+payload.",
           "createdAt": "2023-07-03T08:19:16Z",
           "updatedAt": "2023-07-03T08:19:16Z"
+        },
+        {
+          "author": "awoie",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@OR13 Haven't we agreed that we would use `vc+sd-jwt` to represent non-selective-disclosable SD-JWTs which are plain JWTs? Why is it still required to register this?",
+          "createdAt": "2023-07-06T19:16:57Z",
+          "updatedAt": "2023-07-06T19:17:04Z"
         }
       ]
     },
@@ -3436,6 +3443,46 @@
           "updatedAt": "2023-07-05T21:29:15Z"
         }
       ]
+    },
+    {
+      "number": 150,
+      "id": "I_kwDOJbVClc5qzB_L",
+      "title": "out of sync with SD-JWT -05",
+      "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/issues/150",
+      "state": "OPEN",
+      "author": "bc-pi",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "There are a number of references to specific section numbers in SD-JWT that are now out of sync and point to the wrong sections or non-existent sections. \r\n\r\nAnd some lingering use of terms like \"Combined Format for XXXXX\" that are no longer used in SD-JWT. ",
+      "createdAt": "2023-07-06T15:15:41Z",
+      "updatedAt": "2023-07-06T15:24:22Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "bc-pi",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "And there may well be other changes coming to the section layout https://github.com/oauth-wg/oauth-selective-disclosure-jwt/issues/290 so it might be prudent to avoid specific section number references (for the time being anyway). ",
+          "createdAt": "2023-07-06T15:24:21Z",
+          "updatedAt": "2023-07-06T15:24:21Z"
+        }
+      ]
+    },
+    {
+      "number": 151,
+      "id": "I_kwDOJbVClc5q0W7B",
+      "title": "explain sd-jwt vc without SD better",
+      "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/issues/151",
+      "state": "OPEN",
+      "author": "Sakurann",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "it would be beneficial to explain sd-jwt vc without SD better.\r\nexplanation that seem to resonate is something along the lines of:\r\n\r\n> it's the difference in framing. selective disclosure now becomes a feature of one credential format. no more of \"i use credential format A (current vc-jwt) because i do not need SD, i use credential format B (original sd-jwt vc) because i need SD\". now, it's \"i use sd-jwt vc and turn on SD feature on and off depending on the use-case\" - so it's better for the interop and the code base.\r\n",
+      "createdAt": "2023-07-06T19:29:46Z",
+      "updatedAt": "2023-07-06T19:29:46Z",
+      "closedAt": null,
+      "comments": []
     }
   ],
   "pulls": [
