@@ -5,8 +5,8 @@
 TODO Working Group                                              O. Terbu
 Internet-Draft                                      Spruce Systems, Inc.
 Intended status: Standards Track                                 D. Fett
-Expires: 4 January 2024                                    Authlete Inc.
-                                                             3 July 2023
+Expires: 11 January 2024                                   Authlete Inc.
+                                                            10 July 2023
 
 
             SD-JWT-based Verifiable Credentials (SD-JWT VC)
@@ -35,7 +35,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 4 January 2024.
+   This Internet-Draft will expire on 11 January 2024.
 
 Copyright Notice
 
@@ -518,8 +518,8 @@ Table of Contents
    WxnIjogInNoYS0yNTYiLCAiY25mIjogeyJqd2siOiB7Imt0eSI6ICJFQyIsICJjcnYiO
    iAiUC0yNTYiLCAieCI6ICJUQ0FFUjE5WnZ1M09IRjRqNFc0dmZTVm9ISVAxSUxpbERsc
    zd2Q2VHZW1jIiwgInkiOiAiWnhqaVdXYlpNUUdIVldLVlE0aGJTSWlyc1ZmdWVjQ0U2d
-   DRqVDlGMkhaUSJ9fX0.oKX8nq0Z8OYKnk5ychf0wt0xq83Y_m8oDpMfpYDRFzaXunSeT
-   WND2mFmSNvNPsaoSbh4MN4C6VlgkQDY_XxSag~WyIyR0xDNDJzS1F2ZUNmR2ZyeU5STj
+   DRqVDlGMkhaUSJ9fX0.mEkoDmCa5YFFl5DV111elGsZAhsOdtnPTEUClR1rix57k6A-_
+   ovF5BufP8yCAlTzM4hypYNyb3i2xGUPb7EpHQ~WyIyR0xDNDJzS1F2ZUNmR2ZyeU5STj
    l3IiwgImdpdmVuX25hbWUiLCAiSm9obiJd~WyJlbHVWNU9nM2dTTklJOEVZbnN4QV9BI
    iwgImZhbWlseV9uYW1lIiwgIkRvZSJd~WyI2SWo3dE0tYTVpVlBHYm9TNXRtdlZBIiwg
    ImVtYWlsIiwgImpvaG5kb2VAZXhhbXBsZS5jb20iXQ~WyJlSThaV205UW5LUHBOUGVOZ
@@ -739,14 +739,14 @@ Table of Contents
    WxnIjogInNoYS0yNTYiLCAiY25mIjogeyJqd2siOiB7Imt0eSI6ICJFQyIsICJjcnYiO
    iAiUC0yNTYiLCAieCI6ICJUQ0FFUjE5WnZ1M09IRjRqNFc0dmZTVm9ISVAxSUxpbERsc
    zd2Q2VHZW1jIiwgInkiOiAiWnhqaVdXYlpNUUdIVldLVlE0aGJTSWlyc1ZmdWVjQ0U2d
-   DRqVDlGMkhaUSJ9fX0.oKX8nq0Z8OYKnk5ychf0wt0xq83Y_m8oDpMfpYDRFzaXunSeT
-   WND2mFmSNvNPsaoSbh4MN4C6VlgkQDY_XxSag~WyJRZ19PNjR6cUF4ZTQxMmExMDhpcm
+   DRqVDlGMkhaUSJ9fX0.mEkoDmCa5YFFl5DV111elGsZAhsOdtnPTEUClR1rix57k6A-_
+   ovF5BufP8yCAlTzM4hypYNyb3i2xGUPb7EpHQ~WyJRZ19PNjR6cUF4ZTQxMmExMDhpcm
    9BIiwgImFkZHJlc3MiLCB7InN0cmVldF9hZGRyZXNzIjogIjEyMyBNYWluIFN0IiwgIm
    xvY2FsaXR5IjogIkFueXRvd24iLCAicmVnaW9uIjogIkFueXN0YXRlIiwgImNvdW50cn
    kiOiAiVVMifV0~eyJhbGciOiAiRVMyNTYiLCAidHlwIjogImtiK2p3dCJ9.eyJub25jZ
    SI6ICIxMjM0NTY3ODkwIiwgImF1ZCI6ICJodHRwczovL2V4YW1wbGUuY29tL3Zlcmlma
-   WVyIiwgImlhdCI6IDE2ODgzOTU3NDN9.WZsAhmeuurVsSrNb8ZlB55M1KnDi9hy_MMm0
-   yUB6djHuRALjOSZiFqbjV58DYAmv4lquLStQqHdB5in9AJJF_A
+   WVyIiwgImlhdCI6IDE2ODkwMTEwNjB9.ETW1vOOXltN94-5c8t8xoIzFfopyAFjU69qs
+   VS15KwwL6mftL95sjz8dZqOXgGq__ctVX9INrQckowJmC04utw
 
    In this presentation, the Holder provides only the Disclosure for the
    claim address.  Other claims are not disclosed to the Verifier.
@@ -765,8 +765,8 @@ Table of Contents
    VZ1bHdRUWxoRmxNXzNKbHpNYVNGemdsaFFHMERwZmF5UXdMVUs0Il0sICJpc3MiOiAia
    HR0cHM6Ly9leGFtcGxlLmNvbS9pc3N1ZXIiLCAiaWF0IjogMTY4MzAwMDAwMCwgImV4c
    CI6IDE4ODMwMDAwMDAsICJ0eXBlIjogIklkZW50aXR5Q3JlZGVudGlhbCIsICJfc2RfY
-   WxnIjogInNoYS0yNTYifQ.ROLV9XmUN9rj3KIh38fZBGnOTe_yNIPw_FUAiwjoKmZWIH
-   SAPqYDU78q2E65uB6mIMxipPZ_uBlMkHI4FcvjxQ~WyJRZ19PNjR6cUF4ZTQxMmExMDh
+   WxnIjogInNoYS0yNTYifQ.mg9gR6euUwQ80pxBUWfMDSRc_YvbP3V9r3Uxmwnj2kwRfK
+   nsnGDt-1TLhSR9PyoNsv_pNHiYnhrYuetqDSJgmA~WyJRZ19PNjR6cUF4ZTQxMmExMDh
    pcm9BIiwgImFkZHJlc3MiLCB7InN0cmVldF9hZGRyZXNzIjogIjEyMyBNYWluIFN0Iiw
    gImxvY2FsaXR5IjogIkFueXRvd24iLCAicmVnaW9uIjogIkFueXN0YXRlIiwgImNvdW5
    0cnkiOiAiVVMifV0~
@@ -895,25 +895,19 @@ Appendix B.  Acknowledgements
 
 Appendix C.  Document History
 
-   -03
+   -00
 
-   *  added non-selectively disclosable JWT VC
-
-   *  added a note that this is not w3c vcdm.
-
-   -02
-
-   *  Adjusted terminology based on feedback
-
-   -01
+   *  Initial Version
 
    *  Removed W3C VCDM transformation algorithm
 
    *  Various editorial changes based on feedback
 
-   -00
+   *  Adjusted terminology based on feedback
 
-   *  Initial Version
+   *  Added non-selectively disclosable JWT VC
+
+   *  Added a note that this is not W3C VCDM
 
 Authors' Addresses
 
