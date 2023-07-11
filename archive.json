@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-07-09T02:07:04.782726+00:00",
+  "timestamp": "2023-07-11T01:49:30.695817+00:00",
   "repo": "vcstuff/draft-terbu-sd-jwt-vc",
   "labels": [
     {
@@ -2572,7 +2572,7 @@
       "id": "I_kwDOJbVClc5nA1VW",
       "title": "Clarify which VCDM this is intended for",
       "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/issues/113",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "andresuribe87",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
@@ -2581,8 +2581,8 @@
       ],
       "body": "I'm assuming that this is for VCDM 1.1, but there aren't any reference (normative or informative) in the current draft. ",
       "createdAt": "2023-05-26T21:38:34Z",
-      "updatedAt": "2023-06-27T20:01:03Z",
-      "closedAt": null,
+      "updatedAt": "2023-07-10T15:48:20Z",
+      "closedAt": "2023-07-10T15:48:20Z",
       "comments": [
         {
           "author": "Sakurann",
@@ -2590,6 +2590,13 @@
           "body": "This is not for VCDM.",
           "createdAt": "2023-06-27T20:01:03Z",
           "updatedAt": "2023-06-27T20:01:03Z"
+        },
+        {
+          "author": "awoie",
+          "authorAssociation": "COLLABORATOR",
+          "body": "We clarified that in #146 .",
+          "createdAt": "2023-07-10T15:48:20Z",
+          "updatedAt": "2023-07-10T15:48:20Z"
         }
       ]
     },
@@ -3430,9 +3437,9 @@
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
-      "body": "Looking at -02 with kinda fresh eyes and the `type` claim seems like it needs something more. The places it shows up in the draft are linked and quoted below but basically say that the type is the type and give one meaningless example (`{\"type\": \"SomeType\"}` is not helpful) and \"e.g., IdentityCredential\" that seems like it should be meaningful but isn't defined or explained anywhere that I could find. I realize this issue may seem pedantic or even silly but specs need to be specific about things like this or explain why they aren't specific and what the implications are. \r\n\r\nhttps://www.ietf.org/archive/id/draft-terbu-sd-jwt-vc-02.html#section-4.2.2.1\r\n\r\n> This specification defines the JWT claim type. The type claim is used to express the type of the JSON object that is secured by the JWT. The type value MUST be a case-sensitive StringOrURI value.\r\n> The following is a non-normative example of how type is used to express a type:\r\n>`{\"type\": \"SomeType\"}`\r\n\r\n\r\nhttps://www.ietf.org/archive/id/draft-terbu-sd-jwt-vc-02.html#section-4.2.2.2-3.6.1\r\n\r\n>type\r\n> REQUIRED. The type of the Verifiable Credential, e.g., IdentityCredential, as defined in [Section 4.2.2.1](https://www.ietf.org/archive/id/draft-terbu-sd-jwt-vc-02.html#type-claim).\r\n",
+      "body": "Looking at -02 with kinda fresh eyes and the `type` claim seems like it needs something more. The places it shows up in the draft are linked and quoted below but basically say that the type is the type and gives one meaningless example (`{\"type\": \"SomeType\"}` is not helpful) and \"e.g., IdentityCredential\" that seems like it should be meaningful but isn't defined or explained anywhere that I could find. I realize this issue may seem pedantic or even silly but specs need to be specific about things like this or explain why they aren't specific and what the implications are. \r\n\r\nhttps://www.ietf.org/archive/id/draft-terbu-sd-jwt-vc-02.html#section-4.2.2.1\r\n\r\n> This specification defines the JWT claim type. The type claim is used to express the type of the JSON object that is secured by the JWT. The type value MUST be a case-sensitive StringOrURI value.\r\n> The following is a non-normative example of how type is used to express a type:\r\n>`{\"type\": \"SomeType\"}`\r\n\r\n\r\nhttps://www.ietf.org/archive/id/draft-terbu-sd-jwt-vc-02.html#section-4.2.2.2-3.6.1\r\n\r\n>type\r\n> REQUIRED. The type of the Verifiable Credential, e.g., IdentityCredential, as defined in [Section 4.2.2.1](https://www.ietf.org/archive/id/draft-terbu-sd-jwt-vc-02.html#type-claim).\r\n",
       "createdAt": "2023-07-05T21:22:27Z",
-      "updatedAt": "2023-07-05T21:29:15Z",
+      "updatedAt": "2023-07-10T15:29:35Z",
       "closedAt": null,
       "comments": [
         {
@@ -3441,6 +3448,13 @@
           "body": "Over [here](https://github.com/vcstuff/draft-terbu-sd-jwt-vc/issues/11#issuecomment-1562901265) Torsten suggests he sees it as \"as identifier for a pre-defined bundle of claims associated with certain policies for enrollment and issuance\" which may or may not be what it is intended. But is a lot more than the text in the draft says. And further suggests (to me anyway) that there's a gap between what is stated in the draft and what some think is defined. ",
           "createdAt": "2023-07-05T21:29:15Z",
           "updatedAt": "2023-07-05T21:29:15Z"
+        },
+        {
+          "author": "danielfett",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I totally agree that we need to improve this definition!",
+          "createdAt": "2023-07-10T15:17:40Z",
+          "updatedAt": "2023-07-10T15:17:40Z"
         }
       ]
     },
@@ -7221,7 +7235,7 @@
       "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/pull/118",
       "state": "OPEN",
       "author": "peppelinux",
-      "authorAssociation": "NONE",
+      "authorAssociation": "MEMBER",
       "assignees": [],
       "labels": [
         "discuss",
@@ -7229,7 +7243,7 @@
       ],
       "body": "~this PR resolves~ https://github.com/vcstuff/draft-terbu-sd-jwt-vc/issues/101\r\n\r\nmore discussion is needed",
       "createdAt": "2023-06-08T16:19:23Z",
-      "updatedAt": "2023-07-01T13:13:03Z",
+      "updatedAt": "2023-07-10T22:10:59Z",
       "baseRepository": "vcstuff/draft-terbu-sd-jwt-vc",
       "baseRefName": "main",
       "baseRefOid": "588ea557ea5861784bbaf7051eddefdeb6d0751f",
@@ -7278,7 +7292,7 @@
         },
         {
           "author": "peppelinux",
-          "authorAssociation": "NONE",
+          "authorAssociation": "MEMBER",
           "body": "@selfissued what about having jwt_issuer as a oidc federation metadata type?\r\n\r\nIf this well known resource Is a generic purpose metadata that every kind of entity can expose, how to check the protocol metadata It carries?\r\n\r\nIt might be and OpenID provider and a relying party and an RS or whatever, without a unique identifier It wouldnt be good for metadata but Just for Key attestation\r\n\r\nSo the difference between this and x509 would be just the data format.\r\n\r\nOr, differently, in jwt-issuer there would space for multiple metadata with unique type identifiers like the federation EC?\r\n\r\n",
           "createdAt": "2023-06-29T20:41:22Z",
           "updatedAt": "2023-06-29T20:41:22Z"
@@ -7292,14 +7306,14 @@
         },
         {
           "author": "peppelinux",
-          "authorAssociation": "NONE",
+          "authorAssociation": "MEMBER",
           "body": "> Why not define, `.well-known/jwks.json`... doesn't seem like jwt or issuer are needed...\r\n\r\nThat's the same though I had, if It Is Just for Key attestation let's give to it the semantic It should",
           "createdAt": "2023-06-30T07:06:40Z",
           "updatedAt": "2023-06-30T07:06:40Z"
         },
         {
           "author": "peppelinux",
-          "authorAssociation": "NONE",
+          "authorAssociation": "MEMBER",
           "body": " Ok dears, may I change the endpoint name to `.well-known/jwks.json` in this PR and ask again your kindly revision?",
           "createdAt": "2023-06-30T22:32:47Z",
           "updatedAt": "2023-06-30T22:32:47Z"
@@ -7313,10 +7327,52 @@
         },
         {
           "author": "peppelinux",
-          "authorAssociation": "NONE",
+          "authorAssociation": "MEMBER",
           "body": "names are very often semantical or cosmetic and driven by personal tastes or objective meanings, that's just a name.\r\n\r\nI would like to ask which are the scopes of this endpoint, if it is just for key attestation or also for metadata.\r\nI assume the second. Since it is also for metadata, I assume here, how the metadata of a formless and abstract entity could be carried in that endpoint?\r\n\r\nmy answer is, by defining several metadata types, as already done in [federation entity configuration](https://openid.net/specs/openid-connect-federation-1_0.html#name-metadata-type-identifiers) \r\n\r\nbut this seems not clear, or out of scope for now, or let them think about this later on.\r\nWell, without the big picture I find very difficult giving a name to an endpoint, since the name should represent its scopes and values",
           "createdAt": "2023-06-30T22:48:26Z",
           "updatedAt": "2023-07-01T13:13:03Z"
+        },
+        {
+          "author": "tplooker",
+          "authorAssociation": "NONE",
+          "body": "> Why not define, `.well-known/jwks.json`... doesn't seem like jwt or issuer are needed...\r\n\r\nI like this more, having a well known location to associate a set of JWKs to seems generally useful, if you have additional metadata to communicate to parties that should be served from higher level well-known endpoints that are defined for that protocol / application.",
+          "createdAt": "2023-07-10T19:05:06Z",
+          "updatedAt": "2023-07-10T19:05:06Z"
+        },
+        {
+          "author": "peppelinux",
+          "authorAssociation": "MEMBER",
+          "body": "if the purpose of this endpoint is only for serving jwks, I think `.well-known/jwk-set` is a good choice\r\n\r\n",
+          "createdAt": "2023-07-10T20:15:41Z",
+          "updatedAt": "2023-07-10T20:15:41Z"
+        },
+        {
+          "author": "TakahikoKawasaki",
+          "authorAssociation": "NONE",
+          "body": "Any path name would be fine (e.g., `/.well-known/jwks.json`, `/.well-known/jwk-set`, `/.well-known/jwks`, ...), but I think it's a good idea to assign a well-known path to the endpoint that returns the JWK Set document.\r\n\r\nDefining such a well-known path will not prevent the definition of `/.well-known/jwt-issuer`. Both paths can coexist. The discussion for `/.well-known/jwt-issuer` can be revisisted in the future if the need arises.",
+          "createdAt": "2023-07-10T21:48:13Z",
+          "updatedAt": "2023-07-10T21:48:13Z"
+        },
+        {
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "body": "You could remove the content type from the resource identifier, and use the accept header.\n\nGET `/.well-known/keys`\n\n--accept application/jwk-set+json\n--accept application/cose-key-set\n\n",
+          "createdAt": "2023-07-10T21:53:25Z",
+          "updatedAt": "2023-07-10T21:53:58Z"
+        },
+        {
+          "author": "peppelinux",
+          "authorAssociation": "MEMBER",
+          "body": "> You could remove the content type from the resource identifier, and use the accept header.\r\n> \r\n> GET `/.well-known/keys`\r\n> \r\n> --accept application/jwk-set+json --accept application/cose-key-set\r\n\r\nI love this, however I'd prefer two separate endpoints for two different format, since without the definition of any content-type in the request would return a default value, then: Jose or cose Key set?",
+          "createdAt": "2023-07-10T22:01:20Z",
+          "updatedAt": "2023-07-10T22:01:20Z"
+        },
+        {
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Server reserves the right to set the content type header or throw a content type unsupported error, but you can also probably say jwk-set+json is the default when requesting the endpoint be reserved....\n\nopenid-configuration is known to be application/json, and didn't reserve\n\n`/.well-known/openid-configuration.json`",
+          "createdAt": "2023-07-10T22:10:20Z",
+          "updatedAt": "2023-07-10T22:10:59Z"
         }
       ],
       "reviews": [
@@ -7346,7 +7402,7 @@
             "abbreviatedOid": "b0d0d2c"
           },
           "author": "peppelinux",
-          "authorAssociation": "NONE",
+          "authorAssociation": "MEMBER",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2023-06-08T16:36:59Z",
@@ -10934,6 +10990,34 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 152,
+      "id": "PR_kwDOJbVClc5VHF9A",
+      "title": "fixed data tracker issues",
+      "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/pull/152",
+      "state": "MERGED",
+      "author": "awoie",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Fixes IETF data tracker issues",
+      "createdAt": "2023-07-10T17:36:35Z",
+      "updatedAt": "2023-07-10T17:43:48Z",
+      "baseRepository": "vcstuff/draft-terbu-sd-jwt-vc",
+      "baseRefName": "main",
+      "baseRefOid": "2dcd80d978ced2f7fc6b1fc96d4fcdafd2745cf6",
+      "headRepository": "vcstuff/draft-terbu-sd-jwt-vc",
+      "headRefName": "awoie/fix-data-tracker",
+      "headRefOid": "db2e78058d0349f5b947d213a9fb54440cf975b3",
+      "closedAt": "2023-07-10T17:43:47Z",
+      "mergedAt": "2023-07-10T17:43:47Z",
+      "mergedBy": "awoie",
+      "mergeCommit": {
+        "oid": "a7ac8bd0ba514d8b6d4bf9d7a8ef7258d235e613"
+      },
+      "comments": [],
+      "reviews": []
     }
   ]
 }
