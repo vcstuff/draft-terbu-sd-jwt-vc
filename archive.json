@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-07-11T01:49:30.695817+00:00",
+  "timestamp": "2023-07-13T02:00:31.242397+00:00",
   "repo": "vcstuff/draft-terbu-sd-jwt-vc",
   "labels": [
     {
@@ -3408,7 +3408,7 @@
       "labels": [],
       "body": "Before https://github.com/w3c/vc-jwt/pull/88 can be closed, this draft must request registration for `vc+jwt`.\r\n\r\nExample text:\r\n\r\n```\r\n### application/vc+jwt {#application-vc-jwt}\r\n\r\nThe Internet media type for a JWT VC is `application/vc+jwt`.\r\n\r\nType name: : `application`\r\n\r\nSubtype name: : `vc+jwt`\r\n\r\nRequired parameters: : n/a\r\n\r\nOptional parameters: : n/a\r\n\r\nEncoding considerations: : binary; A VC JWT is a JWT; JWT values are encoded as a series of base64url-encoded values (some of which may be the empty string) separated by period ('.') characters.\r\n\r\nSecurity considerations: : See Security Considerations in (#security-considerations).\r\n\r\nInteroperability considerations: : n/a\r\n\r\n- Published specification: : RFC TODO\r\n- Applications that use this media type: : Applications that issue, present,\r\n  verify verifiable credentials and presentations.\r\n- Additional information:\r\n  - Magic number(s): n/a\r\n  - File extension(s): n/a\r\n  - Macintosh file type code(s): n/a\r\n  - Person & email address to contact for further information: TBD\r\n  - Intended usage: COMMON\r\n  - Restrictions on usage: none\r\n  - Author: Oliver Terbu <oliver.terbu@spruceid.com>\r\n  - Change controller: IETF\r\n```",
       "createdAt": "2023-06-30T22:46:13Z",
-      "updatedAt": "2023-07-06T19:17:04Z",
+      "updatedAt": "2023-07-12T17:31:40Z",
       "closedAt": null,
       "comments": [
         {
@@ -3424,6 +3424,20 @@
           "body": "@OR13 Haven't we agreed that we would use `vc+sd-jwt` to represent non-selective-disclosable SD-JWTs which are plain JWTs? Why is it still required to register this?",
           "createdAt": "2023-07-06T19:16:57Z",
           "updatedAt": "2023-07-06T19:17:04Z"
+        },
+        {
+          "author": "OR13",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@awoie I didn't agree to that... but regardless, you are walking into an easy argument if you are encouraging token confusion.",
+          "createdAt": "2023-07-12T16:41:59Z",
+          "updatedAt": "2023-07-12T16:41:59Z"
+        },
+        {
+          "author": "tlodderstedt",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Let's discuss in the upcoming meeting.",
+          "createdAt": "2023-07-12T17:31:40Z",
+          "updatedAt": "2023-07-12T17:31:40Z"
         }
       ]
     },
@@ -3437,9 +3451,9 @@
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
-      "body": "Looking at -02 with kinda fresh eyes and the `type` claim seems like it needs something more. The places it shows up in the draft are linked and quoted below but basically say that the type is the type and gives one meaningless example (`{\"type\": \"SomeType\"}` is not helpful) and \"e.g., IdentityCredential\" that seems like it should be meaningful but isn't defined or explained anywhere that I could find. I realize this issue may seem pedantic or even silly but specs need to be specific about things like this or explain why they aren't specific and what the implications are. \r\n\r\nhttps://www.ietf.org/archive/id/draft-terbu-sd-jwt-vc-02.html#section-4.2.2.1\r\n\r\n> This specification defines the JWT claim type. The type claim is used to express the type of the JSON object that is secured by the JWT. The type value MUST be a case-sensitive StringOrURI value.\r\n> The following is a non-normative example of how type is used to express a type:\r\n>`{\"type\": \"SomeType\"}`\r\n\r\n\r\nhttps://www.ietf.org/archive/id/draft-terbu-sd-jwt-vc-02.html#section-4.2.2.2-3.6.1\r\n\r\n>type\r\n> REQUIRED. The type of the Verifiable Credential, e.g., IdentityCredential, as defined in [Section 4.2.2.1](https://www.ietf.org/archive/id/draft-terbu-sd-jwt-vc-02.html#type-claim).\r\n",
+      "body": "Looking at -02 with kinda fresh eyes and the `type` claim seems like it needs something more. The places it shows up in the draft are linked and quoted below but basically say that the type is the type and gives one meaningless example (`{\"type\": \"SomeType\"}` is not helpful) and later there's an \"e.g., IdentityCredential\" that seems like it should be meaningful but isn't defined or explained anywhere that I could find. I realize this issue may seem pedantic or even silly but specs need to be specific about things like this or explain why they aren't specific and what the implications are. \r\n\r\nhttps://www.ietf.org/archive/id/draft-terbu-sd-jwt-vc-02.html#section-4.2.2.1\r\n\r\n> This specification defines the JWT claim type. The type claim is used to express the type of the JSON object that is secured by the JWT. The type value MUST be a case-sensitive StringOrURI value.\r\n> The following is a non-normative example of how type is used to express a type:\r\n>`{\"type\": \"SomeType\"}`\r\n\r\n\r\nhttps://www.ietf.org/archive/id/draft-terbu-sd-jwt-vc-02.html#section-4.2.2.2-3.6.1\r\n\r\n>type\r\n> REQUIRED. The type of the Verifiable Credential, e.g., IdentityCredential, as defined in [Section 4.2.2.1](https://www.ietf.org/archive/id/draft-terbu-sd-jwt-vc-02.html#type-claim).\r\n",
       "createdAt": "2023-07-05T21:22:27Z",
-      "updatedAt": "2023-07-10T15:29:35Z",
+      "updatedAt": "2023-07-12T17:53:43Z",
       "closedAt": null,
       "comments": [
         {
